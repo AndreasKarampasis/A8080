@@ -3,149 +3,174 @@
 
 %{
 #include <stdlib.h>
-enum type {OPCODE, STR_CONST, INT_CONST, BINARY_CONST, HEX_CONST};
-struct token {
-	int line;
-	enum type tokenType;
-	char* lexeme;
-	union {
-		char* str_val;
-		int int_val;
-	} value;
-};
+#include "parser.h"
+int error_line;
+#define MAX_STR_CONST 1025
+char string_buf[MAX_STR_CONST];
+char* string_buf_ptr;
 %}
 
 NAME			[a-zA-Z?@]+
+%x STRING
+
 %%
 
-"MOV"	{printf("INSTRUCTION: MOV\n");}
-"MVI"	{printf("INSTRUCTION: MVI\n");}
-"LXI"	{printf("INSTRUCTION: LXI\n");}
-"LDA"	{printf("INSTRUCTION: LDA\n");}
-"STA"	{printf("INSTRUCTION: STA\n");}
-"LHLD"	{printf("INSTRUCTION: LHLD\n");}
-"SHLD"	{printf("INSTRUCTION: SHLD\n");}
-"LDAX"	{printf("INSTRUCTION: LDAX\n");}
-"STAX"	{printf("INSTRUCTION: STAX\n");}
-"XCHG"	{printf("INSTRUCTION: XCHG\n");}
+"MOV"	{ return MOV;  }
+"MVI"	{ return MVI;  }
+"LXI"	{ return LXI;  }
+"LDA"	{ return LDA;  }
+"STA"	{ return STA;  }
+"LHLD"	{ return LHLD; }
+"SHLD"	{ return SHLD; }
+"LDAX"	{ return LDAX; }
+"STAX"	{ return STAX; }
+"XCHG"	{ return XCHG; }
 
-"ADD"	{printf("INSTRUCTION: %s\n", yytext);}
-"ADI"	{printf("INSTRUCTION: %s\n", yytext);}
-"ADC"	{printf("INSTRUCTION: %s\n", yytext);}
-"ACI"	{printf("INSTRUCTION: %s\n", yytext);}
-"SUB"	{printf("INSTRUCTION: %s\n", yytext);}
-"SUI"	{printf("INSTRUCTION: %s\n", yytext);}
-"SBB"	{printf("INSTRUCTION: %s\n", yytext);}
-"SBI"	{printf("INSTRUCTION: %s\n", yytext);}
-"INR"	{printf("INSTRUCTION: %s\n", yytext);}
-"DCR"	{printf("INSTRUCTION: %s\n", yytext);}
-"INX"	{printf("INSTRUCTION: %s\n", yytext);}
-"DCX"	{printf("INSTRUCTION: %s\n", yytext);}
-"DAD"	{printf("INSTRUCTION: %s\n", yytext);}
+"ADD"	{ return ADD; }
+"ADI"	{ return ADI; }
+"ADC"	{ return ADC; }
+"ACI"	{ return ACI; }
+"SUB"	{ return SUB; }
+"SUI"	{ return SUI; }
+"SBB"	{ return SBB; }
+"SBI"	{ return SBI; }
+"INR"	{ return INR; }
+"DCR"	{ return DCR; }
+"INX"	{ return INX; }
+"DCX"	{ return DCX; }
+"DAD"	{ return DAD; }
 
-"ANA"	{printf("INSTRUCTION: %s\n", yytext);}
-"ANI"	{printf("INSTRUCTION: %s\n", yytext);}
-"XRA"	{printf("INSTRUCTION: %s\n", yytext);}
-"XRI"	{printf("INSTRUCTION: %s\n", yytext);}
-"ORA"	{printf("INSTRUCTION: %s\n", yytext);}
-"ORI"	{printf("INSTRUCTION: %s\n", yytext);}
-"CMP"	{printf("INSTRUCTION: %s\n", yytext);}
-"CPI"	{printf("INSTRUCTION: %s\n", yytext);}
-"RLC"	{printf("INSTRUCTION: %s\n", yytext);}
-"RRC"	{printf("INSTRUCTION: %s\n", yytext);}
-"RAL"	{printf("INSTRUCTION: %s\n", yytext);}
-"RAR"	{printf("INSTRUCTION: %s\n", yytext);}
-"CMA"	{printf("INSTRUCTION: %s\n", yytext);}
-"CMC"	{printf("INSTRUCTION: %s\n", yytext);}
-"STC"	{printf("INSTRUCTION: %s\n", yytext);}
+"ANA"	{ return ANA; }
+"ANI"	{ return ANI; }
+"XRA"	{ return XRA; }
+"XRI"	{ return XRI; }
+"ORA"	{ return ORA; }
+"ORI"	{ return ORI; }
+"CMP"	{ return CMP; }
+"CPI"	{ return CPI; }
+"RLC"	{ return RLC; }
+"RRC"	{ return RRC; }
+"RAL"	{ return RAL; }
+"RAR"	{ return RAR; }
+"CMA"	{ return CMA; }
+"CMC"	{ return CMC; }
+"STC"	{ return STC; }
 
-"JMP"	{printf("INSTRUCTION: %s\n", yytext);}
-"JC"	{printf("INSTRUCTION: %s\n", yytext);}
-"JNC"	{printf("INSTRUCTION: %s\n", yytext);}
-"JZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"JNZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"JP"	{printf("INSTRUCTION: %s\n", yytext);}
-"JM"	{printf("INSTRUCTION: %s\n", yytext);}
-"JPE"	{printf("INSTRUCTION: %s\n", yytext);}
-"JPO"	{printf("INSTRUCTION: %s\n", yytext);}
-"CALL"	{printf("INSTRUCTION: %s\n", yytext);}
-"CC"	{printf("INSTRUCTION: %s\n", yytext);}
-"CNC"	{printf("INSTRUCTION: %s\n", yytext);}
-"CZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"CNZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"CP"	{printf("INSTRUCTION: %s\n", yytext);}
-"CM"	{printf("INSTRUCTION: %s\n", yytext);}
-"CPE"	{printf("INSTRUCTION: %s\n", yytext);}
-"CPO"	{printf("INSTRUCTION: %s\n", yytext);}
-"RET"	{printf("INSTRUCTION: %s\n", yytext);}
-"RC"	{printf("INSTRUCTION: %s\n", yytext);}
-"RNC"	{printf("INSTRUCTION: %s\n", yytext);}
-"RZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"RNZ"	{printf("INSTRUCTION: %s\n", yytext);}
-"RP"	{printf("INSTRUCTION: %s\n", yytext);}
-"RM"	{printf("INSTRUCTION: %s\n", yytext);}
-"RPE"	{printf("INSTRUCTION: %s\n", yytext);}
-"RPO"	{printf("INSTRUCTION: %s\n", yytext);}
+"JMP"	{ return JMP; }
+"JC"	{ return JC; }
+"JNC"	{ return JNC; }
+"JZ"	{ return JNC; }
+"JNZ"	{ return JNZ; }
+"JP"	{ return JP; }
+"JM"	{ return JM; }
+"JPE"	{ return JPE; }
+"JPO"	{ return JPO; }
+"CALL"	{ return CALL; }
+"CC"	{ return CC; }
+"CNC"	{ return CNC; }
+"CZ"	{ return CZ; }
+"CNZ"	{ return CNZ; }
+"CP"	{ return CP; }
+"CM"	{ return CM; }
+"CPE"	{ return CPE; }
+"CPO"	{ return CPO; }
+"RET"	{ return RET; }
+"RC"	{ return RC; }
+"RNC"	{ return RNC; }
+"RZ"	{ return RZ; }
+"RNZ"	{ return RNZ; }
+"RP"	{ return RP; }
+"RM"	{ return RM; }
+"RPE"	{ return RPE; }
+"RPO"	{ return RPO; }
 
-"PUSH"	{printf("INSTRUCTION: %s\n", yytext);}
-"POP"	{printf("INSTRUCTION: %s\n", yytext);}
-"XTHL"	{printf("INSTRUCTION: %s\n", yytext);}
-"SPHL"	{printf("INSTRUCTION: %s\n", yytext);}
-"IN"	{printf("INSTRUCTION: %s\n", yytext);}
-"OUT"	{printf("INSTRUCTION: %s\n", yytext);}
-"EI"	{printf("INSTRUCTION: %s\n", yytext);}
-"DI"	{printf("INSTRUCTION: %s\n", yytext);}
-"HLT"	{printf("INSTRUCTION: %s\n", yytext);}
-"NOP"	{printf("INSTRUCTION: %s\n", yytext);}
+"PUSH"	{ return PUSH; }
+"POP"	{ return POP; }
+"XTHL"	{ return XTHL; }
+"SPHL"	{ return SPHL; }
+"IN"	{ return IN; }
+"OUT"	{ return OUT; }
+"EI"	{ return EI; }
+"DI"	{ return DI; }
+"HLT"	{ return HLT; }
+"NOP"	{ return NOP; }
 
-"A"		{ printf("REGISTER: %s\n", yytext);}
-"B"		{ printf("REGISTER: %s\n", yytext);}
-"C"		{ printf("REGISTER: %s\n", yytext);}
-"D"		{ printf("REGISTER: %s\n", yytext);}
-"E"		{ printf("REGISTER: %s\n", yytext);}
-"H"		{ printf("REGISTER: %s\n", yytext);}
-"L"		{ printf("REGISTER: %s\n", yytext);}
-"PC"	{ printf("REGISTER: %s\n", yytext);}
-"SP"	{ printf("REGISTER: %s\n", yytext);}
+"A"	{ return A; }
+"B"	{ return B; }
+"C"	{ return C; }
+"D"	{ return D; }
+"E"	{ return E; }
+"H"	{ return H; }
+"L"	{ return L; }
+"PC"	{ return PC; }
+"SP"	{ return SP; }
 
-0b[0-1]+		{ printf("BINARY NUMBER: %s = %ld\n", yytext, strtol(yytext+2, NULL, 2)); }
-[0-9]+			{printf("NUMBER: %s\n = %ld", yytext, strtol(yytext, NULL, 10)); }
-0x[a-f0-9]+		{printf("HEX NUMBER: %s = %ld\n", yytext, strtol(yytext+2, NULL, 16));}
-{NAME}			{printf("NAME: %s\n", yytext);}
 
-","			{ printf("COMMA"); }
-":"			{ printf("COLON\n"); }
-";"[^{}\n]*  /* eat up one-line comments */
-[\n]		{ }
+","			{ return COMMA; }
+":"			{ return COLON; }
+"0x"[a-f0-9]+    	{ yylval.int_val = strtol(yytext, NULL, 16); return NUMBER; }
+[0-9]+    	        { yylval.int_val = strtol(yytext, NULL, 10); return NUMBER; }
+"0b"[0-1]+    	        { yylval.int_val = strtol(yytext, NULL, 2); return NUMBER; }
+
+{NAME}			{ yylval.string_val = strdup(yytext); return NAME; }
+
+\"                      { string_buf_ptr = string_buf; error_line = yylineno; BEGIN(STRING); }
+<STRING>\"              {
+                                /* saw closing quote - all done */
+                                BEGIN(INITIAL);
+                                *string_buf_ptr = '\0';
+                                yylval.string_val = strdup(string_buf);
+                                return STR_CONST;
+                        }
+
+<STRING>\n              {
+                                /* error - unterminated string constant */
+                                fprintf(yyout, "[line %d] Error: missing terminating \" character.\n", error_line);
+                                yyterminate();
+                        }
+
+<STRING>\\[0-7]{1,3}    {
+                                /* octal escape sequence */
+                                int result;
+                                (void) sscanf(yytext + 1, "%o", &result);
+                                if (result > 0xff) {
+                                        /* error, constant is out-of-bounds */
+                                        yyterminate();
+                                }
+                                *string_buf_ptr++ = result;
+                        }
+<STRING>\\[0-9]+        {
+                                /* generate error - bad escape sequence */
+                                fprintf(yyout, "[line %d] Error: unkown escape sequence '%s'\n", yylineno, yytext);
+                                // yyerror("");
+                                yyterminate();
+
+                        } 
+<STRING>\\n             *string_buf_ptr++ = '\n';
+<STRING>\\\\            *string_buf_ptr++ = '\\';
+<STRING>\\'             *string_buf_ptr++ = '\'';
+<STRING>\\\"            *string_buf_ptr++ = '"';
+<STRING>\\a             *string_buf_ptr++ = '\a';
+<STRING>\\b             *string_buf_ptr++ = '\b';
+<STRING>\\f             *string_buf_ptr++ = '\f';
+<STRING>\\\n            *string_buf_ptr++ = '\n';
+<STRING>\\r             *string_buf_ptr++ = '\r';
+<STRING>\\t             *string_buf_ptr++ = '\t';
+<STRING>\\v             *string_buf_ptr++ = '\v';
+<STRING>\\.             { 
+                                fprintf(yyout, "[line %d] Error: unkown escape sequence '%s'\n", error_line, yytext); 
+                                // yyerror("");
+                                yyterminate();
+                        }
+<STRING>[^\\\n\"]+      {
+                                char* yptr = yytext;
+                                while (*yptr) *string_buf_ptr++ = *yptr++;
+                        }
+";"[^{}\n]*     /* eat up one-line comments */
+[\n]		{ return EOL; }
 [ \t]+		{ /* eat up whitespace */ }
-.			{ fprintf(stderr, "Unrecognised character %s at line %d\n", yytext, yylineno); }
+.		{ fprintf(stderr, "Unrecognised character %s at line %d\n", yytext, yylineno); }
 
 
 %%
-int main (int argc, char **argv) {
-	if (argc == 3) {
-		if ( !(yyin = fopen(argv[1], "r")) ) {
-			fprintf(stderr, "Cannot read file %s.\n", argv[1]);
-			perror("");
-			return 1;
-		}
-		if ( !(yyout = fopen(argv[2], "w")) ) {
-			fprintf(stderr, "Cannot write file %s.\n", argv[2]);
-			perror("");
-			return 1;
-		}
-	} 
-	else if (argc == 2) {
-		if ( !(yyin = fopen(argv[1], "r")) ) {
-			fprintf(stderr, "Cannot read file %s.\n", argv[1]);
-			perror("");
-                        return 1;
-		}
-	} 
-	else {
-		yyin = stdin;
-	}
 
-    yylex();
-    return 0;
-}

@@ -41,7 +41,7 @@ $(PARSER_OBJ): $(PARSER_SRC)
 $(SCANNER_OBJ): $(SCANNER_SRC)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c -o $@ $<
 
-$(PARSER_SRC): $(GRAMMAR_DIR)/grammar.y
+$(PARSER_SRC): $(GRAMMAR_DIR)/parser.y
 	$(BISON) -d -o $@ $<
 
 $(SCANNER_SRC): $(GRAMMAR_DIR)/lexer.l
