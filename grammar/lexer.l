@@ -105,9 +105,21 @@ NAME			[a-zA-Z?@]+
 "PC"	{ return PC; }
 "SP"	{ return SP; }
 
+"ORG"   { return ORG; }
+"END"   { return END; }
+"EQU"   { return EQU; }
+"DB"    { return DB; }
+"DW"    { return DW; }
+"DS"    { return DS; }
+"IF"    { return IF; }
+"ENDIF" { return ENDIF; }
+"SET"   { return SET; }
 
-","			{ return COMMA; }
-":"			{ return COLON; }
+","     { return COMMA; }
+":"     { return COLON; }
+"+"     { return PLUS; }
+"-"     { return MINUS; }
+
 "0x"[a-f0-9]+    	{ yylval.int_val = strtol(yytext, NULL, 16); return NUMBER; }
 [0-9]+    	        { yylval.int_val = strtol(yytext, NULL, 10); return NUMBER; }
 "0b"[0-1]+    	        { yylval.int_val = strtol(yytext, NULL, 2); return NUMBER; }

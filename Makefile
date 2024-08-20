@@ -4,7 +4,7 @@ CFLAGS = -Wall -O2
 LDFLAGS =
 
 # Bison and Flex commands
-BISON = bison
+BISON = bison -Wcounterexamples
 FLEX = flex
 
 # Directories

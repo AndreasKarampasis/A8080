@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include <string.h>
 void yyerror (const char* msg);
 extern int yylex(void);
 extern int yylineno;
@@ -19,17 +20,23 @@ extern FILE *yyout;
     int     int_val;
 }
 
-%token  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
-%token  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD
-%token  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
-%token  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
-%token  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP
-%token  ORG END EQU DB DW DS IF ENDIF SET
-%token  A B C D E H L PC SP
-%token  COMMA COLON EOL PLUS MINUS STAR SLASH L_PAREN R_PAREN DOLLAR
+%type<string_val> opcode
+
+%token<string_val>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
+%token<string_val> ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD
+%token<string_val>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
+%token<string_val>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
+%token<string_val>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP
+%token<string_val>  ORG END EQU DB DW DS IF ENDIF SET
+%token<string_val>  A B C D E H L PC SP
+%token<string_val>  COMMA COLON EOL PLUS MINUS STAR SLASH L_PAREN R_PAREN DOLLAR
 %token<string_val> NAME
 %token<int_val> NUMBER
 %token<string_val> STR_CONST
+
+%left PLUS MINUS
+%left STAR SLASH
+
 %%
 
 program: lines ;
@@ -49,9 +56,18 @@ line
 
 stmt
     :   label instruction
+    |   label directive expr
     |   label
     |   instruction
-    |   directive
+    |   directive expr
+    ;
+
+expr
+    : expr PLUS expr
+    | expr MINUS expr
+    | expr STAR expr
+    | expr SLASH expr
+    | operand
     ;
 
 label
@@ -61,24 +77,26 @@ label
 instruction
     :   opcode
     |   opcode operand
-    |   opcode operand COMMA operand
+    |   opcode operand COMMA operand { printf("%s\n", $opcode); }
 
 
 operand
     :   register
     |   NUMBER
+    |   STR_CONST
     |   NAME
 
 directive
     : ORG | END | EQU | DB | DW | DS | IF | ENDIF | SET
+    ;
 
 register
     :   A | B | C | D | E | H | L | PC | SP
     ;
 
 opcode:
-    MOV
-  | MVI
+    MOV {$opcode = strdup("MOV"); }
+  | MVI{$opcode = strdup("MVI"); }
   | LXI
   | LDA
   | STA
