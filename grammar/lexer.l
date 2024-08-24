@@ -15,7 +15,7 @@ NAME			[a-zA-Z?@]+
 
 %%
 
-"MOV"	{ return MOV;  }
+"MOV"	{ yylval.opcode = 0x01; return MOV;  }
 "MVI"	{ return MVI;  }
 "LXI"	{ return LXI;  }
 "LDA"	{ return LDA;  }

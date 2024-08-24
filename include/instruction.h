@@ -4,10 +4,17 @@
 #include <stdint.h>
 
 struct instruction {
-    uint8_t opcode;
-    uint8_t arg1;
-    uint8_t arg2;
+    // label field
+    // code field
+    // operand field
+        // arg1
+        // arg2
+    // label address
+
 };
 
+extern struct instruction *instructions;
+extern unsigned total;
+extern unsigned int currInstr;
 
 #endif // __INSTRUCTION_H__

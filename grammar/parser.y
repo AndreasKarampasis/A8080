@@ -1,6 +1,9 @@
 %{
+#include "instruction.h"
+
 #include <stdio.h>
 #include <string.h>
+
 void yyerror (const char* msg);
 extern int yylex(void);
 extern int yylineno;
@@ -18,9 +21,9 @@ extern FILE *yyout;
 %union {
     char*   string_val;
     int     int_val;
+    uint8_t opcode;
 }
 
-%type<string_val> opcode
 
 %token<string_val>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
 %token<string_val> ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD
@@ -75,14 +78,18 @@ label
     ;
 
 instruction
-    :   opcode
+    :   opcode 
+        {
+        }
     |   opcode operand
-    |   opcode operand COMMA operand { printf("%s\n", $opcode); }
+    |   opcode operand COMMA operand { }
 
 
 operand
     :   register
     |   NUMBER
+        {
+        }
     |   STR_CONST
     |   NAME
 
@@ -95,8 +102,8 @@ register
     ;
 
 opcode:
-    MOV {$opcode = strdup("MOV"); }
-  | MVI{$opcode = strdup("MVI"); }
+    MOV { }
+  | MVI { }
   | LXI
   | LDA
   | STA
@@ -175,12 +182,12 @@ opcode:
 %%
 
 void yyerror(const char* msg) {
-    fprintf(stderr, "\x1B[31m%s:\x1B[0m unexpected %s at line %d\n", msg, yytext, yylineno);
+    /* fprintf(stderr, "\x1B[31m%s:\x1B[0m unexpected %s at line %d\n", msg, yytext, yylineno);
     fprintf(stderr, "    %d | %s\n", yylineno, yytext);
     for (int i = 0; i < yyleng + 7; i++) {
         fputc(' ', stderr); // Print spaces for alignment
     }
-    fprintf(stderr, "^-- Here.\n");
+    fprintf(stderr, "^-- Here.\n"); */
 }
 
 int main (int argc, char **argv) {
@@ -200,7 +207,7 @@ int main (int argc, char **argv) {
 		if ( !(yyin = fopen(argv[1], "r")) ) {
 			fprintf(stderr, "Cannot read file %s.\n", argv[1]);
 			perror("");
-                        return 1;
+            return 1;
 		}
 	} 
 	else {
