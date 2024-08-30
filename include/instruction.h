@@ -5,10 +5,9 @@
 
 struct instruction {
     // label field
-    // code field
-    // operand field
-        // arg1
-        // arg2
+    // uint8_t opcode field
+    // uint8_t DATA1
+    // uint8_t DATA2
     // label address
 
 };

@@ -1,0 +1,4 @@
+MOV A, M
+MOV B, C
+MOV C, D
+MOV D, A

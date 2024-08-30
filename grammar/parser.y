@@ -20,18 +20,18 @@ extern FILE *yyout;
 %start program
 %union {
     char*   string_val;
-    int     int_val;
+    uint8_t int_val;
     uint8_t opcode;
 }
 
 
 %token<string_val>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
-%token<string_val> ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD
+%token<string_val> ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
 %token<string_val>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
 %token<string_val>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
 %token<string_val>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP
 %token<string_val>  ORG END EQU DB DW DS IF ENDIF SET
-%token<string_val>  A B C D E H L PC SP
+%token<string_val>  A B C D E H L PC SP M
 %token<string_val>  COMMA COLON EOL PLUS MINUS STAR SLASH L_PAREN R_PAREN DOLLAR
 %token<string_val> NAME
 %token<int_val> NUMBER
@@ -40,6 +40,7 @@ extern FILE *yyout;
 %left PLUS MINUS
 %left STAR SLASH
 
+%type<int_val> register
 %%
 
 program: lines ;
@@ -78,11 +79,11 @@ label
     ;
 
 instruction
-    :   opcode 
-        {
-        }
-    |   opcode operand
-    |   opcode operand COMMA operand { }
+    : single_register_instruction
+    | nop_instruction
+    | data_trans_instruction
+    | carry_bit_instruction
+    ;
 
 
 operand
@@ -98,86 +99,51 @@ directive
     ;
 
 register
-    :   A | B | C | D | E | H | L | PC | SP
+    : B     { $register = 0; }
+    | C     { $register = 1; }
+    | D     { $register = 2; }
+    | E     { $register = 3; }
+    | H     { $register = 4; }
+    | L     { $register = 5; }
+    | M     { $register = 6; }
+    | A     { $register = 7; }
+    | PC    { $register = 72; }
+    | SP    { $register = 28; } 
     ;
 
-opcode:
-    MOV { }
-  | MVI { }
-  | LXI
-  | LDA
-  | STA
-  | LHLD
-  | SHLD
-  | LDAX
-  | STAX
-  | XCHG
-  | ADD
-  | ADI
-  | ADC
-  | ACI
-  | SUB
-  | SUI
-  | SBB
-  | SBI
-  | INR
-  | DCR
-  | INX
-  | DCX
-  | DAD
-  | ANA
-  | ANI
-  | XRA
-  | XRI
-  | ORA
-  | ORI
-  | CMP
-  | CPI
-  | RLC
-  | RRC
-  | RAL
-  | RAR
-  | CMA
-  | CMC
-  | STC
-  | JMP
-  | JC
-  | JNC
-  | JZ
-  | JNZ
-  | JP
-  | JM
-  | JPE
-  | JPO
-  | CALL
-  | CC
-  | CNC
-  | CZ
-  | CNZ
-  | CP
-  | CM
-  | CPE
-  | CPO
-  | RET
-  | RC
-  | RNC
-  | RZ
-  | RNZ
-  | RP
-  | RM
-  | RPE
-  | RPO
-  | PUSH
-  | POP
-  | XTHL
-  | SPHL
-  | IN
-  | OUT
-  | EI
-  | DI
-  | HLT
-  | NOP
-  ;
+single_register_instruction
+    : INR register { /* emit(00_reg_100) */ }
+    | DCR register { /* emit(00_reg_101) */ }
+    | CMA   { /* emit(00101111) */ }
+    | DAA   { /* emit(00100111) */ }
+    ;
+
+nop_instruction
+    :  NOP   { /* emit(00000000) */ }
+    ;
+
+carry_bit_instruction
+    : CMC 
+    {
+        uint8_t opcode = 0b00111111;
+        printf("%b\n", opcode);
+    }
+    | STC
+    {
+        uint8_t opcode = 0b00110111;
+        printf("%b\n", opcode);
+    }
+    ;
+
+data_trans_instruction
+    : MOV register[reg1] COMMA register[reg2] 
+    {
+        uint8_t opcode = (0b01000000) | ($reg1 << 3) | ($reg2 & 7);
+        printf("%b\n", opcode);
+    }
+    | STAX register { /* emit(000_x_0010) */ }
+    ;
+
 
 %%
 

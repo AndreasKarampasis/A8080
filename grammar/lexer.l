@@ -15,7 +15,7 @@ NAME			[a-zA-Z?@]+
 
 %%
 
-"MOV"	{ yylval.opcode = 0x01; return MOV;  }
+"MOV"	{ yylval.opcode = 0b00000100; return MOV;  }
 "MVI"	{ return MVI;  }
 "LXI"	{ return LXI;  }
 "LDA"	{ return LDA;  }
@@ -34,11 +34,12 @@ NAME			[a-zA-Z?@]+
 "SUI"	{ return SUI; }
 "SBB"	{ return SBB; }
 "SBI"	{ return SBI; }
-"INR"	{ return INR; }
+"INR"	{ yylval.opcode = 0b00000100; return INR; }
 "DCR"	{ return DCR; }
 "INX"	{ return INX; }
 "DCX"	{ return DCX; }
 "DAD"	{ return DAD; }
+"DAA"   { return DAA; }
 
 "ANA"	{ return ANA; }
 "ANI"	{ return ANI; }
@@ -104,6 +105,7 @@ NAME			[a-zA-Z?@]+
 "L"	{ return L; }
 "PC"	{ return PC; }
 "SP"	{ return SP; }
+"M"     { return M; }
 
 "ORG"   { return ORG; }
 "END"   { return END; }
@@ -120,11 +122,10 @@ NAME			[a-zA-Z?@]+
 "+"     { return PLUS; }
 "-"     { return MINUS; }
 
-"0x"[a-f0-9]+    	{ yylval.int_val = strtol(yytext, NULL, 16); return NUMBER; }
-[0-9]+    	        { yylval.int_val = strtol(yytext, NULL, 10); return NUMBER; }
-"0b"[0-1]+    	        { yylval.int_val = strtol(yytext, NULL, 2); return NUMBER; }
-
-{NAME}			{ yylval.string_val = strdup(yytext); return NAME; }
+[0-9][0-9a-fA-F]*[hH]|"0x"[0-9a-fA-F]+    	{ yylval.int_val = strtol(yytext, NULL, 16); return NUMBER; }
+[0-9]+[dD]?     { yylval.int_val = strtol(yytext, NULL, 10); return NUMBER; }
+[0-1]+[bB]      { yylval.int_val = strtol(yytext, NULL, 2); return NUMBER; }
+{NAME}		{ yylval.string_val = strdup(yytext); return NAME; }
 
 \"                      { string_buf_ptr = string_buf; error_line = yylineno; BEGIN(STRING); }
 <STRING>\"              {
