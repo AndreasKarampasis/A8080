@@ -1,4 +1,5 @@
-%option noyywrap noinput nounput yylineno warn caseless
+%option noyywrap noinput nounput yylineno warn 
+/* caseless */
 %option outfile = "src/lexer.c" header-file="include/lexer.h"
 
 %{
@@ -15,7 +16,7 @@ NAME			[a-zA-Z?@]+
 
 %%
 
-"MOV"	{ yylval.opcode = 0b00000100; return MOV;  }
+"MOV"	{ return MOV;  }
 "MVI"	{ return MVI;  }
 "LXI"	{ return LXI;  }
 "LDA"	{ return LDA;  }
@@ -34,7 +35,7 @@ NAME			[a-zA-Z?@]+
 "SUI"	{ return SUI; }
 "SBB"	{ return SBB; }
 "SBI"	{ return SBI; }
-"INR"	{ yylval.opcode = 0b00000100; return INR; }
+"INR"	{ return INR; }
 "DCR"	{ return DCR; }
 "INX"	{ return INX; }
 "DCX"	{ return DCX; }
@@ -95,6 +96,7 @@ NAME			[a-zA-Z?@]+
 "DI"	{ return DI; }
 "HLT"	{ return HLT; }
 "NOP"	{ return NOP; }
+"RST"   { return RST; }
 
 "A"	{ return A; }
 "B"	{ return B; }
@@ -103,8 +105,6 @@ NAME			[a-zA-Z?@]+
 "E"	{ return E; }
 "H"	{ return H; }
 "L"	{ return L; }
-"PC"	{ return PC; }
-"SP"	{ return SP; }
 "M"     { return M; }
 
 "ORG"   { return ORG; }
@@ -117,15 +117,29 @@ NAME			[a-zA-Z?@]+
 "ENDIF" { return ENDIF; }
 "SET"   { return SET; }
 
-","     { return COMMA; }
-":"     { return COLON; }
-"+"     { return PLUS; }
-"-"     { return MINUS; }
+","     { return ','; }
+":"     { return ':'; }
+"("     { return '('; }
+")"     { return ')'; }
+"$"     { return '$'; }
+"+"     { return '+'; }
+"-"     { return '-'; }
+"*"     { return '*'; }
+"/"     { return '/'; }
+"MOD"   { return MODULO; }
+"NOT"   { return NOT; }
+"AND"   { return AND; }
+"OR"    { return OR; }      
+"XOR"   { return XOR; }
+"SHR"   { return SHR; }
+"SHL"   { return SHL; }
 
-[0-9][0-9a-fA-F]*[hH]|"0x"[0-9a-fA-F]+    	{ yylval.int_val = strtol(yytext, NULL, 16); return NUMBER; }
-[0-9]+[dD]?     { yylval.int_val = strtol(yytext, NULL, 10); return NUMBER; }
-[0-1]+[bB]      { yylval.int_val = strtol(yytext, NULL, 2); return NUMBER; }
-{NAME}		{ yylval.string_val = strdup(yytext); return NAME; }
+[0-9][0-9a-fA-F]*[hH]   { yylval.int_val = strtol(yytext, NULL, 16); return HEX_NUMBER; }
+[0-9]+[dD]?             { yylval.int_val = strtol(yytext, NULL, 10); return DEC_NUMBER; }
+[0-8]+[oO]              { yylval.int_val = strtol(yytext, NULL, 10); return OCT_NUMBER; }
+[0-1]+[bB]              { yylval.int_val = strtol(yytext, NULL, 2); return BIN_NUMBER; }
+{NAME}		        { yylval.string_val = strdup(yytext); return NAME; }
+"\'"[a-zA-Z]"\'"        { yylval.char_val = yytext[0]; return CHAR; }
 
 \"                      { string_buf_ptr = string_buf; error_line = yylineno; BEGIN(STRING); }
 <STRING>\"              {
@@ -180,7 +194,9 @@ NAME			[a-zA-Z?@]+
                                 while (*yptr) *string_buf_ptr++ = *yptr++;
                         }
 ";"[^{}\n]*     /* eat up one-line comments */
-[\n]		{ return EOL; }
+[\n]		{ return TOK_EOL; }
+<<EOF>>         { return TOK_EOF; }
+
 [ \t]+		{ /* eat up whitespace */ }
 .		{ fprintf(stderr, "Unrecognised character %s at line %d\n", yytext, yylineno); }
 
