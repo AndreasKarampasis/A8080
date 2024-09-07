@@ -85,6 +85,7 @@ NAME			[a-zA-Z?@]+
 "RM"	{ return RM; }
 "RPE"	{ return RPE; }
 "RPO"	{ return RPO; }
+"PCHL"  { return PCHL; }
 
 "PUSH"	{ return PUSH; }
 "POP"	{ return POP; }

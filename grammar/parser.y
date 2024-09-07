@@ -30,20 +30,20 @@ extern FILE *yyout;
 %token<string_val>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
 %token<string_val>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
 %token<string_val>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
-%token<string_val>  ORG END EQU DB DW DS IF ENDIF SET
+%token<string_val>  ORG END EQU DB DW DS IF ENDIF SET PCHL
 %token<string_val>  A B C D E H L M
 %token<string_val>  TOK_EOL TOK_EOF
-%token<string_val>  CHAR ',' ':' '+' '-' '*' '/' '(' ')' '$' MODULO NOT AND OR XOR SHR SHL
+%token<string_val>  ',' ':' '+' '-' '*' '/' '(' ')' '$' MODULO NOT AND OR XOR SHR SHL
 %token<string_val> NAME
 %token<int_val> HEX_NUMBER DEC_NUMBER OCT_NUMBER BIN_NUMBER
-%token<string_val> STR_CONST;
+%token<string_val> STR_CONST CHAR
 
-%type<int_val>register
+%type<int_val>register reg_pair
 
-%left OR
+%left OR XOR
 %left AND
 %left '+' '-'
-%left '*' '/' MODULO
+%left '*' '/' MODULO SHR SHL
 %right NOT UMINUS
 %left '(' ')'
 
@@ -52,24 +52,36 @@ extern FILE *yyout;
 program: program line | %empty;
 
 line
-    : label instruction TOK_EOL
-    | instruction TOK_EOL
-    | label TOK_EOL
-    | TOK_EOL
+    : label instruction TOK_EOL { ; }
+    | instruction TOK_EOL       { ; }
+    | label TOK_EOL             { ; }
+    | TOK_EOL                   { ; }
     ;
 
 instruction
-    : MOV register[reg1] ',' register[reg2] {}
-    | MVI register[reg1] ',' expr      {}
-    | LXI register ',' expr            { /* register pair */}
+    : data_transfer 
+    | arithmetic 
+    | logical 
+    | branch 
+    | stack_io 
+    | control 
+    ;
+
+data_transfer
+    : MOV register[reg1] ',' register[reg2]
+    | MVI register ',' expr
+    | LXI reg_pair ',' expr
     | LDA expr
     | STA expr
-    | LDAX expr
-    | STAX expr
+    | LDAX reg_pair
+    | STAX reg_pair
     | LHLD expr
     | SHLD expr
     | XCHG
-    | ADD register
+    ;
+
+arithmetic
+    : ADD  register
     | ADI expr
     | ADC register
     | ACI expr
@@ -78,12 +90,73 @@ instruction
     | SBB register
     | SBI expr
     | INR register
-    | DCR register
-    | INX register
-    | DCX register
-    | DAD register
+    | DCR expr
+    | INX reg_pair
+    | DCX reg_pair
+    | DAD reg_pair
     | DAA
-    | EI
+    ;
+
+logical
+    : ANA register
+    | ANI expr
+    | XRA register
+    | XRI expr
+    | ORA register
+    | ORI expr
+    | CMP register
+    | CPI expr
+    | RLC
+    | RRC
+    | RAL
+    | RAR
+    | CMA
+    | CMC
+    | STC
+    ;
+
+branch
+    : JMP expr
+    | JC expr
+    | JNC expr
+    | JZ expr
+    | JNZ expr
+    | JP expr
+    | JM expr
+    | JPE expr
+    | JPO expr
+    | CALL expr
+    | CC expr
+    | CNC expr
+    | CZ expr
+    | CNZ expr
+    | CP expr
+    | CM expr
+    | CPE expr
+    | CPO expr
+    | RET
+    | RC
+    | RNC
+    | RZ
+    | RNZ
+    | RP
+    | RM
+    | RPE
+    | RPO
+    | PCHL
+    ;
+
+stack_io
+    : PUSH reg_pair
+    | POP reg_pair
+    | XTHL
+    | SPHL
+    | IN expr
+    | OUT expr
+    ;
+
+control
+    : EI
     | DI
     | NOP
     | HLT
@@ -92,7 +165,32 @@ instruction
 
 label: NAME ':';
 
-expr: expr '+' expr;
+
+expr
+    : expr '+' expr
+    | expr '-' expr
+    | expr '*' expr
+    | expr '/' expr
+    | expr MODULO expr
+    | expr AND expr
+    | expr OR expr
+    | expr XOR expr
+    | expr SHR expr
+    | expr SHL expr
+    | term
+    ;
+
+term
+    : '(' expr ')'
+    | '-' expr %prec UMINUS
+    | NOT expr
+    | primary
+    ;
+
+
+primary
+    : address
+    ;
 
 address: NAME | immediate; 
 
@@ -102,6 +200,9 @@ immediate
     | OCT_NUMBER
     | BIN_NUMBER
     ;
+
+reg_pair: B { $reg_pair = 0; } | D { $reg_pair = 1; };
+
 
 register
     : B { $register = 0; }
