@@ -11,18 +11,18 @@ typedef uint64_t(hashfunction)(const char *, size_t);
 uint64_t hash(const char *key, size_t length);
 
 typedef struct _symbol {
-    bool is_data;
-    const char* name;
-    uint16_t address;
-    int line;
-    struct _symbol *next;  // hashtable entry chain
+	bool is_data;
+	const char* name;
+	uint16_t value;
+	int line;
+	struct _symbol *next;  // hashtable entry chain
 } Symbol;
 
 typedef struct _symboltable {
-    size_t count;     // number of key/value pairs currently
-    size_t capacity;  // allocated size of the array
-    hashfunction *hash;
-    Symbol **entries;
+	size_t count;     // number of key/value pairs currently
+	size_t capacity;  // allocated size of the array
+	hashfunction *hash;
+	Symbol **entries;
 } Symboltable;
 
 /*

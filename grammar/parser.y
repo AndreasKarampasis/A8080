@@ -1,5 +1,6 @@
 %{
 #include "symboltable.h"
+#include "instruction.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -12,12 +13,6 @@ extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
 extern FILE *yyout;
-
-struct instruction {
-    uint8_t opcode;
-    uint16_t adress;
-    bool is_data;
-};
 
 Symboltable *labelTable;
 %}
@@ -32,7 +27,7 @@ Symboltable *labelTable;
     uint16_t int_val;
     uint8_t opcode;
 }
-/* CONSTANTS */
+
 %token<opcode>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
 %token<opcode>  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
 %token<opcode>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
@@ -48,7 +43,7 @@ Symboltable *labelTable;
 
 %type<int_val>register reg_pair
 %type<opcode> data_transfer arithmetic logical branch stack_io control
-%type<int_val> immediate primary
+%type<int_val> immediate primary 
 
 
 %left OR XOR
@@ -248,25 +243,25 @@ expr
     | expr[expr1] XOR expr[expr2]
     | expr[expr1] SHR expr[expr2]
     | expr[expr1] SHL expr[expr2]
-    | term
+    | term { }
     ;
 
 term
     : '(' expr ')'
     | '-' expr %prec UMINUS
     | NOT expr
-    | primary
+    | primary   { ; }
     ;
 
 
 primary
-    : NAME { $$ = 0; }
+    : NAME      { $$ = 0; }
     | immediate { $primary = $immediate; }; 
     ;
 
 
 immediate
-    : HEX_NUMBER    { $immediate = $HEX_NUMBER; }
+    : HEX_NUMBER    { $immediate = $HEX_NUMBER; /* $immediate = new_expr_imm(); ??*/ }
     | DEC_NUMBER    { $immediate = $DEC_NUMBER; }
     | OCT_NUMBER    { $immediate = $OCT_NUMBER; }
     | BIN_NUMBER    { $immediate = $BIN_NUMBER; }
