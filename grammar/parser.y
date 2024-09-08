@@ -39,7 +39,7 @@ Symboltable *labelTable;
 %token<opcode>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
 %token<opcode>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
 %token<opcode>  ORG END EQU DB DW DS IF ENDIF SET PCHL
-%token<int_val>  A B C D E H L M
+%token<int_val>  A B C D E H L M SP
 %token<string_val>  TOK_EOL
 %token<string_val>  ',' ':' '+' '-' '*' '/' '(' ')' '$' MODULO NOT AND OR XOR SHR SHL
 %token<string_val> NAME
@@ -90,17 +90,45 @@ data_transfer
         printf("MVI %02X\n", opcode);
     }
     | LXI reg_pair ',' expr
+    { 
+        uint8_t opcode =  0b00000001 | ( $reg_pair << 4);
+        printf("LXI %02X\n", opcode);
+    }
     | LDA expr
     { 
         uint8_t opcode =  0b00111010;
         printf("LDA %02X\n", opcode);
     }
     | STA expr
+    {
+        uint8_t opcode =  0b00110010;
+        printf("STA %02X\n", opcode); 
+    }
     | LDAX reg_pair
+    { 
+        uint8_t opcode =  0b00001010 | ( $reg_pair << 4);
+        printf("LDAX %02X\n", opcode);
+    }
     | STAX reg_pair
+    { 
+        uint8_t opcode =  0b00000010 | ( $reg_pair << 4);
+        printf("STAX %02X\n", opcode);
+    }
     | LHLD expr
+    { 
+        uint8_t opcode =  0b00101010;
+        printf("LHLD %02X\n", opcode);
+    }
     | SHLD expr
+    { 
+        uint8_t opcode =  0b00100010;
+        printf("SHLD %02X\n", opcode);
+    }
     | XCHG
+    { 
+        uint8_t opcode =  0b11101011;
+        printf("XCHG %02X\n", opcode);
+    }
     ;
 
 arithmetic
@@ -182,6 +210,10 @@ control
     : EI
     | DI
     | NOP
+    { 
+        uint8_t opcode =  0;
+        printf("NOP %02X\n", opcode);
+    }
     | HLT
     | RST expr
     ;
@@ -240,7 +272,12 @@ immediate
     | BIN_NUMBER    { $immediate = $BIN_NUMBER; }
     ;
 
-reg_pair: B { $reg_pair = 0; } | D { $reg_pair = 1; };
+reg_pair
+    : B { $reg_pair = 0; } 
+    | D { $reg_pair = 1; }
+    | H { $reg_pair = 2; }
+    | SP { $reg_pair = 3; }
+    ;
 
 register
     : B { $register = 0; }

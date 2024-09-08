@@ -107,6 +107,7 @@ NAME			[a-zA-Z?@]+
 "H"	{ return H; }
 "L"	{ return L; }
 "M"     { return M; }
+"SP"     { return SP; }
 
 "ORG"   { return ORG; }
 "END"   { return END; }
