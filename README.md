@@ -56,3 +56,6 @@ To assemble the code:
 
 ## Contributing
 Contributions are welcome! Feel free to submit pull requests to add new features, fix bugs, or improve documentation.
+
+## License
+This project is licensed under the MIT License.
