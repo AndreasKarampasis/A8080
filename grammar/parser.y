@@ -1,4 +1,5 @@
 %{
+#include "symboltable.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -7,12 +8,19 @@
 void yyerror (const char* msg);
 extern int yylex(void);
 extern int yylineno;
-extern int yyleng;
+// extern int yyleng;
 extern char *yytext;
 extern FILE *yyin;
 extern FILE *yyout;
-%}
 
+struct instruction {
+    uint8_t opcode;
+    uint16_t adress;
+    bool is_data;
+};
+
+Symboltable *labelTable;
+%}
 
 %defines "include/parser.h"
 %output "src/parser.c"
@@ -25,20 +33,23 @@ extern FILE *yyout;
     uint8_t opcode;
 }
 /* CONSTANTS */
-%token<string_val>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
-%token<string_val>  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
-%token<string_val>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
-%token<string_val>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
-%token<string_val>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
-%token<string_val>  ORG END EQU DB DW DS IF ENDIF SET PCHL
-%token<string_val>  A B C D E H L M
-%token<string_val>  TOK_EOL TOK_EOF
+%token<opcode>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
+%token<opcode>  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
+%token<opcode>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
+%token<opcode>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
+%token<opcode>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
+%token<opcode>  ORG END EQU DB DW DS IF ENDIF SET PCHL
+%token<int_val>  A B C D E H L M
+%token<string_val>  TOK_EOL
 %token<string_val>  ',' ':' '+' '-' '*' '/' '(' ')' '$' MODULO NOT AND OR XOR SHR SHL
 %token<string_val> NAME
 %token<int_val> HEX_NUMBER DEC_NUMBER OCT_NUMBER BIN_NUMBER
 %token<string_val> STR_CONST CHAR
 
 %type<int_val>register reg_pair
+%type<opcode> data_transfer arithmetic logical branch stack_io control
+%type<int_val> immediate address
+
 
 %left OR XOR
 %left AND
@@ -48,14 +59,13 @@ extern FILE *yyout;
 %left '(' ')'
 
 %%
-
-program: program line | %empty;
+program: program line TOK_EOL| %empty;
 
 line
-    : label instruction TOK_EOL { ; }
-    | instruction TOK_EOL       { ; }
-    | label TOK_EOL             { ; }
-    | TOK_EOL                   { ; }
+    : label instruction  { ; }
+    | instruction        { ; }
+    | label              { ; }
+    | %empty
     ;
 
 instruction
@@ -65,13 +75,26 @@ instruction
     | branch 
     | stack_io 
     | control 
+    | directives
     ;
 
 data_transfer
     : MOV register[reg1] ',' register[reg2]
+    { 
+        uint8_t opcode =  0b01000000 | ($reg1 << 3) | ($reg2);
+        printf("MOV %02X\n", opcode);
+    }
     | MVI register ',' expr
+    { 
+        uint8_t opcode =  0b00000110 | ($register << 3);
+        printf("MVI %02X\n", opcode);
+    }
     | LXI reg_pair ',' expr
     | LDA expr
+    { 
+        uint8_t opcode =  0b00111010;
+        printf("LDA %02X\n", opcode);
+    }
     | STA expr
     | LDAX reg_pair
     | STAX reg_pair
@@ -81,7 +104,7 @@ data_transfer
     ;
 
 arithmetic
-    : ADD  register
+    : ADD register
     | ADI expr
     | ADC register
     | ACI expr
@@ -163,20 +186,36 @@ control
     | RST expr
     ;
 
-label: NAME ':';
+directives
+    : ORG
+    | END
+    | EQU
+    | DB expr
+    | DW
+    | DS
+    | IF 
+    | ENDIF
+    | SET 
+
+label
+    : NAME ':' 
+    {
+        // Symbol *lab = ;
+        st_insert(labelTable, st_create_label($NAME, false));
+    };
 
 
 expr
-    : expr '+' expr
-    | expr '-' expr
-    | expr '*' expr
-    | expr '/' expr
-    | expr MODULO expr
-    | expr AND expr
-    | expr OR expr
-    | expr XOR expr
-    | expr SHR expr
-    | expr SHL expr
+    : expr[expr1] '+' expr[expr2]
+    | expr[expr1] '-' expr[expr2]
+    | expr[expr1] '*' expr[expr2]
+    | expr[expr1] '/' expr[expr2]
+    | expr[expr1] MODULO expr[expr2]
+    | expr[expr1] AND expr[expr2]
+    | expr[expr1] OR expr[expr2]
+    | expr[expr1] XOR expr[expr2]
+    | expr[expr1] SHR expr[expr2]
+    | expr[expr1] SHL expr[expr2]
     | term
     ;
 
@@ -192,17 +231,16 @@ primary
     : address
     ;
 
-address: NAME | immediate; 
+address: NAME { $$ = 1; }| immediate { $address = $immediate; }; 
 
 immediate
-    : HEX_NUMBER
-    | DEC_NUMBER
-    | OCT_NUMBER
-    | BIN_NUMBER
+    : HEX_NUMBER    { $immediate = $HEX_NUMBER; }
+    | DEC_NUMBER    { $immediate = $DEC_NUMBER; }
+    | OCT_NUMBER    { $immediate = $OCT_NUMBER; }
+    | BIN_NUMBER    { $immediate = $BIN_NUMBER; }
     ;
 
 reg_pair: B { $reg_pair = 0; } | D { $reg_pair = 1; };
-
 
 register
     : B { $register = 0; }
@@ -217,6 +255,7 @@ register
 %%
 
 void yyerror(const char* msg) {
+    printf("Error: LOL: %s\n", msg);
 }
 
 int main (int argc, char **argv) {
@@ -242,7 +281,9 @@ int main (int argc, char **argv) {
 	else {
 		yyin = stdin;
 	}
-
+    
+    labelTable = st_new(32, hash);
     yyparse();
+    st_print(labelTable);
     return 0;
 }

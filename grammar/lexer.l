@@ -196,7 +196,6 @@ NAME			[a-zA-Z?@]+
                         }
 ";"[^{}\n]*     /* eat up one-line comments */
 [\n]		{ return TOK_EOL; }
-<<EOF>>         { return TOK_EOF; }
 
 [ \t]+		{ /* eat up whitespace */ }
 .		{ fprintf(stderr, "Unrecognised character %s at line %d\n", yytext, yylineno); }
