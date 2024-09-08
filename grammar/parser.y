@@ -48,7 +48,7 @@ Symboltable *labelTable;
 
 %type<int_val>register reg_pair
 %type<opcode> data_transfer arithmetic logical branch stack_io control
-%type<int_val> immediate address
+%type<int_val> immediate primary
 
 
 %left OR XOR
@@ -260,10 +260,10 @@ term
 
 
 primary
-    : address
+    : NAME { $$ = 0; }
+    | immediate { $primary = $immediate; }; 
     ;
 
-address: NAME { $$ = 1; }| immediate { $address = $immediate; }; 
 
 immediate
     : HEX_NUMBER    { $immediate = $HEX_NUMBER; }

@@ -1,3 +1,0 @@
-LOOP:
-	MOV B, A
-	MOV B, C
