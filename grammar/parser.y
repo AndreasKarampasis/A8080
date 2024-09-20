@@ -82,7 +82,7 @@ data_transfer
     | MVI register ',' expr
     { 
         uint8_t opcode =  0b00000110 | ($register << 3);
-        printf("MVI %02X\n", opcode);
+        printf("MVI %02X %02X\n", opcode, $expr);
     }
     | LXI reg_pair ',' expr
     { 
@@ -128,19 +128,75 @@ data_transfer
 
 arithmetic
     : ADD register
+    {
+        uint8_t opcode =  0b10000000 | ($register);
+        printf("ADD %02X\n", opcode); 
+    }
     | ADI expr
+    {
+        uint8_t opcode =  0b11000110;
+        printf("ADI %02X %02X\n", opcode, $expr); 
+    }
     | ADC register
+    {
+        uint8_t opcode =  0b10001000 | ($register);
+        printf("ADC %02X\n", opcode); 
+    }
     | ACI expr
+    {
+        uint8_t opcode =  0b11001110;
+        printf("ACI %02X %02X\n", opcode, $expr); 
+    }
     | SUB register
+    {
+        uint8_t opcode =  0b10010000 | ($register);
+        printf("SUB %02X\n", opcode); 
+    }
     | SUI expr
+    {
+        uint8_t opcode =  0b11010110;
+        printf("SUI %02X %02X\n", opcode, $expr); 
+    }
     | SBB register
+    {
+        uint8_t opcode =  0b10011000 | ($register);
+        printf("SBB %02X\n", opcode); 
+    }
     | SBI expr
+    {
+        uint8_t opcode =  0b11011110;
+        printf("SBI %02X %02X\n", opcode, $expr); 
+    }
     | INR register
-    | DCR expr
+    {
+        uint8_t opcode =  0b00000100 | ($register << 3);
+        printf("INR %02X\n", opcode); 
+    }
+    | DCR register
+    {
+        uint8_t opcode =  0b00000101 | ($register << 3);
+        printf("DCR %02X\n", opcode); 
+    }
     | INX reg_pair
+    {
+        uint8_t opcode =  0b00000011 | ($reg_pair << 4);
+        printf("INX %02X\n", opcode); 
+    }
     | DCX reg_pair
+    {
+        uint8_t opcode =  0b00001011 | ($reg_pair << 4);
+        printf("DCX %02X\n", opcode); 
+    }
     | DAD reg_pair
+    {
+        uint8_t opcode =  0b00001001 | ($reg_pair << 4);
+        printf("DAD %02X\n", opcode); 
+    }
     | DAA
+    {
+        uint8_t opcode =  0b00100111;
+        printf("DAA %02X\n", opcode); 
+    }
     ;
 
 logical
