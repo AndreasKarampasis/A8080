@@ -11,9 +11,9 @@ typedef uint64_t(hashfunction)(const char *, size_t);
 uint64_t hash(const char *key, size_t length);
 
 typedef struct _symbol {
-	bool is_data;
 	const char* name;
 	uint16_t value;
+	bool is_data;
 	int line;
 	struct _symbol *next;  // hashtable entry chain
 } Symbol;
@@ -30,7 +30,6 @@ typedef struct _symboltable {
  */
 Symboltable *st_new(uint32_t capacity, hashfunction *hf);
 
-void st_init(Symboltable *table);
 /*
  * Free all memory that symboltable uses
  */
@@ -56,8 +55,6 @@ Symbol *st_insert(Symboltable *table, Symbol *entry);
  */
 Symbol *st_lookup(Symboltable *table, const char *key);
 
-Symbol *st_create_label(const char *key, bool is_data);
-
-void st_print(Symboltable *table);
+Symbol *st_new_symbol(const char *key, bool is_data);
 
 #endif

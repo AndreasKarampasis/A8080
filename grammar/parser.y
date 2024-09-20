@@ -14,7 +14,7 @@ extern char *yytext;
 extern FILE *yyin;
 extern FILE *yyout;
 
-Symboltable *labelTable;
+Symboltable *symbolTable;
 %}
 
 %defines "include/parser.h"
@@ -43,7 +43,7 @@ Symboltable *labelTable;
 
 %type<int_val>register reg_pair
 %type<opcode> data_transfer arithmetic logical branch stack_io control
-%type<int_val> immediate primary 
+%type<int_val> immediate primary term expr
 
 
 %left OR XOR
@@ -225,43 +225,44 @@ directives
     | SET 
 
 label
-    : NAME ':' 
-    {
-        // Symbol *lab = ;
-        st_insert(labelTable, st_create_label($NAME, false));
-    };
+    : NAME ':' { st_insert(symbolTable, st_new_symbol($NAME, false)); }
+    ;
 
 
 expr
-    : expr[expr1] '+' expr[expr2]
-    | expr[expr1] '-' expr[expr2]
-    | expr[expr1] '*' expr[expr2]
-    | expr[expr1] '/' expr[expr2]
-    | expr[expr1] MODULO expr[expr2]
-    | expr[expr1] AND expr[expr2]
-    | expr[expr1] OR expr[expr2]
-    | expr[expr1] XOR expr[expr2]
-    | expr[expr1] SHR expr[expr2]
-    | expr[expr1] SHL expr[expr2]
+    : expr[expr1] '+' expr[expr2]       { $$ = $expr1 + $expr2; }
+    | expr[expr1] '-' expr[expr2]       { $$ = $expr1 - $expr2; }
+    | expr[expr1] '*' expr[expr2]       { $$ = $expr1 * $expr2; }
+    | expr[expr1] '/' expr[expr2]       { $$ = $expr1 / $expr2; }
+    | expr[expr1] MODULO expr[expr2]    { $$ = $expr1 % $expr2; }
+    | expr[expr1] AND expr[expr2]       { $$ = $expr1 & $expr2; }
+    | expr[expr1] OR expr[expr2]        { $$ = $expr1 | $expr2; }
+    | expr[expr1] XOR expr[expr2]       { $$ = $expr1 ^ $expr2; }
+    | expr[expr1] SHR expr[expr2]       { $$ = $expr1 >> $expr2; }
+    | expr[expr1] SHL expr[expr2]       { $$ = $expr1 << $expr2; }
     | term { }
     ;
 
 term
-    : '(' expr ')'
-    | '-' expr %prec UMINUS
-    | NOT expr
-    | primary   { ; }
+    : '(' expr ')' { $term = $expr; }
+    | '-' expr %prec UMINUS { $term = $expr * (-1); }
+    | NOT expr  { $term = ~$expr; }
+    | primary   { $term = $primary; }
     ;
 
 
 primary
-    : NAME      { $$ = 0; }
+    : NAME
+    { 
+        Symbol *label = st_lookup(symbolTable, $NAME);
+        $$ =  label->value;
+    }
     | immediate { $primary = $immediate; }; 
     ;
 
 
 immediate
-    : HEX_NUMBER    { $immediate = $HEX_NUMBER; /* $immediate = new_expr_imm(); ??*/ }
+    : HEX_NUMBER    { $immediate = $HEX_NUMBER; }
     | DEC_NUMBER    { $immediate = $DEC_NUMBER; }
     | OCT_NUMBER    { $immediate = $OCT_NUMBER; }
     | BIN_NUMBER    { $immediate = $BIN_NUMBER; }
@@ -314,8 +315,8 @@ int main (int argc, char **argv) {
 		yyin = stdin;
 	}
     
-    labelTable = st_new(32, hash);
+    symbolTable = st_new(32, hash);
     yyparse();
-    st_print(labelTable);
+    st_print(symbolTable);
     return 0;
 }
