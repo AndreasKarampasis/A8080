@@ -657,15 +657,15 @@ static const yytype_int16 yyrline[] =
      102,   107,   112,   117,   122,   130,   135,   140,   145,   150,
      155,   160,   165,   170,   175,   180,   185,   190,   195,   203,
      208,   214,   219,   225,   230,   236,   241,   247,   252,   257,
-     262,   267,   272,   277,   285,   286,   287,   288,   289,   290,
-     291,   292,   293,   294,   295,   296,   297,   298,   299,   300,
-     301,   302,   303,   304,   305,   306,   307,   308,   309,   310,
-     311,   312,   316,   317,   318,   319,   320,   321,   325,   326,
-     327,   332,   333,   337,   338,   339,   340,   341,   342,   343,
-     344,   345,   348,   353,   354,   355,   356,   357,   358,   359,
-     360,   361,   362,   363,   367,   368,   369,   370,   375,   380,
-     385,   386,   387,   388,   392,   393,   394,   395,   399,   400,
-     401,   402,   403,   404,   405,   406
+     262,   267,   272,   277,   285,   291,   297,   303,   309,   315,
+     321,   327,   333,   339,   345,   351,   357,   363,   369,   375,
+     381,   387,   393,   398,   403,   408,   413,   418,   423,   428,
+     433,   438,   446,   451,   456,   461,   466,   472,   481,   486,
+     491,   496,   501,   509,   510,   511,   512,   513,   514,   515,
+     516,   517,   520,   525,   526,   527,   528,   529,   530,   531,
+     532,   533,   534,   535,   539,   540,   541,   542,   547,   552,
+     557,   558,   559,   560,   564,   565,   566,   567,   571,   572,
+     573,   574,   575,   576,   577,   578
 };
 #endif
 
@@ -1785,224 +1785,586 @@ yyreduce:
 #line 1786 "src/parser.c"
     break;
 
-  case 90: /* control: NOP  */
+  case 54: /* branch: JMP expr  */
+#line 286 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000011;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JMP %02X %04X\n", opcode, address);
+    }
+#line 1796 "src/parser.c"
+    break;
+
+  case 55: /* branch: JC expr  */
+#line 292 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11011010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JC %02X %04X\n", opcode, address);
+    }
+#line 1806 "src/parser.c"
+    break;
+
+  case 56: /* branch: JNC expr  */
+#line 298 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11010010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JNC %02X %04X\n", opcode, address);
+    }
+#line 1816 "src/parser.c"
+    break;
+
+  case 57: /* branch: JZ expr  */
+#line 304 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11001010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JZ %02X %04X\n", opcode, address);
+    }
+#line 1826 "src/parser.c"
+    break;
+
+  case 58: /* branch: JNZ expr  */
+#line 310 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JNZ %02X %04X\n", opcode, address);
+    }
+#line 1836 "src/parser.c"
+    break;
+
+  case 59: /* branch: JP expr  */
+#line 316 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11110010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JP %02X %04X\n", opcode, address);
+    }
+#line 1846 "src/parser.c"
+    break;
+
+  case 60: /* branch: JM expr  */
+#line 322 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11111010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JM %02X %04X\n", opcode, address);
+    }
+#line 1856 "src/parser.c"
+    break;
+
+  case 61: /* branch: JPE expr  */
 #line 328 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11101010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JPE %02X %04X\n", opcode, address);
+    }
+#line 1866 "src/parser.c"
+    break;
+
+  case 62: /* branch: JPO expr  */
+#line 334 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11100010;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("JPO %02X %04X\n", opcode, address);
+    }
+#line 1876 "src/parser.c"
+    break;
+
+  case 63: /* branch: CALL expr  */
+#line 340 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11001101;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CALL %02X %04X\n", opcode, address);
+    }
+#line 1886 "src/parser.c"
+    break;
+
+  case 64: /* branch: CC expr  */
+#line 346 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11011100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CC %02X %04X\n", opcode, address);
+    }
+#line 1896 "src/parser.c"
+    break;
+
+  case 65: /* branch: CNC expr  */
+#line 352 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11010100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CNC %02X %04X\n", opcode, address);
+    }
+#line 1906 "src/parser.c"
+    break;
+
+  case 66: /* branch: CZ expr  */
+#line 358 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11001100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CZ %02X %04X\n", opcode, address);
+    }
+#line 1916 "src/parser.c"
+    break;
+
+  case 67: /* branch: CNZ expr  */
+#line 364 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CNZ %02X %04X\n", opcode, address);
+    }
+#line 1926 "src/parser.c"
+    break;
+
+  case 68: /* branch: CP expr  */
+#line 370 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11110100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CP %02X %04X\n", opcode, address);
+    }
+#line 1936 "src/parser.c"
+    break;
+
+  case 69: /* branch: CM expr  */
+#line 376 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11111100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CM %02X %04X\n", opcode, address);
+    }
+#line 1946 "src/parser.c"
+    break;
+
+  case 70: /* branch: CPE expr  */
+#line 382 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11101100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CPE %02X %04X\n", opcode, address);
+    }
+#line 1956 "src/parser.c"
+    break;
+
+  case 71: /* branch: CPO expr  */
+#line 388 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11100100;
+        uint8_t address = (yyvsp[0].int_val);
+        printf("CPO %02X %04X\n", opcode, address);
+    }
+#line 1966 "src/parser.c"
+    break;
+
+  case 72: /* branch: RET  */
+#line 394 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11001001;
+        printf("RET %02X\n", opcode);
+    }
+#line 1975 "src/parser.c"
+    break;
+
+  case 73: /* branch: RC  */
+#line 399 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11011000;
+        printf("RC %02X\n", opcode);
+    }
+#line 1984 "src/parser.c"
+    break;
+
+  case 74: /* branch: RNC  */
+#line 404 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11010000;
+        printf("RNC %02X\n", opcode);
+    }
+#line 1993 "src/parser.c"
+    break;
+
+  case 75: /* branch: RZ  */
+#line 409 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11001000;
+        printf("RZ %02X\n", opcode);
+    }
+#line 2002 "src/parser.c"
+    break;
+
+  case 76: /* branch: RNZ  */
+#line 414 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000000;
+        printf("RNZ %02X\n", opcode);
+    }
+#line 2011 "src/parser.c"
+    break;
+
+  case 77: /* branch: RP  */
+#line 419 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11110000;
+        printf("RP %02X\n", opcode);
+    }
+#line 2020 "src/parser.c"
+    break;
+
+  case 78: /* branch: RM  */
+#line 424 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11111000;
+        printf("RM %02X\n", opcode);
+    }
+#line 2029 "src/parser.c"
+    break;
+
+  case 79: /* branch: RPE  */
+#line 429 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11101000;
+        printf("RPE %02X\n", opcode);
+    }
+#line 2038 "src/parser.c"
+    break;
+
+  case 80: /* branch: RPO  */
+#line 434 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11100000;
+        printf("RPO %02X\n", opcode);
+    }
+#line 2047 "src/parser.c"
+    break;
+
+  case 81: /* branch: PCHL  */
+#line 439 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11101001;
+        printf("PCHL %02X\n", opcode);
+    }
+#line 2056 "src/parser.c"
+    break;
+
+  case 82: /* stack_io: PUSH reg_pair  */
+#line 447 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000101 | ((yyvsp[0].int_val) << 4);
+        printf("PUSH %02X\n", opcode);
+    }
+#line 2065 "src/parser.c"
+    break;
+
+  case 83: /* stack_io: POP reg_pair  */
+#line 452 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000001 | ((yyvsp[0].int_val) << 4);
+        printf("POP %02X\n", opcode);
+    }
+#line 2074 "src/parser.c"
+    break;
+
+  case 84: /* stack_io: XTHL  */
+#line 457 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11100011;
+        printf("XTHL %02X\n", opcode);
+    }
+#line 2083 "src/parser.c"
+    break;
+
+  case 85: /* stack_io: SPHL  */
+#line 462 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11111001;
+        printf("SPHL %02X\n", opcode);
+    }
+#line 2092 "src/parser.c"
+    break;
+
+  case 86: /* stack_io: IN expr  */
+#line 467 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11011011;
+        uint8_t input_device = (yyvsp[0].int_val);
+        printf("IN %02X %02X\n", opcode, input_device);
+    }
+#line 2102 "src/parser.c"
+    break;
+
+  case 87: /* stack_io: OUT expr  */
+#line 473 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11010011;
+        uint8_t input_device = (yyvsp[0].int_val);
+        printf("OUT %02X %02X\n", opcode, input_device);
+    }
+#line 2112 "src/parser.c"
+    break;
+
+  case 88: /* control: EI  */
+#line 482 "grammar/parser.y"
+    {
+        uint8_t opcode =  0b11111011;
+        printf("DI %02X\n", opcode);
+    }
+#line 2121 "src/parser.c"
+    break;
+
+  case 89: /* control: DI  */
+#line 487 "grammar/parser.y"
+    {
+        uint8_t opcode =  0b11110011;
+        printf("DI %02X\n", opcode);
+    }
+#line 2130 "src/parser.c"
+    break;
+
+  case 90: /* control: NOP  */
+#line 492 "grammar/parser.y"
     { 
         uint8_t opcode =  0;
         printf("NOP %02X\n", opcode);
     }
-#line 1795 "src/parser.c"
+#line 2139 "src/parser.c"
+    break;
+
+  case 91: /* control: HLT  */
+#line 497 "grammar/parser.y"
+    {
+        uint8_t opcode =  0b01110110;
+        printf("HLT %02X\n", opcode);
+    }
+#line 2148 "src/parser.c"
+    break;
+
+  case 92: /* control: RST expr  */
+#line 502 "grammar/parser.y"
+    {
+        uint8_t opcode = 0b11000111 | ((yyvsp[0].int_val) << 3);
+        printf("RST %02X\n", opcode);
+    }
+#line 2157 "src/parser.c"
     break;
 
   case 102: /* label: NAME ':'  */
-#line 348 "grammar/parser.y"
+#line 520 "grammar/parser.y"
                { st_insert(symbolTable, st_new_symbol((yyvsp[-1].string_val), false)); }
-#line 1801 "src/parser.c"
+#line 2163 "src/parser.c"
     break;
 
   case 103: /* expr: expr '+' expr  */
-#line 353 "grammar/parser.y"
+#line 525 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) + (yyvsp[0].int_val); }
-#line 1807 "src/parser.c"
+#line 2169 "src/parser.c"
     break;
 
   case 104: /* expr: expr '-' expr  */
-#line 354 "grammar/parser.y"
+#line 526 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) - (yyvsp[0].int_val); }
-#line 1813 "src/parser.c"
+#line 2175 "src/parser.c"
     break;
 
   case 105: /* expr: expr '*' expr  */
-#line 355 "grammar/parser.y"
+#line 527 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) * (yyvsp[0].int_val); }
-#line 1819 "src/parser.c"
+#line 2181 "src/parser.c"
     break;
 
   case 106: /* expr: expr '/' expr  */
-#line 356 "grammar/parser.y"
+#line 528 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) / (yyvsp[0].int_val); }
-#line 1825 "src/parser.c"
+#line 2187 "src/parser.c"
     break;
 
   case 107: /* expr: expr MODULO expr  */
-#line 357 "grammar/parser.y"
+#line 529 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) % (yyvsp[0].int_val); }
-#line 1831 "src/parser.c"
+#line 2193 "src/parser.c"
     break;
 
   case 108: /* expr: expr AND expr  */
-#line 358 "grammar/parser.y"
+#line 530 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) & (yyvsp[0].int_val); }
-#line 1837 "src/parser.c"
+#line 2199 "src/parser.c"
     break;
 
   case 109: /* expr: expr OR expr  */
-#line 359 "grammar/parser.y"
+#line 531 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) | (yyvsp[0].int_val); }
-#line 1843 "src/parser.c"
+#line 2205 "src/parser.c"
     break;
 
   case 110: /* expr: expr XOR expr  */
-#line 360 "grammar/parser.y"
+#line 532 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) ^ (yyvsp[0].int_val); }
-#line 1849 "src/parser.c"
+#line 2211 "src/parser.c"
     break;
 
   case 111: /* expr: expr SHR expr  */
-#line 361 "grammar/parser.y"
+#line 533 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) >> (yyvsp[0].int_val); }
-#line 1855 "src/parser.c"
+#line 2217 "src/parser.c"
     break;
 
   case 112: /* expr: expr SHL expr  */
-#line 362 "grammar/parser.y"
+#line 534 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) << (yyvsp[0].int_val); }
-#line 1861 "src/parser.c"
+#line 2223 "src/parser.c"
     break;
 
   case 113: /* expr: term  */
-#line 363 "grammar/parser.y"
+#line 535 "grammar/parser.y"
            { }
-#line 1867 "src/parser.c"
+#line 2229 "src/parser.c"
     break;
 
   case 114: /* term: '(' expr ')'  */
-#line 367 "grammar/parser.y"
+#line 539 "grammar/parser.y"
                    { (yyval.int_val) = (yyvsp[-1].int_val); }
-#line 1873 "src/parser.c"
+#line 2235 "src/parser.c"
     break;
 
   case 115: /* term: '-' expr  */
-#line 368 "grammar/parser.y"
+#line 540 "grammar/parser.y"
                             { (yyval.int_val) = (yyvsp[0].int_val) * (-1); }
-#line 1879 "src/parser.c"
+#line 2241 "src/parser.c"
     break;
 
   case 116: /* term: NOT expr  */
-#line 369 "grammar/parser.y"
+#line 541 "grammar/parser.y"
                 { (yyval.int_val) = ~(yyvsp[0].int_val); }
-#line 1885 "src/parser.c"
+#line 2247 "src/parser.c"
     break;
 
   case 117: /* term: primary  */
-#line 370 "grammar/parser.y"
+#line 542 "grammar/parser.y"
                 { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1891 "src/parser.c"
+#line 2253 "src/parser.c"
     break;
 
   case 118: /* primary: NAME  */
-#line 376 "grammar/parser.y"
+#line 548 "grammar/parser.y"
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         (yyval.int_val) =  label->value;
     }
-#line 1900 "src/parser.c"
+#line 2262 "src/parser.c"
     break;
 
   case 119: /* primary: immediate  */
-#line 380 "grammar/parser.y"
+#line 552 "grammar/parser.y"
                 { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1906 "src/parser.c"
+#line 2268 "src/parser.c"
     break;
 
   case 120: /* immediate: HEX_NUMBER  */
-#line 385 "grammar/parser.y"
+#line 557 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1912 "src/parser.c"
+#line 2274 "src/parser.c"
     break;
 
   case 121: /* immediate: DEC_NUMBER  */
-#line 386 "grammar/parser.y"
+#line 558 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1918 "src/parser.c"
+#line 2280 "src/parser.c"
     break;
 
   case 122: /* immediate: OCT_NUMBER  */
-#line 387 "grammar/parser.y"
+#line 559 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1924 "src/parser.c"
+#line 2286 "src/parser.c"
     break;
 
   case 123: /* immediate: BIN_NUMBER  */
-#line 388 "grammar/parser.y"
+#line 560 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 1930 "src/parser.c"
+#line 2292 "src/parser.c"
     break;
 
   case 124: /* reg_pair: B  */
-#line 392 "grammar/parser.y"
+#line 564 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 1936 "src/parser.c"
+#line 2298 "src/parser.c"
     break;
 
   case 125: /* reg_pair: D  */
-#line 393 "grammar/parser.y"
+#line 565 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 1942 "src/parser.c"
+#line 2304 "src/parser.c"
     break;
 
   case 126: /* reg_pair: H  */
-#line 394 "grammar/parser.y"
+#line 566 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 1948 "src/parser.c"
+#line 2310 "src/parser.c"
     break;
 
   case 127: /* reg_pair: SP  */
-#line 395 "grammar/parser.y"
+#line 567 "grammar/parser.y"
          { (yyval.int_val) = 3; }
-#line 1954 "src/parser.c"
+#line 2316 "src/parser.c"
     break;
 
   case 128: /* register: B  */
-#line 399 "grammar/parser.y"
+#line 571 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 1960 "src/parser.c"
+#line 2322 "src/parser.c"
     break;
 
   case 129: /* register: C  */
-#line 400 "grammar/parser.y"
+#line 572 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 1966 "src/parser.c"
+#line 2328 "src/parser.c"
     break;
 
   case 130: /* register: D  */
-#line 401 "grammar/parser.y"
+#line 573 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 1972 "src/parser.c"
+#line 2334 "src/parser.c"
     break;
 
   case 131: /* register: E  */
-#line 402 "grammar/parser.y"
+#line 574 "grammar/parser.y"
         { (yyval.int_val) = 3; }
-#line 1978 "src/parser.c"
+#line 2340 "src/parser.c"
     break;
 
   case 132: /* register: H  */
-#line 403 "grammar/parser.y"
+#line 575 "grammar/parser.y"
         { (yyval.int_val) = 4; }
-#line 1984 "src/parser.c"
+#line 2346 "src/parser.c"
     break;
 
   case 133: /* register: L  */
-#line 404 "grammar/parser.y"
+#line 576 "grammar/parser.y"
         { (yyval.int_val) = 5; }
-#line 1990 "src/parser.c"
+#line 2352 "src/parser.c"
     break;
 
   case 134: /* register: M  */
-#line 405 "grammar/parser.y"
+#line 577 "grammar/parser.y"
         { (yyval.int_val) = 6; }
-#line 1996 "src/parser.c"
+#line 2358 "src/parser.c"
     break;
 
   case 135: /* register: A  */
-#line 406 "grammar/parser.y"
+#line 578 "grammar/parser.y"
         { (yyval.int_val) = 7; }
-#line 2002 "src/parser.c"
+#line 2364 "src/parser.c"
     break;
 
 
-#line 2006 "src/parser.c"
+#line 2368 "src/parser.c"
 
       default: break;
     }
@@ -2195,7 +2557,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 408 "grammar/parser.y"
+#line 580 "grammar/parser.y"
 
 
 void yyerror(const char* msg) {

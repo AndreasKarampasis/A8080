@@ -283,54 +283,226 @@ logical
 
 branch
     : JMP expr
+    {
+        uint8_t opcode = 0b11000011;
+        uint8_t address = $expr;
+        printf("JMP %02X %04X\n", opcode, address);
+    }
     | JC expr
+    {
+        uint8_t opcode = 0b11011010;
+        uint8_t address = $expr;
+        printf("JC %02X %04X\n", opcode, address);
+    }
     | JNC expr
+    {
+        uint8_t opcode = 0b11010010;
+        uint8_t address = $expr;
+        printf("JNC %02X %04X\n", opcode, address);
+    }
     | JZ expr
+    {
+        uint8_t opcode = 0b11001010;
+        uint8_t address = $expr;
+        printf("JZ %02X %04X\n", opcode, address);
+    }
     | JNZ expr
+    {
+        uint8_t opcode = 0b11000010;
+        uint8_t address = $expr;
+        printf("JNZ %02X %04X\n", opcode, address);
+    }
     | JP expr
+    {
+        uint8_t opcode = 0b11110010;
+        uint8_t address = $expr;
+        printf("JP %02X %04X\n", opcode, address);
+    }
     | JM expr
+    {
+        uint8_t opcode = 0b11111010;
+        uint8_t address = $expr;
+        printf("JM %02X %04X\n", opcode, address);
+    }
     | JPE expr
+    {
+        uint8_t opcode = 0b11101010;
+        uint8_t address = $expr;
+        printf("JPE %02X %04X\n", opcode, address);
+    }
     | JPO expr
+    {
+        uint8_t opcode = 0b11100010;
+        uint8_t address = $expr;
+        printf("JPO %02X %04X\n", opcode, address);
+    }
     | CALL expr
+    {
+        uint8_t opcode = 0b11001101;
+        uint8_t address = $expr;
+        printf("CALL %02X %04X\n", opcode, address);
+    }
     | CC expr
+    {
+        uint8_t opcode = 0b11011100;
+        uint8_t address = $expr;
+        printf("CC %02X %04X\n", opcode, address);
+    }
     | CNC expr
+    {
+        uint8_t opcode = 0b11010100;
+        uint8_t address = $expr;
+        printf("CNC %02X %04X\n", opcode, address);
+    }
     | CZ expr
+    {
+        uint8_t opcode = 0b11001100;
+        uint8_t address = $expr;
+        printf("CZ %02X %04X\n", opcode, address);
+    }
     | CNZ expr
+    {
+        uint8_t opcode = 0b11000100;
+        uint8_t address = $expr;
+        printf("CNZ %02X %04X\n", opcode, address);
+    }
     | CP expr
+    {
+        uint8_t opcode = 0b11110100;
+        uint8_t address = $expr;
+        printf("CP %02X %04X\n", opcode, address);
+    }
     | CM expr
+    {
+        uint8_t opcode = 0b11111100;
+        uint8_t address = $expr;
+        printf("CM %02X %04X\n", opcode, address);
+    }
     | CPE expr
+    {
+        uint8_t opcode = 0b11101100;
+        uint8_t address = $expr;
+        printf("CPE %02X %04X\n", opcode, address);
+    }
     | CPO expr
+    {
+        uint8_t opcode = 0b11100100;
+        uint8_t address = $expr;
+        printf("CPO %02X %04X\n", opcode, address);
+    }
     | RET
+    {
+        uint8_t opcode = 0b11001001;
+        printf("RET %02X\n", opcode);
+    }
     | RC
+    {
+        uint8_t opcode = 0b11011000;
+        printf("RC %02X\n", opcode);
+    }
     | RNC
+    {
+        uint8_t opcode = 0b11010000;
+        printf("RNC %02X\n", opcode);
+    }
     | RZ
+    {
+        uint8_t opcode = 0b11001000;
+        printf("RZ %02X\n", opcode);
+    }
     | RNZ
+    {
+        uint8_t opcode = 0b11000000;
+        printf("RNZ %02X\n", opcode);
+    }
     | RP
+    {
+        uint8_t opcode = 0b11110000;
+        printf("RP %02X\n", opcode);
+    }
     | RM
+    {
+        uint8_t opcode = 0b11111000;
+        printf("RM %02X\n", opcode);
+    }
     | RPE
+    {
+        uint8_t opcode = 0b11101000;
+        printf("RPE %02X\n", opcode);
+    }
     | RPO
+    {
+        uint8_t opcode = 0b11100000;
+        printf("RPO %02X\n", opcode);
+    }
     | PCHL
+    {
+        uint8_t opcode = 0b11101001;
+        printf("PCHL %02X\n", opcode);
+    }
     ;
 
 stack_io
     : PUSH reg_pair
+    {
+        uint8_t opcode = 0b11000101 | ($reg_pair << 4);
+        printf("PUSH %02X\n", opcode);
+    }
     | POP reg_pair
+    {
+        uint8_t opcode = 0b11000001 | ($reg_pair << 4);
+        printf("POP %02X\n", opcode);
+    }
     | XTHL
+    {
+        uint8_t opcode = 0b11100011;
+        printf("XTHL %02X\n", opcode);
+    }
     | SPHL
+    {
+        uint8_t opcode = 0b11111001;
+        printf("SPHL %02X\n", opcode);
+    }
     | IN expr
+    {
+        uint8_t opcode = 0b11011011;
+        uint8_t input_device = $expr;
+        printf("IN %02X %02X\n", opcode, input_device);
+    }
     | OUT expr
+    {
+        uint8_t opcode = 0b11010011;
+        uint8_t input_device = $expr;
+        printf("OUT %02X %02X\n", opcode, input_device);
+    }
     ;
 
 control
     : EI
+    {
+        uint8_t opcode =  0b11111011;
+        printf("DI %02X\n", opcode);
+    }
     | DI
+    {
+        uint8_t opcode =  0b11110011;
+        printf("DI %02X\n", opcode);
+    }
     | NOP
     { 
         uint8_t opcode =  0;
         printf("NOP %02X\n", opcode);
     }
     | HLT
+    {
+        uint8_t opcode =  0b01110110;
+        printf("HLT %02X\n", opcode);
+    }
     | RST expr
+    {
+        uint8_t opcode = 0b11000111 | ($expr << 3);
+        printf("RST %02X\n", opcode);
+    }
     ;
 
 directives
