@@ -201,20 +201,84 @@ arithmetic
 
 logical
     : ANA register
+    {
+        uint8_t opcode = 0b10100000 | $register;
+        printf("ANA %02X\n", opcode);
+    }
     | ANI expr
+    {
+        uint8_t opcode = 0b11100110;
+        uint8_t data = $expr;
+        printf("ANI %02X %02X\n", opcode, data);
+    }
     | XRA register
+    {
+        uint8_t opcode = 0b10101000 | $register;
+        printf("XRA %02X\n", opcode);
+    }
     | XRI expr
+    {
+        uint8_t opcode = 0b11101110;
+        uint8_t data = $expr;
+        printf("XRI %02X %02X\n", opcode, data);
+    }
     | ORA register
+    {
+        uint8_t opcode = 0b10110000| $register;
+        printf("ORA %02X\n", opcode);
+    }
     | ORI expr
+    {
+        uint8_t opcode = 0b11110110;
+        uint8_t data = $expr;
+        printf("ORI %02X %02X\n", opcode, data);
+    }
     | CMP register
+    {
+        uint8_t opcode = 0b10111000| $register;
+        printf("CMP %02X\n", opcode);
+    }
     | CPI expr
+    {
+        uint8_t opcode = 0b11111110;
+        uint8_t data = $expr;
+        printf("CPI %02X %02X\n", opcode, data);
+    }
     | RLC
+    {
+        uint8_t opcode = 0b00000111;
+        printf("RLC %02X\n", opcode);
+    }
     | RRC
+    {
+        uint8_t opcode = 0b00001111;
+        printf("RRC %02X\n", opcode);
+    }
     | RAL
+    {
+        uint8_t opcode = 0b00010111;
+        printf("RAL %02X\n", opcode);
+    }
     | RAR
+    {
+        uint8_t opcode = 0b00001111;
+        printf("RAR %02X\n", opcode);
+    }
     | CMA
+    {
+        uint8_t opcode = 0b00101111;
+        printf("CMA %02X\n", opcode);
+    }
     | CMC
+    {
+        uint8_t opcode = 0b00111111;
+        printf("CMC %02X\n", opcode);
+    }
     | STC
+    {
+        uint8_t opcode = 0b00110111;
+        printf("STC %02X\n", opcode);
+    }
     ;
 
 branch
