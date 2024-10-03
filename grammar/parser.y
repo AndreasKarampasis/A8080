@@ -15,6 +15,7 @@ extern FILE *yyin;
 extern FILE *yyout;
 
 Symboltable *symbolTable;
+size_t LC = 0;
 %}
 
 %defines "include/parser.h"
@@ -517,7 +518,7 @@ directives
     | SET 
 
 label
-    : NAME ':' { st_insert(symbolTable, st_new_symbol($NAME, false)); }
+    : NAME ':' { st_insert(symbolTable, st_new_symbol($NAME, LC, false)); }
     ;
 
 
@@ -547,7 +548,7 @@ primary
     : NAME
     { 
         Symbol *label = st_lookup(symbolTable, $NAME);
-        $$ =  label->value;
+        $primary =  label->value;
     }
     | immediate { $primary = $immediate; }; 
     ;

@@ -55,6 +55,6 @@ Symbol *st_insert(Symboltable *table, Symbol *entry);
  */
 Symbol *st_lookup(Symboltable *table, const char *key);
 
-Symbol *st_new_symbol(const char *key, bool is_data);
+Symbol *st_new_symbol(const char *key, uint16_t value, bool is_data);
 
 #endif

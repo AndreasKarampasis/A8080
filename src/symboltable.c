@@ -6,7 +6,6 @@
 #include <string.h>
 
 extern int yylineno;
-extern uint16_t LC;
 
 static size_t st_index(Symboltable *table, const char *key) {
 	return (table->hash(key, strlen(key)) % table->capacity);
@@ -135,7 +134,7 @@ Symbol *st_lookup(Symboltable *table, const char *key) {
  * 
  * @return The created symbol, or NULL if memory allocation fails.
  */
-Symbol *st_new_symbol(const char *key, bool is_data) {
+Symbol *st_new_symbol(const char *key, uint16_t value, bool is_data) {
 	Symbol *new_entry = malloc(sizeof(Symbol));
 
 	if (new_entry == NULL) {
@@ -145,7 +144,7 @@ Symbol *st_new_symbol(const char *key, bool is_data) {
 
 	new_entry->is_data = is_data;
 	new_entry->next = NULL;
-	new_entry->value = LC;
+	new_entry->value = value;
 	new_entry->line = yylineno;
 	new_entry->name = strdup(key);
 
