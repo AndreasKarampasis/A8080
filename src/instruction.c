@@ -14,6 +14,15 @@ Instruction *instrs = (Instruction *)0;
 unsigned instrs_capacity = 0;
 unsigned int current_instrs = 0;
 
+/**
+ * @brief Expands the instruction array when it reaches its capacity.
+ * 
+ * This function reallocates memory for the instruction array when it reaches full capacity,
+ * increasing the size by a defined `EXPAND_SIZE`. The existing instructions are copied over to the
+ * newly allocated memory.
+ * 
+ * @note The function asserts that the array is full before expanding.
+ */
 void i_expand(void) {
   assert(instrs_capacity == current_instrs);
 
@@ -30,6 +39,22 @@ void i_expand(void) {
   instrs_capacity += EXPAND_SIZE;
 }
 
+/**
+ * @brief Emits a new instruction and adds it to the list of instructions.
+ * 
+ * This function creates a new instruction with the provided parameters and adds it
+ * to the instruction array. If the instruction array is full, it calls `i_expand()` to
+ * increase the capacity before adding the new instruction.
+ * 
+ * @param mnemonic The mnemonic of the instruction (e.g., MOV, ADD).
+ * @param addr The address of the instruction.
+ * @param op The opcode of the instruction.
+ * @param arg1 The first operand of the instruction.
+ * @param arg2 The second operand of the instruction.
+ * @param type The type of the instruction (REGISTER, IMMEDIATE, or DIRECT).
+ * 
+ * @return A pointer to the newly emitted instruction.
+ */
 Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg1, uint8_t arg2, InstrType type) {
   if (current_instrs == instrs_capacity) {
     i_expand();
@@ -43,9 +68,6 @@ Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg
   i->type = type;
   return i;
 }
-
-#include <stdio.h>
-#include "instruction.h"
 
 /**
  * @brief Prints all emitted instructions in a formatted table.
