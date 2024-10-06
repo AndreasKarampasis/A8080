@@ -352,7 +352,6 @@ logical
         uint8_t opcode = 0b00110111;
         i_emit("STC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("STC %02X\n", opcode);
     }
     ;
 
@@ -360,160 +359,170 @@ branch
     : JMP expr
     {
         uint8_t opcode = 0b11000011;
-        uint8_t address = $expr;
-        printf("JMP %02X %04X\n", opcode, address);
+        i_emit("JMP", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JC expr
     {
         uint8_t opcode = 0b11011010;
-        uint8_t address = $expr;
-        printf("JC %02X %04X\n", opcode, address);
+        i_emit("JC", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JNC expr
     {
         uint8_t opcode = 0b11010010;
-        uint8_t address = $expr;
-        printf("JNC %02X %04X\n", opcode, address);
+        i_emit("JNC", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JZ expr
     {
         uint8_t opcode = 0b11001010;
-        uint8_t address = $expr;
-        printf("JZ %02X %04X\n", opcode, address);
+        i_emit("JZ", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JNZ expr
     {
         uint8_t opcode = 0b11000010;
-        uint8_t address = $expr;
-        printf("JNZ %02X %04X\n", opcode, address);
+        i_emit("JNZ", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JP expr
     {
         uint8_t opcode = 0b11110010;
-        uint8_t address = $expr;
-        printf("JP %02X %04X\n", opcode, address);
+        i_emit("JP", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JM expr
     {
         uint8_t opcode = 0b11111010;
-        uint8_t address = $expr;
-        printf("JM %02X %04X\n", opcode, address);
+        i_emit("JM", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JPE expr
     {
         uint8_t opcode = 0b11101010;
-        uint8_t address = $expr;
-        printf("JPE %02X %04X\n", opcode, address);
+        i_emit("JPE", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | JPO expr
     {
         uint8_t opcode = 0b11100010;
-        uint8_t address = $expr;
-        printf("JPO %02X %04X\n", opcode, address);
+        i_emit("JPO", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CALL expr
     {
         uint8_t opcode = 0b11001101;
-        uint8_t address = $expr;
-        printf("CALL %02X %04X\n", opcode, address);
+        i_emit("CALL", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CC expr
     {
         uint8_t opcode = 0b11011100;
-        uint8_t address = $expr;
-        printf("CC %02X %04X\n", opcode, address);
+        i_emit("CC", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CNC expr
     {
         uint8_t opcode = 0b11010100;
-        uint8_t address = $expr;
-        printf("CNC %02X %04X\n", opcode, address);
+        i_emit("CNC", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CZ expr
     {
         uint8_t opcode = 0b11001100;
-        uint8_t address = $expr;
-        printf("CZ %02X %04X\n", opcode, address);
+        i_emit("CZ", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CNZ expr
     {
         uint8_t opcode = 0b11000100;
-        uint8_t address = $expr;
-        printf("CNZ %02X %04X\n", opcode, address);
+        i_emit("CNZ", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CP expr
     {
         uint8_t opcode = 0b11110100;
-        uint8_t address = $expr;
-        printf("CP %02X %04X\n", opcode, address);
+        i_emit("CP", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CM expr
     {
         uint8_t opcode = 0b11111100;
-        uint8_t address = $expr;
-        printf("CM %02X %04X\n", opcode, address);
+        i_emit("CM", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CPE expr
     {
         uint8_t opcode = 0b11101100;
-        uint8_t address = $expr;
-        printf("CPE %02X %04X\n", opcode, address);
+        i_emit("CPE", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | CPO expr
     {
         uint8_t opcode = 0b11100100;
-        uint8_t address = $expr;
-        printf("CPO %02X %04X\n", opcode, address);
+        i_emit("CPO", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
     | RET
     {
         uint8_t opcode = 0b11001001;
-        printf("RET %02X\n", opcode);
+        i_emit("RET", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RC
     {
         uint8_t opcode = 0b11011000;
-        printf("RC %02X\n", opcode);
+        i_emit("RC", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RNC
     {
         uint8_t opcode = 0b11010000;
-        printf("RNC %02X\n", opcode);
+        i_emit("RNC", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RZ
     {
         uint8_t opcode = 0b11001000;
-        printf("RZ %02X\n", opcode);
+        i_emit("RZ", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RNZ
     {
         uint8_t opcode = 0b11000000;
-        printf("RNZ %02X\n", opcode);
+        i_emit("RNZ", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RP
     {
         uint8_t opcode = 0b11110000;
-        printf("RP %02X\n", opcode);
+        i_emit("RP", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RM
     {
         uint8_t opcode = 0b11111000;
-        printf("RM %02X\n", opcode);
+        i_emit("RM", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RPE
     {
         uint8_t opcode = 0b11101000;
-        printf("RPE %02X\n", opcode);
+        i_emit("RPE", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | RPO
     {
         uint8_t opcode = 0b11100000;
-        printf("RPO %02X\n", opcode);
+        i_emit("RPO", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
     | PCHL
     {
         uint8_t opcode = 0b11101001;
-        printf("PCHL %02X\n", opcode);
+        i_emit("PCHL", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
     ;
 
