@@ -168,8 +168,7 @@ void st_print(Symboltable *table) {
 		Symbol *tmp = table->entries[i];
 		while (tmp != NULL) {
 			// Adjusting field widths for neat alignment
-			printf("| %-15s | %-10d | %-5d |\n", tmp->name, tmp->value, tmp->line);
-			tmp = tmp->next;
+            printf("| %-15s | 0x%04X     | %-5d |\n", tmp->name, tmp->value, tmp->line);			tmp = tmp->next;
 		}
 	}
 

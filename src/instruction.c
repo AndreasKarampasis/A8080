@@ -55,7 +55,7 @@ void i_expand(void) {
  * 
  * @return A pointer to the newly emitted instruction.
  */
-Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg1, uint8_t arg2, InstrType type) {
+Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t low_arg, uint8_t high_arg, InstrType type) {
   if (current_instrs == instrs_capacity) {
     i_expand();
   }
@@ -63,8 +63,8 @@ Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg
   i->mnemonic = strdup(mnemonic);
   i->address = addr;
   i->opcode = op;
-  i->operand1 = arg1;
-  i->operand2 = arg2;
+  i->low_operand = low_arg;
+  i->high_operand = high_arg;
   i->type = type;
   return i;
 }
@@ -83,7 +83,7 @@ void i_printInstructions() {
 
     // Header
     printf("+----------------+---------+--------+----------+----------+------------+\n");
-    printf("| Mnemonic       | Address | Opcode | Operand1 | Operand2 | Type       |\n");
+    printf("| Mnemonic       | Address | Opcode | LowData  | HighData | Type       |\n");
     printf("+----------------+---------+--------+----------+----------+------------+\n");
 
     // Loop through instructions and print each one
@@ -95,8 +95,8 @@ void i_printInstructions() {
                instr->mnemonic,
                instr->address,
                instr->opcode,
-               instr->operand1,
-               instr->operand2,
+               instr->low_operand,
+               instr->high_operand,
                (instr->type == REGISTER)  ? "REGISTER" :
                (instr->type == IMMEDIATE) ? "IMMEDIATE" :
                                             "DIRECT");

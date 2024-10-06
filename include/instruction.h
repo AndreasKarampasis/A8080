@@ -14,8 +14,8 @@ typedef struct _instr {
 	char *mnemonic;
 	uint16_t address;	// 0x0000-0xFFFF valid address
 	uint8_t opcode;
-	uint8_t operand1;	// TODO: maybe expr
-	uint8_t operand2;	// TODO: maybe expr
+	uint8_t low_operand;	// TODO: maybe expr
+	uint8_t high_operand;	// TODO: maybe expr
 	InstrType type;
 } Instruction;
 
@@ -39,7 +39,7 @@ extern unsigned int current_instrs;
  * 
  * @return A pointer to the newly emitted instruction.
  */
-Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg1, uint8_t arg2, InstrType type);
+Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t low_arg, uint8_t high_arg, InstrType type);
 
 /**
  * @brief Prints all emitted instructions in a formatted table.

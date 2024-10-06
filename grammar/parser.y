@@ -42,8 +42,8 @@ size_t LC = 0;
 %token<int_val> HEX_NUMBER DEC_NUMBER OCT_NUMBER BIN_NUMBER
 %token<string_val> STR_CONST CHAR
 
-%type<int_val>register reg_pair
-%type<opcode> data_transfer arithmetic logical branch stack_io control
+%type<int_val> register reg_pair
+%type<opcode>  data_transfer arithmetic logical branch stack_io control
 %type<int_val> immediate primary term expr
 
 
@@ -85,21 +85,29 @@ data_transfer
     | MVI register ',' expr
     { 
         uint8_t opcode =  0b00000110 | ($register << 3);
+        i_emit("MVI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
         printf("MVI %02X %02X\n", opcode, $expr);
     }
     | LXI reg_pair ',' expr
     { 
         uint8_t opcode =  0b00000001 | ( $reg_pair << 4);
+        i_emit("LXI", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
         printf("LXI %02X\n", opcode);
     }
     | LDA expr
     { 
         uint8_t opcode =  0b00111010;
+        i_emit("LDA", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
         printf("LDA %02X\n", opcode);
     }
     | STA expr
     {
         uint8_t opcode =  0b00110010;
+        i_emit("STA", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
         printf("STA %02X\n", opcode); 
     }
     | LDAX reg_pair
@@ -119,11 +127,15 @@ data_transfer
     | LHLD expr
     { 
         uint8_t opcode =  0b00101010;
+        i_emit("LHLD", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
         printf("LHLD %02X\n", opcode);
     }
     | SHLD expr
     { 
         uint8_t opcode =  0b00100010;
+        i_emit("SHLD", LC, opcode, $expr & 0xFF, $expr >> 8, DIRECT);
+        LC = LC + DIRECT;
         printf("SHLD %02X\n", opcode);
     }
     | XCHG
@@ -146,6 +158,8 @@ arithmetic
     | ADI expr
     {
         uint8_t opcode =  0b11000110;
+        i_emit("ADI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
         printf("ADI %02X %02X\n", opcode, $expr); 
     }
     | ADC register
@@ -158,6 +172,8 @@ arithmetic
     | ACI expr
     {
         uint8_t opcode =  0b11001110;
+        i_emit("ACI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
         printf("ACI %02X %02X\n", opcode, $expr); 
     }
     | SUB register
@@ -170,6 +186,8 @@ arithmetic
     | SUI expr
     {
         uint8_t opcode =  0b11010110;
+        i_emit("SUI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
         printf("SUI %02X %02X\n", opcode, $expr); 
     }
     | SBB register
@@ -182,6 +200,8 @@ arithmetic
     | SBI expr
     {
         uint8_t opcode =  0b11011110;
+        i_emit("SBI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
         printf("SBI %02X %02X\n", opcode, $expr); 
     }
     | INR register
@@ -239,8 +259,9 @@ logical
     | ANI expr
     {
         uint8_t opcode = 0b11100110;
-        uint8_t data = $expr;
-        printf("ANI %02X %02X\n", opcode, data);
+        i_emit("ANI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
+        printf("ANI %02X %02X\n", opcode, $expr);
     }
     | XRA register
     {
@@ -252,8 +273,9 @@ logical
     | XRI expr
     {
         uint8_t opcode = 0b11101110;
-        uint8_t data = $expr;
-        printf("XRI %02X %02X\n", opcode, data);
+        i_emit("XRI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
+        printf("XRI %02X %02X\n", opcode, $expr);
     }
     | ORA register
     {
@@ -265,8 +287,9 @@ logical
     | ORI expr
     {
         uint8_t opcode = 0b11110110;
-        uint8_t data = $expr;
-        printf("ORI %02X %02X\n", opcode, data);
+        i_emit("ORI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
+        printf("ORI %02X %02X\n", opcode, $expr);
     }
     | CMP register
     {
@@ -278,8 +301,9 @@ logical
     | CPI expr
     {
         uint8_t opcode = 0b11111110;
-        uint8_t data = $expr;
-        printf("CPI %02X %02X\n", opcode, data);
+        i_emit("CPI", LC, opcode, $expr, 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
+        printf("CPI %02X %02X\n", opcode, $expr);
     }
     | RLC
     {
