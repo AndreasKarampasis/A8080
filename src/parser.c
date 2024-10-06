@@ -654,19 +654,19 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int16 yyrline[] =
 {
        0,    58,    58,    58,    61,    62,    63,    64,    68,    69,
-      70,    71,    72,    73,    74,    78,    85,    92,    99,   106,
-     113,   120,   127,   134,   141,   151,   158,   165,   172,   179,
-     186,   193,   200,   207,   214,   221,   228,   235,   242,   252,
-     259,   266,   273,   280,   287,   294,   301,   308,   315,   322,
-     329,   336,   343,   350,   360,   366,   372,   378,   384,   390,
-     396,   402,   408,   414,   420,   426,   432,   438,   444,   450,
-     456,   462,   468,   473,   478,   483,   488,   493,   498,   503,
-     508,   513,   521,   528,   535,   542,   549,   555,   564,   569,
-     574,   581,   586,   594,   595,   596,   597,   598,   599,   600,
-     601,   602,   605,   610,   611,   612,   613,   614,   615,   616,
-     617,   618,   619,   620,   624,   625,   626,   627,   632,   637,
-     642,   643,   644,   645,   649,   650,   651,   652,   656,   657,
-     658,   659,   660,   661,   662,   663
+      70,    71,    72,    73,    74,    78,    84,    90,    96,   102,
+     108,   114,   120,   126,   132,   141,   147,   153,   159,   165,
+     171,   177,   183,   189,   195,   201,   207,   213,   219,   228,
+     234,   240,   246,   252,   258,   264,   270,   276,   282,   288,
+     294,   300,   306,   312,   321,   327,   333,   339,   345,   351,
+     357,   363,   369,   375,   381,   387,   393,   399,   405,   411,
+     417,   423,   429,   435,   441,   447,   453,   459,   465,   471,
+     477,   483,   492,   498,   504,   510,   516,   522,   531,   537,
+     543,   549,   555,   565,   566,   567,   568,   569,   570,   571,
+     572,   573,   576,   581,   582,   583,   584,   585,   586,   587,
+     588,   589,   590,   591,   595,   596,   597,   598,   603,   608,
+     613,   614,   615,   616,   620,   621,   622,   623,   627,   628,
+     629,   630,   631,   632,   633,   634
 };
 #endif
 
@@ -1437,1019 +1437,990 @@ yyreduce:
         uint8_t opcode =  0b01000000 | ((yyvsp[-2].int_val) << 3) | ((yyvsp[0].int_val));
         i_emit("MOV", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("MOV %02X\n", opcode);
     }
-#line 1443 "src/parser.c"
+#line 1442 "src/parser.c"
     break;
 
   case 16: /* data_transfer: MVI register ',' expr  */
-#line 86 "grammar/parser.y"
+#line 85 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000110 | ((yyvsp[-2].int_val) << 3);
         i_emit("MVI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("MVI %02X %02X\n", opcode, (yyvsp[0].int_val));
     }
-#line 1454 "src/parser.c"
+#line 1452 "src/parser.c"
     break;
 
   case 17: /* data_transfer: LXI reg_pair ',' expr  */
-#line 93 "grammar/parser.y"
+#line 91 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000001 | ( (yyvsp[-2].int_val) << 4);
         i_emit("LXI", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
         LC = LC + DIRECT;
-        printf("LXI %02X\n", opcode);
     }
-#line 1465 "src/parser.c"
+#line 1462 "src/parser.c"
     break;
 
   case 18: /* data_transfer: LDA expr  */
-#line 100 "grammar/parser.y"
+#line 97 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00111010;
         i_emit("LDA", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
         LC = LC + DIRECT;
-        printf("LDA %02X\n", opcode);
     }
-#line 1476 "src/parser.c"
+#line 1472 "src/parser.c"
     break;
 
   case 19: /* data_transfer: STA expr  */
-#line 107 "grammar/parser.y"
+#line 103 "grammar/parser.y"
     {
         uint8_t opcode =  0b00110010;
         i_emit("STA", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
         LC = LC + DIRECT;
-        printf("STA %02X\n", opcode); 
     }
-#line 1487 "src/parser.c"
+#line 1482 "src/parser.c"
     break;
 
   case 20: /* data_transfer: LDAX reg_pair  */
-#line 114 "grammar/parser.y"
+#line 109 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00001010 | ( (yyvsp[0].int_val) << 4);
         i_emit("LDAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("LDAX %02X\n", opcode);
     }
-#line 1498 "src/parser.c"
+#line 1492 "src/parser.c"
     break;
 
   case 21: /* data_transfer: STAX reg_pair  */
-#line 121 "grammar/parser.y"
+#line 115 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000010 | ( (yyvsp[0].int_val) << 4);
         i_emit("STAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("STAX %02X\n", opcode);
     }
-#line 1509 "src/parser.c"
+#line 1502 "src/parser.c"
     break;
 
   case 22: /* data_transfer: LHLD expr  */
-#line 128 "grammar/parser.y"
+#line 121 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00101010;
         i_emit("LHLD", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
         LC = LC + DIRECT;
-        printf("LHLD %02X\n", opcode);
     }
-#line 1520 "src/parser.c"
+#line 1512 "src/parser.c"
     break;
 
   case 23: /* data_transfer: SHLD expr  */
-#line 135 "grammar/parser.y"
+#line 127 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00100010;
         i_emit("SHLD", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
         LC = LC + DIRECT;
-        printf("SHLD %02X\n", opcode);
     }
-#line 1531 "src/parser.c"
+#line 1522 "src/parser.c"
     break;
 
   case 24: /* data_transfer: XCHG  */
-#line 142 "grammar/parser.y"
+#line 133 "grammar/parser.y"
     { 
         uint8_t opcode =  0b11101011;
         i_emit("XCHG", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("XCHG %02X\n", opcode);
     }
-#line 1542 "src/parser.c"
+#line 1532 "src/parser.c"
     break;
 
   case 25: /* arithmetic: ADD register  */
-#line 152 "grammar/parser.y"
+#line 142 "grammar/parser.y"
     {
         uint8_t opcode =  0b10000000 | ((yyvsp[0].int_val));
         i_emit("ADD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("ADD %02X\n", opcode); 
     }
-#line 1553 "src/parser.c"
+#line 1542 "src/parser.c"
     break;
 
   case 26: /* arithmetic: ADI expr  */
-#line 159 "grammar/parser.y"
+#line 148 "grammar/parser.y"
     {
         uint8_t opcode =  0b11000110;
         i_emit("ADI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("ADI %02X %02X\n", opcode, (yyvsp[0].int_val)); 
     }
-#line 1564 "src/parser.c"
+#line 1552 "src/parser.c"
     break;
 
   case 27: /* arithmetic: ADC register  */
-#line 166 "grammar/parser.y"
+#line 154 "grammar/parser.y"
     {
         uint8_t opcode =  0b10001000 | ((yyvsp[0].int_val));
         i_emit("ADC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("ADC %02X\n", opcode); 
     }
-#line 1575 "src/parser.c"
+#line 1562 "src/parser.c"
     break;
 
   case 28: /* arithmetic: ACI expr  */
-#line 173 "grammar/parser.y"
+#line 160 "grammar/parser.y"
     {
         uint8_t opcode =  0b11001110;
         i_emit("ACI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("ACI %02X %02X\n", opcode, (yyvsp[0].int_val)); 
     }
-#line 1586 "src/parser.c"
+#line 1572 "src/parser.c"
     break;
 
   case 29: /* arithmetic: SUB register  */
-#line 180 "grammar/parser.y"
+#line 166 "grammar/parser.y"
     {
         uint8_t opcode =  0b10010000 | ((yyvsp[0].int_val));
         i_emit("SUB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("SUB %02X\n", opcode); 
     }
-#line 1597 "src/parser.c"
+#line 1582 "src/parser.c"
     break;
 
   case 30: /* arithmetic: SUI expr  */
-#line 187 "grammar/parser.y"
+#line 172 "grammar/parser.y"
     {
         uint8_t opcode =  0b11010110;
         i_emit("SUI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("SUI %02X %02X\n", opcode, (yyvsp[0].int_val)); 
     }
-#line 1608 "src/parser.c"
+#line 1592 "src/parser.c"
     break;
 
   case 31: /* arithmetic: SBB register  */
-#line 194 "grammar/parser.y"
+#line 178 "grammar/parser.y"
     {
         uint8_t opcode =  0b10011000 | ((yyvsp[0].int_val));
         i_emit("SBB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("SBB %02X\n", opcode); 
     }
-#line 1619 "src/parser.c"
+#line 1602 "src/parser.c"
     break;
 
   case 32: /* arithmetic: SBI expr  */
-#line 201 "grammar/parser.y"
+#line 184 "grammar/parser.y"
     {
         uint8_t opcode =  0b11011110;
         i_emit("SBI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("SBI %02X %02X\n", opcode, (yyvsp[0].int_val)); 
     }
-#line 1630 "src/parser.c"
+#line 1612 "src/parser.c"
     break;
 
   case 33: /* arithmetic: INR register  */
-#line 208 "grammar/parser.y"
+#line 190 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000100 | ((yyvsp[0].int_val) << 3);
         i_emit("INR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("INR %02X\n", opcode); 
     }
-#line 1641 "src/parser.c"
+#line 1622 "src/parser.c"
     break;
 
   case 34: /* arithmetic: DCR register  */
-#line 215 "grammar/parser.y"
+#line 196 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000101 | ((yyvsp[0].int_val) << 3);
         i_emit("DCR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("DCR %02X\n", opcode); 
     }
-#line 1652 "src/parser.c"
+#line 1632 "src/parser.c"
     break;
 
   case 35: /* arithmetic: INX reg_pair  */
-#line 222 "grammar/parser.y"
+#line 202 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000011 | ((yyvsp[0].int_val) << 4);
         i_emit("INX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("INX %02X\n", opcode); 
     }
-#line 1663 "src/parser.c"
+#line 1642 "src/parser.c"
     break;
 
   case 36: /* arithmetic: DCX reg_pair  */
-#line 229 "grammar/parser.y"
+#line 208 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001011 | ((yyvsp[0].int_val) << 4);
         i_emit("DCX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("DCX %02X\n", opcode); 
     }
-#line 1674 "src/parser.c"
+#line 1652 "src/parser.c"
     break;
 
   case 37: /* arithmetic: DAD reg_pair  */
-#line 236 "grammar/parser.y"
+#line 214 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001001 | ((yyvsp[0].int_val) << 4);
         i_emit("DAD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("DAD %02X\n", opcode); 
     }
-#line 1685 "src/parser.c"
+#line 1662 "src/parser.c"
     break;
 
   case 38: /* arithmetic: DAA  */
-#line 243 "grammar/parser.y"
+#line 220 "grammar/parser.y"
     {
         uint8_t opcode =  0b00100111;
         i_emit("DAA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("DAA %02X\n", opcode); 
     }
-#line 1696 "src/parser.c"
+#line 1672 "src/parser.c"
     break;
 
   case 39: /* logical: ANA register  */
-#line 253 "grammar/parser.y"
+#line 229 "grammar/parser.y"
     {
         uint8_t opcode = 0b10100000 | (yyvsp[0].int_val);
         i_emit("ANA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("ANA %02X\n", opcode);
     }
-#line 1707 "src/parser.c"
+#line 1682 "src/parser.c"
     break;
 
   case 40: /* logical: ANI expr  */
-#line 260 "grammar/parser.y"
+#line 235 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100110;
         i_emit("ANI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("ANI %02X %02X\n", opcode, (yyvsp[0].int_val));
     }
-#line 1718 "src/parser.c"
+#line 1692 "src/parser.c"
     break;
 
   case 41: /* logical: XRA register  */
-#line 267 "grammar/parser.y"
+#line 241 "grammar/parser.y"
     {
         uint8_t opcode = 0b10101000 | (yyvsp[0].int_val);
         i_emit("XRA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("XRA %02X\n", opcode);
     }
-#line 1729 "src/parser.c"
+#line 1702 "src/parser.c"
     break;
 
   case 42: /* logical: XRI expr  */
-#line 274 "grammar/parser.y"
+#line 247 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101110;
         i_emit("XRI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("XRI %02X %02X\n", opcode, (yyvsp[0].int_val));
     }
-#line 1740 "src/parser.c"
+#line 1712 "src/parser.c"
     break;
 
   case 43: /* logical: ORA register  */
-#line 281 "grammar/parser.y"
+#line 253 "grammar/parser.y"
     {
         uint8_t opcode = 0b10110000| (yyvsp[0].int_val);
         i_emit("ORA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("ORA %02X\n", opcode);
     }
-#line 1751 "src/parser.c"
+#line 1722 "src/parser.c"
     break;
 
   case 44: /* logical: ORI expr  */
-#line 288 "grammar/parser.y"
+#line 259 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110110;
         i_emit("ORI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("ORI %02X %02X\n", opcode, (yyvsp[0].int_val));
     }
-#line 1762 "src/parser.c"
+#line 1732 "src/parser.c"
     break;
 
   case 45: /* logical: CMP register  */
-#line 295 "grammar/parser.y"
+#line 265 "grammar/parser.y"
     {
         uint8_t opcode = 0b10111000| (yyvsp[0].int_val);
         i_emit("CMP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("CMP %02X\n", opcode);
     }
-#line 1773 "src/parser.c"
+#line 1742 "src/parser.c"
     break;
 
   case 46: /* logical: CPI expr  */
-#line 302 "grammar/parser.y"
+#line 271 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111110;
         i_emit("CPI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
         LC = LC + IMMEDIATE;
-        printf("CPI %02X %02X\n", opcode, (yyvsp[0].int_val));
     }
-#line 1784 "src/parser.c"
+#line 1752 "src/parser.c"
     break;
 
   case 47: /* logical: RLC  */
-#line 309 "grammar/parser.y"
+#line 277 "grammar/parser.y"
     {
         uint8_t opcode = 0b00000111;
         i_emit("RLC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("RLC %02X\n", opcode);
     }
-#line 1795 "src/parser.c"
+#line 1762 "src/parser.c"
     break;
 
   case 48: /* logical: RRC  */
-#line 316 "grammar/parser.y"
+#line 283 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
         i_emit("RRC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("RRC %02X\n", opcode);
     }
-#line 1806 "src/parser.c"
+#line 1772 "src/parser.c"
     break;
 
   case 49: /* logical: RAL  */
-#line 323 "grammar/parser.y"
+#line 289 "grammar/parser.y"
     {
         uint8_t opcode = 0b00010111;
         i_emit("RAL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("RAL %02X\n", opcode);
     }
-#line 1817 "src/parser.c"
+#line 1782 "src/parser.c"
     break;
 
   case 50: /* logical: RAR  */
-#line 330 "grammar/parser.y"
+#line 295 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
         i_emit("RAR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("RAR %02X\n", opcode);
     }
-#line 1828 "src/parser.c"
+#line 1792 "src/parser.c"
     break;
 
   case 51: /* logical: CMA  */
-#line 337 "grammar/parser.y"
+#line 301 "grammar/parser.y"
     {
         uint8_t opcode = 0b00101111;
         i_emit("CMA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("CMA %02X\n", opcode);
     }
-#line 1839 "src/parser.c"
+#line 1802 "src/parser.c"
     break;
 
   case 52: /* logical: CMC  */
-#line 344 "grammar/parser.y"
+#line 307 "grammar/parser.y"
     {
         uint8_t opcode = 0b00111111;
         i_emit("CMC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("CMC %02X\n", opcode);
     }
-#line 1850 "src/parser.c"
+#line 1812 "src/parser.c"
     break;
 
   case 53: /* logical: STC  */
-#line 351 "grammar/parser.y"
+#line 313 "grammar/parser.y"
     {
         uint8_t opcode = 0b00110111;
         i_emit("STC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("STC %02X\n", opcode);
     }
-#line 1861 "src/parser.c"
+#line 1822 "src/parser.c"
     break;
 
   case 54: /* branch: JMP expr  */
-#line 361 "grammar/parser.y"
+#line 322 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000011;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JMP %02X %04X\n", opcode, address);
+        i_emit("JMP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1871 "src/parser.c"
+#line 1832 "src/parser.c"
     break;
 
   case 55: /* branch: JC expr  */
-#line 367 "grammar/parser.y"
+#line 328 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JC %02X %04X\n", opcode, address);
+        i_emit("JC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1881 "src/parser.c"
+#line 1842 "src/parser.c"
     break;
 
   case 56: /* branch: JNC expr  */
-#line 373 "grammar/parser.y"
+#line 334 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JNC %02X %04X\n", opcode, address);
+        i_emit("JNC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1891 "src/parser.c"
+#line 1852 "src/parser.c"
     break;
 
   case 57: /* branch: JZ expr  */
-#line 379 "grammar/parser.y"
+#line 340 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JZ %02X %04X\n", opcode, address);
+        i_emit("JZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1901 "src/parser.c"
+#line 1862 "src/parser.c"
     break;
 
   case 58: /* branch: JNZ expr  */
-#line 385 "grammar/parser.y"
+#line 346 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JNZ %02X %04X\n", opcode, address);
+        i_emit("JNZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1911 "src/parser.c"
+#line 1872 "src/parser.c"
     break;
 
   case 59: /* branch: JP expr  */
-#line 391 "grammar/parser.y"
+#line 352 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JP %02X %04X\n", opcode, address);
+        i_emit("JP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1921 "src/parser.c"
+#line 1882 "src/parser.c"
     break;
 
   case 60: /* branch: JM expr  */
-#line 397 "grammar/parser.y"
+#line 358 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JM %02X %04X\n", opcode, address);
+        i_emit("JM", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1931 "src/parser.c"
+#line 1892 "src/parser.c"
     break;
 
   case 61: /* branch: JPE expr  */
-#line 403 "grammar/parser.y"
+#line 364 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JPE %02X %04X\n", opcode, address);
+        i_emit("JPE", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1941 "src/parser.c"
+#line 1902 "src/parser.c"
     break;
 
   case 62: /* branch: JPO expr  */
-#line 409 "grammar/parser.y"
+#line 370 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100010;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("JPO %02X %04X\n", opcode, address);
+        i_emit("JPO", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1951 "src/parser.c"
+#line 1912 "src/parser.c"
     break;
 
   case 63: /* branch: CALL expr  */
-#line 415 "grammar/parser.y"
+#line 376 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001101;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CALL %02X %04X\n", opcode, address);
+        i_emit("CALL", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1961 "src/parser.c"
+#line 1922 "src/parser.c"
     break;
 
   case 64: /* branch: CC expr  */
-#line 421 "grammar/parser.y"
+#line 382 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CC %02X %04X\n", opcode, address);
+        i_emit("CC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1971 "src/parser.c"
+#line 1932 "src/parser.c"
     break;
 
   case 65: /* branch: CNC expr  */
-#line 427 "grammar/parser.y"
+#line 388 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CNC %02X %04X\n", opcode, address);
+        i_emit("CNC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1981 "src/parser.c"
+#line 1942 "src/parser.c"
     break;
 
   case 66: /* branch: CZ expr  */
-#line 433 "grammar/parser.y"
+#line 394 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CZ %02X %04X\n", opcode, address);
+        i_emit("CZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 1991 "src/parser.c"
+#line 1952 "src/parser.c"
     break;
 
   case 67: /* branch: CNZ expr  */
-#line 439 "grammar/parser.y"
+#line 400 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CNZ %02X %04X\n", opcode, address);
+        i_emit("CNZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 2001 "src/parser.c"
+#line 1962 "src/parser.c"
     break;
 
   case 68: /* branch: CP expr  */
-#line 445 "grammar/parser.y"
+#line 406 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CP %02X %04X\n", opcode, address);
+        i_emit("CP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 2011 "src/parser.c"
+#line 1972 "src/parser.c"
     break;
 
   case 69: /* branch: CM expr  */
-#line 451 "grammar/parser.y"
+#line 412 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CM %02X %04X\n", opcode, address);
+        i_emit("CM", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 2021 "src/parser.c"
+#line 1982 "src/parser.c"
     break;
 
   case 70: /* branch: CPE expr  */
-#line 457 "grammar/parser.y"
+#line 418 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CPE %02X %04X\n", opcode, address);
+        i_emit("CPE", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 2031 "src/parser.c"
+#line 1992 "src/parser.c"
     break;
 
   case 71: /* branch: CPO expr  */
-#line 463 "grammar/parser.y"
+#line 424 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100100;
-        uint8_t address = (yyvsp[0].int_val);
-        printf("CPO %02X %04X\n", opcode, address);
+        i_emit("CPO", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        LC = LC + DIRECT;
     }
-#line 2041 "src/parser.c"
+#line 2002 "src/parser.c"
     break;
 
   case 72: /* branch: RET  */
-#line 469 "grammar/parser.y"
+#line 430 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001001;
-        printf("RET %02X\n", opcode);
+        i_emit("RET", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2050 "src/parser.c"
+#line 2012 "src/parser.c"
     break;
 
   case 73: /* branch: RC  */
-#line 474 "grammar/parser.y"
+#line 436 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011000;
-        printf("RC %02X\n", opcode);
+        i_emit("RC", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2059 "src/parser.c"
+#line 2022 "src/parser.c"
     break;
 
   case 74: /* branch: RNC  */
-#line 479 "grammar/parser.y"
+#line 442 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010000;
-        printf("RNC %02X\n", opcode);
+        i_emit("RNC", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2068 "src/parser.c"
+#line 2032 "src/parser.c"
     break;
 
   case 75: /* branch: RZ  */
-#line 484 "grammar/parser.y"
+#line 448 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001000;
-        printf("RZ %02X\n", opcode);
+        i_emit("RZ", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2077 "src/parser.c"
+#line 2042 "src/parser.c"
     break;
 
   case 76: /* branch: RNZ  */
-#line 489 "grammar/parser.y"
+#line 454 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000000;
-        printf("RNZ %02X\n", opcode);
+        i_emit("RNZ", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2086 "src/parser.c"
+#line 2052 "src/parser.c"
     break;
 
   case 77: /* branch: RP  */
-#line 494 "grammar/parser.y"
+#line 460 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110000;
-        printf("RP %02X\n", opcode);
+        i_emit("RP", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2095 "src/parser.c"
+#line 2062 "src/parser.c"
     break;
 
   case 78: /* branch: RM  */
-#line 499 "grammar/parser.y"
+#line 466 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111000;
-        printf("RM %02X\n", opcode);
+        i_emit("RM", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2104 "src/parser.c"
+#line 2072 "src/parser.c"
     break;
 
   case 79: /* branch: RPE  */
-#line 504 "grammar/parser.y"
+#line 472 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101000;
-        printf("RPE %02X\n", opcode);
+        i_emit("RPE", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2113 "src/parser.c"
+#line 2082 "src/parser.c"
     break;
 
   case 80: /* branch: RPO  */
-#line 509 "grammar/parser.y"
+#line 478 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100000;
-        printf("RPO %02X\n", opcode);
+        i_emit("RPO", LC, opcode, 0, 0, DIRECT);
+        LC = LC + REGISTER;
     }
-#line 2122 "src/parser.c"
+#line 2092 "src/parser.c"
     break;
 
   case 81: /* branch: PCHL  */
-#line 514 "grammar/parser.y"
+#line 484 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101001;
-        printf("PCHL %02X\n", opcode);
+        i_emit("PCHL", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
-#line 2131 "src/parser.c"
+#line 2102 "src/parser.c"
     break;
 
   case 82: /* stack_io: PUSH reg_pair  */
-#line 522 "grammar/parser.y"
+#line 493 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000101 | ((yyvsp[0].int_val) << 4);
         i_emit("PUSH", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("PUSH %02X\n", opcode);
     }
-#line 2142 "src/parser.c"
+#line 2112 "src/parser.c"
     break;
 
   case 83: /* stack_io: POP reg_pair  */
-#line 529 "grammar/parser.y"
+#line 499 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000001 | ((yyvsp[0].int_val) << 4);
         i_emit("POP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("POP %02X\n", opcode);
     }
-#line 2153 "src/parser.c"
+#line 2122 "src/parser.c"
     break;
 
   case 84: /* stack_io: XTHL  */
-#line 536 "grammar/parser.y"
+#line 505 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100011;
         i_emit("XTHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("XTHL %02X\n", opcode);
     }
-#line 2164 "src/parser.c"
+#line 2132 "src/parser.c"
     break;
 
   case 85: /* stack_io: SPHL  */
-#line 543 "grammar/parser.y"
+#line 511 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111001;
         i_emit("SPHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("SPHL %02X\n", opcode);
     }
-#line 2175 "src/parser.c"
+#line 2142 "src/parser.c"
     break;
 
   case 86: /* stack_io: IN expr  */
-#line 550 "grammar/parser.y"
+#line 517 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011011;
-        uint8_t input_device = (yyvsp[0].int_val);
-        printf("IN %02X %02X\n", opcode, input_device);
+        i_emit("IN", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
     }
-#line 2185 "src/parser.c"
+#line 2152 "src/parser.c"
     break;
 
   case 87: /* stack_io: OUT expr  */
-#line 556 "grammar/parser.y"
+#line 523 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010011;
-        uint8_t input_device = (yyvsp[0].int_val);
-        printf("OUT %02X %02X\n", opcode, input_device);
+        i_emit("OUT", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        LC = LC + IMMEDIATE;
     }
-#line 2195 "src/parser.c"
+#line 2162 "src/parser.c"
     break;
 
   case 88: /* control: EI  */
-#line 565 "grammar/parser.y"
+#line 532 "grammar/parser.y"
     {
         uint8_t opcode =  0b11111011;
-        printf("DI %02X\n", opcode);
+        i_emit("EI", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
-#line 2204 "src/parser.c"
+#line 2172 "src/parser.c"
     break;
 
   case 89: /* control: DI  */
-#line 570 "grammar/parser.y"
+#line 538 "grammar/parser.y"
     {
         uint8_t opcode =  0b11110011;
-        printf("DI %02X\n", opcode);
+        i_emit("DI", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
-#line 2213 "src/parser.c"
+#line 2182 "src/parser.c"
     break;
 
   case 90: /* control: NOP  */
-#line 575 "grammar/parser.y"
+#line 544 "grammar/parser.y"
     { 
         uint8_t opcode =  0;
         i_emit("NOP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
-        printf("NOP %02X\n", opcode);
     }
-#line 2224 "src/parser.c"
+#line 2192 "src/parser.c"
     break;
 
   case 91: /* control: HLT  */
-#line 582 "grammar/parser.y"
+#line 550 "grammar/parser.y"
     {
         uint8_t opcode =  0b01110110;
-        printf("HLT %02X\n", opcode);
+        i_emit("HLT", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
-#line 2233 "src/parser.c"
+#line 2202 "src/parser.c"
     break;
 
   case 92: /* control: RST expr  */
-#line 587 "grammar/parser.y"
+#line 556 "grammar/parser.y"
     {
+        // Note: "exp" must evaluate to a number in the range 0bOOO to 0b111
         uint8_t opcode = 0b11000111 | ((yyvsp[0].int_val) << 3);
-        printf("RST %02X\n", opcode);
+        i_emit("RST", LC, opcode, 0, 0, REGISTER);
+        LC = LC + REGISTER;
     }
-#line 2242 "src/parser.c"
+#line 2213 "src/parser.c"
     break;
 
   case 102: /* label: NAME ':'  */
-#line 605 "grammar/parser.y"
+#line 576 "grammar/parser.y"
                { st_insert(symbolTable, st_new_symbol((yyvsp[-1].string_val), LC, false)); }
-#line 2248 "src/parser.c"
+#line 2219 "src/parser.c"
     break;
 
   case 103: /* expr: expr '+' expr  */
-#line 610 "grammar/parser.y"
+#line 581 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) + (yyvsp[0].int_val); }
-#line 2254 "src/parser.c"
+#line 2225 "src/parser.c"
     break;
 
   case 104: /* expr: expr '-' expr  */
-#line 611 "grammar/parser.y"
+#line 582 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) - (yyvsp[0].int_val); }
-#line 2260 "src/parser.c"
+#line 2231 "src/parser.c"
     break;
 
   case 105: /* expr: expr '*' expr  */
-#line 612 "grammar/parser.y"
+#line 583 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) * (yyvsp[0].int_val); }
-#line 2266 "src/parser.c"
+#line 2237 "src/parser.c"
     break;
 
   case 106: /* expr: expr '/' expr  */
-#line 613 "grammar/parser.y"
+#line 584 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) / (yyvsp[0].int_val); }
-#line 2272 "src/parser.c"
+#line 2243 "src/parser.c"
     break;
 
   case 107: /* expr: expr MODULO expr  */
-#line 614 "grammar/parser.y"
+#line 585 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) % (yyvsp[0].int_val); }
-#line 2278 "src/parser.c"
+#line 2249 "src/parser.c"
     break;
 
   case 108: /* expr: expr AND expr  */
-#line 615 "grammar/parser.y"
+#line 586 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) & (yyvsp[0].int_val); }
-#line 2284 "src/parser.c"
+#line 2255 "src/parser.c"
     break;
 
   case 109: /* expr: expr OR expr  */
-#line 616 "grammar/parser.y"
+#line 587 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) | (yyvsp[0].int_val); }
-#line 2290 "src/parser.c"
+#line 2261 "src/parser.c"
     break;
 
   case 110: /* expr: expr XOR expr  */
-#line 617 "grammar/parser.y"
+#line 588 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) ^ (yyvsp[0].int_val); }
-#line 2296 "src/parser.c"
+#line 2267 "src/parser.c"
     break;
 
   case 111: /* expr: expr SHR expr  */
-#line 618 "grammar/parser.y"
+#line 589 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) >> (yyvsp[0].int_val); }
-#line 2302 "src/parser.c"
+#line 2273 "src/parser.c"
     break;
 
   case 112: /* expr: expr SHL expr  */
-#line 619 "grammar/parser.y"
+#line 590 "grammar/parser.y"
                                         { (yyval.int_val) = (yyvsp[-2].int_val) << (yyvsp[0].int_val); }
-#line 2308 "src/parser.c"
+#line 2279 "src/parser.c"
     break;
 
   case 113: /* expr: term  */
-#line 620 "grammar/parser.y"
+#line 591 "grammar/parser.y"
            { }
-#line 2314 "src/parser.c"
+#line 2285 "src/parser.c"
     break;
 
   case 114: /* term: '(' expr ')'  */
-#line 624 "grammar/parser.y"
+#line 595 "grammar/parser.y"
                    { (yyval.int_val) = (yyvsp[-1].int_val); }
-#line 2320 "src/parser.c"
+#line 2291 "src/parser.c"
     break;
 
   case 115: /* term: '-' expr  */
-#line 625 "grammar/parser.y"
+#line 596 "grammar/parser.y"
                             { (yyval.int_val) = (yyvsp[0].int_val) * (-1); }
-#line 2326 "src/parser.c"
+#line 2297 "src/parser.c"
     break;
 
   case 116: /* term: NOT expr  */
-#line 626 "grammar/parser.y"
+#line 597 "grammar/parser.y"
                 { (yyval.int_val) = ~(yyvsp[0].int_val); }
-#line 2332 "src/parser.c"
+#line 2303 "src/parser.c"
     break;
 
   case 117: /* term: primary  */
-#line 627 "grammar/parser.y"
+#line 598 "grammar/parser.y"
                 { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2338 "src/parser.c"
+#line 2309 "src/parser.c"
     break;
 
   case 118: /* primary: NAME  */
-#line 633 "grammar/parser.y"
+#line 604 "grammar/parser.y"
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         (yyval.int_val) =  label->value;
     }
-#line 2347 "src/parser.c"
+#line 2318 "src/parser.c"
     break;
 
   case 119: /* primary: immediate  */
-#line 637 "grammar/parser.y"
+#line 608 "grammar/parser.y"
                 { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2353 "src/parser.c"
+#line 2324 "src/parser.c"
     break;
 
   case 120: /* immediate: HEX_NUMBER  */
-#line 642 "grammar/parser.y"
+#line 613 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2359 "src/parser.c"
+#line 2330 "src/parser.c"
     break;
 
   case 121: /* immediate: DEC_NUMBER  */
-#line 643 "grammar/parser.y"
+#line 614 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2365 "src/parser.c"
+#line 2336 "src/parser.c"
     break;
 
   case 122: /* immediate: OCT_NUMBER  */
-#line 644 "grammar/parser.y"
+#line 615 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2371 "src/parser.c"
+#line 2342 "src/parser.c"
     break;
 
   case 123: /* immediate: BIN_NUMBER  */
-#line 645 "grammar/parser.y"
+#line 616 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2377 "src/parser.c"
+#line 2348 "src/parser.c"
     break;
 
   case 124: /* reg_pair: B  */
-#line 649 "grammar/parser.y"
+#line 620 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2383 "src/parser.c"
+#line 2354 "src/parser.c"
     break;
 
   case 125: /* reg_pair: D  */
-#line 650 "grammar/parser.y"
+#line 621 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2389 "src/parser.c"
+#line 2360 "src/parser.c"
     break;
 
   case 126: /* reg_pair: H  */
-#line 651 "grammar/parser.y"
+#line 622 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2395 "src/parser.c"
+#line 2366 "src/parser.c"
     break;
 
   case 127: /* reg_pair: SP  */
-#line 652 "grammar/parser.y"
+#line 623 "grammar/parser.y"
          { (yyval.int_val) = 3; }
-#line 2401 "src/parser.c"
+#line 2372 "src/parser.c"
     break;
 
   case 128: /* register: B  */
-#line 656 "grammar/parser.y"
+#line 627 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2407 "src/parser.c"
+#line 2378 "src/parser.c"
     break;
 
   case 129: /* register: C  */
-#line 657 "grammar/parser.y"
+#line 628 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2413 "src/parser.c"
+#line 2384 "src/parser.c"
     break;
 
   case 130: /* register: D  */
-#line 658 "grammar/parser.y"
+#line 629 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2419 "src/parser.c"
+#line 2390 "src/parser.c"
     break;
 
   case 131: /* register: E  */
-#line 659 "grammar/parser.y"
+#line 630 "grammar/parser.y"
         { (yyval.int_val) = 3; }
-#line 2425 "src/parser.c"
+#line 2396 "src/parser.c"
     break;
 
   case 132: /* register: H  */
-#line 660 "grammar/parser.y"
+#line 631 "grammar/parser.y"
         { (yyval.int_val) = 4; }
-#line 2431 "src/parser.c"
+#line 2402 "src/parser.c"
     break;
 
   case 133: /* register: L  */
-#line 661 "grammar/parser.y"
+#line 632 "grammar/parser.y"
         { (yyval.int_val) = 5; }
-#line 2437 "src/parser.c"
+#line 2408 "src/parser.c"
     break;
 
   case 134: /* register: M  */
-#line 662 "grammar/parser.y"
+#line 633 "grammar/parser.y"
         { (yyval.int_val) = 6; }
-#line 2443 "src/parser.c"
+#line 2414 "src/parser.c"
     break;
 
   case 135: /* register: A  */
-#line 663 "grammar/parser.y"
+#line 634 "grammar/parser.y"
         { (yyval.int_val) = 7; }
-#line 2449 "src/parser.c"
+#line 2420 "src/parser.c"
     break;
 
 
-#line 2453 "src/parser.c"
+#line 2424 "src/parser.c"
 
       default: break;
     }
@@ -2642,7 +2613,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 665 "grammar/parser.y"
+#line 636 "grammar/parser.y"
 
 
 void yyerror(const char* msg) {
