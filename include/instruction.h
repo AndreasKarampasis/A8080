@@ -11,6 +11,7 @@ typedef enum _instr_format {
 } InstrType;
 
 typedef struct _instr {
+	char *mnemonic;
 	uint16_t address;	// 0x0000-0xFFFF valid address
 	uint8_t opcode;
 	uint8_t operand1;	// TODO: maybe expr
@@ -22,6 +23,8 @@ extern Instruction *instrs;
 extern unsigned instrs_capacity;
 extern unsigned int current_instrs;
 
-Instruction *i_emit(uint16_t addr, uint8_t op, uint8_t arg1, uint8_t arg2, InstrType type);
+Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t arg1, uint8_t arg2, InstrType type);
+
+void i_printInstructions();
 
 #endif

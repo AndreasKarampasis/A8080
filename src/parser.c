@@ -1435,7 +1435,7 @@ yyreduce:
 #line 79 "grammar/parser.y"
     { 
         uint8_t opcode =  0b01000000 | ((yyvsp[-2].int_val) << 3) | ((yyvsp[0].int_val));
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("MOV", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("MOV %02X\n", opcode);
     }
@@ -1482,7 +1482,7 @@ yyreduce:
 #line 106 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00001010 | ( (yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("LDAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("LDAX %02X\n", opcode);
     }
@@ -1493,7 +1493,7 @@ yyreduce:
 #line 113 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000010 | ( (yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("STAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("STAX %02X\n", opcode);
     }
@@ -1522,7 +1522,7 @@ yyreduce:
 #line 130 "grammar/parser.y"
     { 
         uint8_t opcode =  0b11101011;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XCHG", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XCHG %02X\n", opcode);
     }
@@ -1533,7 +1533,7 @@ yyreduce:
 #line 140 "grammar/parser.y"
     {
         uint8_t opcode =  0b10000000 | ((yyvsp[0].int_val));
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ADD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ADD %02X\n", opcode); 
     }
@@ -1553,7 +1553,7 @@ yyreduce:
 #line 152 "grammar/parser.y"
     {
         uint8_t opcode =  0b10001000 | ((yyvsp[0].int_val));
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ADC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ADC %02X\n", opcode); 
     }
@@ -1573,7 +1573,7 @@ yyreduce:
 #line 164 "grammar/parser.y"
     {
         uint8_t opcode =  0b10010000 | ((yyvsp[0].int_val));
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SUB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SUB %02X\n", opcode); 
     }
@@ -1593,7 +1593,7 @@ yyreduce:
 #line 176 "grammar/parser.y"
     {
         uint8_t opcode =  0b10011000 | ((yyvsp[0].int_val));
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SBB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SBB %02X\n", opcode); 
     }
@@ -1613,7 +1613,7 @@ yyreduce:
 #line 188 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000100 | ((yyvsp[0].int_val) << 3);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("INR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("INR %02X\n", opcode); 
     }
@@ -1624,7 +1624,7 @@ yyreduce:
 #line 195 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000101 | ((yyvsp[0].int_val) << 3);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DCR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DCR %02X\n", opcode); 
     }
@@ -1635,7 +1635,7 @@ yyreduce:
 #line 202 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000011 | ((yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("INX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("INX %02X\n", opcode); 
     }
@@ -1646,7 +1646,7 @@ yyreduce:
 #line 209 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001011 | ((yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DCX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DCX %02X\n", opcode); 
     }
@@ -1657,7 +1657,7 @@ yyreduce:
 #line 216 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001001 | ((yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DAD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DAD %02X\n", opcode); 
     }
@@ -1668,7 +1668,7 @@ yyreduce:
 #line 223 "grammar/parser.y"
     {
         uint8_t opcode =  0b00100111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DAA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DAA %02X\n", opcode); 
     }
@@ -1679,7 +1679,7 @@ yyreduce:
 #line 233 "grammar/parser.y"
     {
         uint8_t opcode = 0b10100000 | (yyvsp[0].int_val);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ANA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ANA %02X\n", opcode);
     }
@@ -1700,7 +1700,7 @@ yyreduce:
 #line 246 "grammar/parser.y"
     {
         uint8_t opcode = 0b10101000 | (yyvsp[0].int_val);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XRA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XRA %02X\n", opcode);
     }
@@ -1721,7 +1721,7 @@ yyreduce:
 #line 259 "grammar/parser.y"
     {
         uint8_t opcode = 0b10110000| (yyvsp[0].int_val);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ORA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ORA %02X\n", opcode);
     }
@@ -1742,7 +1742,7 @@ yyreduce:
 #line 272 "grammar/parser.y"
     {
         uint8_t opcode = 0b10111000| (yyvsp[0].int_val);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMP %02X\n", opcode);
     }
@@ -1763,7 +1763,7 @@ yyreduce:
 #line 285 "grammar/parser.y"
     {
         uint8_t opcode = 0b00000111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RLC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RLC %02X\n", opcode);
     }
@@ -1774,7 +1774,7 @@ yyreduce:
 #line 292 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RRC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RRC %02X\n", opcode);
     }
@@ -1785,7 +1785,7 @@ yyreduce:
 #line 299 "grammar/parser.y"
     {
         uint8_t opcode = 0b00010111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RAL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RAL %02X\n", opcode);
     }
@@ -1796,7 +1796,7 @@ yyreduce:
 #line 306 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RAR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RAR %02X\n", opcode);
     }
@@ -1807,7 +1807,7 @@ yyreduce:
 #line 313 "grammar/parser.y"
     {
         uint8_t opcode = 0b00101111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMA %02X\n", opcode);
     }
@@ -1818,7 +1818,7 @@ yyreduce:
 #line 320 "grammar/parser.y"
     {
         uint8_t opcode = 0b00111111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMC %02X\n", opcode);
     }
@@ -1829,7 +1829,7 @@ yyreduce:
 #line 327 "grammar/parser.y"
     {
         uint8_t opcode = 0b00110111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("STC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("STC %02X\n", opcode);
     }
@@ -2110,7 +2110,7 @@ yyreduce:
 #line 498 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000101 | ((yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("PUSH", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("PUSH %02X\n", opcode);
     }
@@ -2121,7 +2121,7 @@ yyreduce:
 #line 505 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000001 | ((yyvsp[0].int_val) << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("POP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("POP %02X\n", opcode);
     }
@@ -2132,7 +2132,7 @@ yyreduce:
 #line 512 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100011;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XTHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XTHL %02X\n", opcode);
     }
@@ -2143,7 +2143,7 @@ yyreduce:
 #line 519 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111001;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SPHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SPHL %02X\n", opcode);
     }
@@ -2192,7 +2192,7 @@ yyreduce:
 #line 551 "grammar/parser.y"
     { 
         uint8_t opcode =  0;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("NOP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("NOP %02X\n", opcode);
     }
@@ -2652,5 +2652,6 @@ int main (int argc, char **argv) {
     symbolTable = st_new(32, hash);
     yyparse();
     st_print(symbolTable);
+    i_printInstructions();
     return 0;
 }

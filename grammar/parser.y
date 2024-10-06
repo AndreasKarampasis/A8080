@@ -29,12 +29,12 @@ size_t LC = 0;
     uint8_t opcode;
 }
 
-%token<opcode>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
-%token<opcode>  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
-%token<opcode>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
-%token<opcode>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
-%token<opcode>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
-%token<opcode>  ORG END EQU DB DW DS IF ENDIF SET PCHL
+%token<string_val>  MOV MVI LXI LDA STA LHLD SHLD LDAX STAX XCHG
+%token<string_val>  ADD ADI ADC ACI SUB SUI SBB SBI INR DCR INX DCX DAD DAA
+%token<string_val>  ANA ANI XRA XRI ORA ORI CMP CPI RLC RRC RAL RAR CMA CMC STC
+%token<string_val>  JMP JC JNC JZ JNZ JP JM JPE JPO CALL CC CNC CZ CNZ CP CM CPE CPO RET RC RNC RZ RNZ RP RM RPE RPO
+%token<string_val>  PUSH POP XTHL SPHL IN OUT EI DI HLT NOP RST
+%token<string_val>  ORG END EQU DB DW DS IF ENDIF SET PCHL
 %token<int_val>  A B C D E H L M SP
 %token<string_val>  TOK_EOL
 %token<string_val>  ',' ':' '+' '-' '*' '/' '(' ')' '$' MODULO NOT AND OR XOR SHR SHL
@@ -78,7 +78,7 @@ data_transfer
     : MOV register[reg1] ',' register[reg2]
     { 
         uint8_t opcode =  0b01000000 | ($reg1 << 3) | ($reg2);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("MOV", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("MOV %02X\n", opcode);
     }
@@ -105,14 +105,14 @@ data_transfer
     | LDAX reg_pair
     { 
         uint8_t opcode =  0b00001010 | ( $reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("LDAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("LDAX %02X\n", opcode);
     }
     | STAX reg_pair
     { 
         uint8_t opcode =  0b00000010 | ( $reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("STAX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("STAX %02X\n", opcode);
     }
@@ -129,7 +129,7 @@ data_transfer
     | XCHG
     { 
         uint8_t opcode =  0b11101011;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XCHG", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XCHG %02X\n", opcode);
     }
@@ -139,7 +139,7 @@ arithmetic
     : ADD register
     {
         uint8_t opcode =  0b10000000 | ($register);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ADD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ADD %02X\n", opcode); 
     }
@@ -151,7 +151,7 @@ arithmetic
     | ADC register
     {
         uint8_t opcode =  0b10001000 | ($register);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ADC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ADC %02X\n", opcode); 
     }
@@ -163,7 +163,7 @@ arithmetic
     | SUB register
     {
         uint8_t opcode =  0b10010000 | ($register);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SUB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SUB %02X\n", opcode); 
     }
@@ -175,7 +175,7 @@ arithmetic
     | SBB register
     {
         uint8_t opcode =  0b10011000 | ($register);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SBB", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SBB %02X\n", opcode); 
     }
@@ -187,42 +187,42 @@ arithmetic
     | INR register
     {
         uint8_t opcode =  0b00000100 | ($register << 3);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("INR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("INR %02X\n", opcode); 
     }
     | DCR register
     {
         uint8_t opcode =  0b00000101 | ($register << 3);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DCR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DCR %02X\n", opcode); 
     }
     | INX reg_pair
     {
         uint8_t opcode =  0b00000011 | ($reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("INX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("INX %02X\n", opcode); 
     }
     | DCX reg_pair
     {
         uint8_t opcode =  0b00001011 | ($reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DCX", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DCX %02X\n", opcode); 
     }
     | DAD reg_pair
     {
         uint8_t opcode =  0b00001001 | ($reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DAD", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DAD %02X\n", opcode); 
     }
     | DAA
     {
         uint8_t opcode =  0b00100111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("DAA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("DAA %02X\n", opcode); 
     }
@@ -232,7 +232,7 @@ logical
     : ANA register
     {
         uint8_t opcode = 0b10100000 | $register;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ANA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ANA %02X\n", opcode);
     }
@@ -245,7 +245,7 @@ logical
     | XRA register
     {
         uint8_t opcode = 0b10101000 | $register;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XRA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XRA %02X\n", opcode);
     }
@@ -258,7 +258,7 @@ logical
     | ORA register
     {
         uint8_t opcode = 0b10110000| $register;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("ORA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("ORA %02X\n", opcode);
     }
@@ -271,7 +271,7 @@ logical
     | CMP register
     {
         uint8_t opcode = 0b10111000| $register;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMP %02X\n", opcode);
     }
@@ -284,49 +284,49 @@ logical
     | RLC
     {
         uint8_t opcode = 0b00000111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RLC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RLC %02X\n", opcode);
     }
     | RRC
     {
         uint8_t opcode = 0b00001111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RRC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RRC %02X\n", opcode);
     }
     | RAL
     {
         uint8_t opcode = 0b00010111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RAL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RAL %02X\n", opcode);
     }
     | RAR
     {
         uint8_t opcode = 0b00001111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("RAR", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("RAR %02X\n", opcode);
     }
     | CMA
     {
         uint8_t opcode = 0b00101111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMA", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMA %02X\n", opcode);
     }
     | CMC
     {
         uint8_t opcode = 0b00111111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("CMC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("CMC %02X\n", opcode);
     }
     | STC
     {
         uint8_t opcode = 0b00110111;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("STC", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("STC %02X\n", opcode);
     }
@@ -497,28 +497,28 @@ stack_io
     : PUSH reg_pair
     {
         uint8_t opcode = 0b11000101 | ($reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("PUSH", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("PUSH %02X\n", opcode);
     }
     | POP reg_pair
     {
         uint8_t opcode = 0b11000001 | ($reg_pair << 4);
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("POP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("POP %02X\n", opcode);
     }
     | XTHL
     {
         uint8_t opcode = 0b11100011;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("XTHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("XTHL %02X\n", opcode);
     }
     | SPHL
     {
         uint8_t opcode = 0b11111001;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("SPHL", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("SPHL %02X\n", opcode);
     }
@@ -550,7 +550,7 @@ control
     | NOP
     { 
         uint8_t opcode =  0;
-        i_emit(LC, opcode, 0, 0, REGISTER);
+        i_emit("NOP", LC, opcode, 0, 0, REGISTER);
         LC = LC + REGISTER;
         printf("NOP %02X\n", opcode);
     }
@@ -671,5 +671,6 @@ int main (int argc, char **argv) {
     symbolTable = st_new(32, hash);
     yyparse();
     st_print(symbolTable);
+    i_printInstructions();
     return 0;
 }
