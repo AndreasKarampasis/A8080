@@ -1,6 +1,7 @@
 %{
 #include "symboltable.h"
 #include "instruction.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -562,12 +563,12 @@ control
     ;
 
 directives
-    : ORG
+    : ORG expr
     | END
     | EQU
     | DB expr
-    | DW
-    | DS
+    | DW expr
+    | DS expr
     | IF 
     | ENDIF
     | SET 
@@ -603,7 +604,8 @@ primary
     : NAME
     { 
         Symbol *label = st_lookup(symbolTable, $NAME);
-        $primary =  label->value;
+        // TODO: if lookup is null then insert label's index to unresolved jumps' list
+        $primary =  -1;
     }
     | immediate { $primary = $immediate; }; 
     ;
@@ -664,6 +666,7 @@ int main (int argc, char **argv) {
 	}
     
     symbolTable = st_new(32, hash);
+
     yyparse();
     st_print(symbolTable);
     i_printInstructions();

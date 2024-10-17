@@ -1,6 +1,6 @@
 # Compiler and compiler flags
 CC = gcc
-CFLAGS = -Wall -O2
+CFLAGS = -Wall -Wextra -O2
 LDFLAGS =
 
 # Bison and Flex commands

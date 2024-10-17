@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-
 typedef enum _instr_format {
 	REGISTER    = 1,
 	IMMEDIATE   = 2,
@@ -20,8 +19,6 @@ typedef struct _instr {
 } Instruction;
 
 extern Instruction *instrs;
-extern unsigned instrs_capacity;
-extern unsigned int current_instrs;
 
 /**
  * @brief Emits a new instruction and adds it to the list of instructions.

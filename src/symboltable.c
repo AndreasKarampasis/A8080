@@ -51,7 +51,7 @@ Symboltable *st_new(uint32_t capacity, hashfunction *hf) {
  */
 uint64_t hash(const char *key, size_t length) {
 	uint64_t hash_value = 0;
-	for (int i = 0; i < length; ++i) {
+	for (size_t i = 0; i < length; ++i) {
 		hash_value += key[i];
 		hash_value *= key[i];
 	}
@@ -67,7 +67,7 @@ uint64_t hash(const char *key, size_t length) {
  * @param table The symbol table to destroy.
  */
 void st_destroy(Symboltable *table) {
-	for (int i = 0; i < table->capacity; ++i) {
+	for (size_t i = 0; i < table->capacity; ++i) {
 		free(table->entries[i]);
 	}
 	free(table->entries);
@@ -164,7 +164,7 @@ void st_print(Symboltable *table) {
 	printf("| Symbol Name     | Value      | Line  |\n");
 	printf("+-----------------+------------+-------+\n");
 
-	for (int i = 0; i < table->capacity; ++i) {
+	for (size_t i = 0; i < table->capacity; ++i) {
 		Symbol *tmp = table->entries[i];
 		while (tmp != NULL) {
 			// Adjusting field widths for neat alignment

@@ -10,7 +10,7 @@
 #define NEW_SIZE (EXPAND_SIZE * sizeof(Instruction) + CURRENT_SIZE)
 
 
-Instruction *instrs = (Instruction *)0;
+Instruction *instrs = NULL;
 unsigned instrs_capacity = 0;
 unsigned int current_instrs = 0;
 
