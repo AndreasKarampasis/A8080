@@ -605,7 +605,13 @@ primary
     { 
         Symbol *label = st_lookup(symbolTable, $NAME);
         // TODO: if lookup is null then insert label's index to unresolved jumps' list
-        $primary =  -1;
+        if (!label) {
+            unresolvedInsert(current_instrs);
+            $primary =  -1;
+        }
+        else {
+            $primary = label->value;
+        }
     }
     | immediate { $primary = $immediate; }; 
     ;

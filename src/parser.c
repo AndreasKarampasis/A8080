@@ -665,9 +665,9 @@ static const yytype_int16 yyrline[] =
      478,   484,   493,   499,   505,   511,   517,   523,   532,   538,
      544,   550,   556,   566,   567,   568,   569,   570,   571,   572,
      573,   574,   577,   582,   583,   584,   585,   586,   587,   588,
-     589,   590,   591,   592,   596,   597,   598,   599,   604,   610,
-     615,   616,   617,   618,   622,   623,   624,   625,   629,   630,
-     631,   632,   633,   634,   635,   636
+     589,   590,   591,   592,   596,   597,   598,   599,   604,   616,
+     621,   622,   623,   624,   628,   629,   630,   631,   635,   636,
+     637,   638,   639,   640,   641,   642
 };
 #endif
 
@@ -2318,115 +2318,121 @@ yyreduce:
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         // TODO: if lookup is null then insert label's index to unresolved jumps' list
-        (yyval.int_val) =  -1;
+        if (!label) {
+            unresolvedInsert(current_instrs);
+            (yyval.int_val) =  -1;
+        }
+        else {
+            (yyval.int_val) = label->value;
+        }
     }
-#line 2324 "src/parser.c"
-    break;
-
-  case 119: /* primary: immediate  */
-#line 610 "grammar/parser.y"
-                { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2330 "src/parser.c"
     break;
 
-  case 120: /* immediate: HEX_NUMBER  */
-#line 615 "grammar/parser.y"
-                    { (yyval.int_val) = (yyvsp[0].int_val); }
+  case 119: /* primary: immediate  */
+#line 616 "grammar/parser.y"
+                { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2336 "src/parser.c"
     break;
 
-  case 121: /* immediate: DEC_NUMBER  */
-#line 616 "grammar/parser.y"
+  case 120: /* immediate: HEX_NUMBER  */
+#line 621 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2342 "src/parser.c"
     break;
 
-  case 122: /* immediate: OCT_NUMBER  */
-#line 617 "grammar/parser.y"
+  case 121: /* immediate: DEC_NUMBER  */
+#line 622 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2348 "src/parser.c"
     break;
 
-  case 123: /* immediate: BIN_NUMBER  */
-#line 618 "grammar/parser.y"
+  case 122: /* immediate: OCT_NUMBER  */
+#line 623 "grammar/parser.y"
                     { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2354 "src/parser.c"
     break;
 
-  case 124: /* reg_pair: B  */
-#line 622 "grammar/parser.y"
-        { (yyval.int_val) = 0; }
+  case 123: /* immediate: BIN_NUMBER  */
+#line 624 "grammar/parser.y"
+                    { (yyval.int_val) = (yyvsp[0].int_val); }
 #line 2360 "src/parser.c"
     break;
 
-  case 125: /* reg_pair: D  */
-#line 623 "grammar/parser.y"
-        { (yyval.int_val) = 1; }
+  case 124: /* reg_pair: B  */
+#line 628 "grammar/parser.y"
+        { (yyval.int_val) = 0; }
 #line 2366 "src/parser.c"
     break;
 
-  case 126: /* reg_pair: H  */
-#line 624 "grammar/parser.y"
-        { (yyval.int_val) = 2; }
+  case 125: /* reg_pair: D  */
+#line 629 "grammar/parser.y"
+        { (yyval.int_val) = 1; }
 #line 2372 "src/parser.c"
     break;
 
-  case 127: /* reg_pair: SP  */
-#line 625 "grammar/parser.y"
-         { (yyval.int_val) = 3; }
+  case 126: /* reg_pair: H  */
+#line 630 "grammar/parser.y"
+        { (yyval.int_val) = 2; }
 #line 2378 "src/parser.c"
     break;
 
-  case 128: /* register: B  */
-#line 629 "grammar/parser.y"
-        { (yyval.int_val) = 0; }
+  case 127: /* reg_pair: SP  */
+#line 631 "grammar/parser.y"
+         { (yyval.int_val) = 3; }
 #line 2384 "src/parser.c"
     break;
 
-  case 129: /* register: C  */
-#line 630 "grammar/parser.y"
-        { (yyval.int_val) = 1; }
+  case 128: /* register: B  */
+#line 635 "grammar/parser.y"
+        { (yyval.int_val) = 0; }
 #line 2390 "src/parser.c"
     break;
 
-  case 130: /* register: D  */
-#line 631 "grammar/parser.y"
-        { (yyval.int_val) = 2; }
+  case 129: /* register: C  */
+#line 636 "grammar/parser.y"
+        { (yyval.int_val) = 1; }
 #line 2396 "src/parser.c"
     break;
 
-  case 131: /* register: E  */
-#line 632 "grammar/parser.y"
-        { (yyval.int_val) = 3; }
+  case 130: /* register: D  */
+#line 637 "grammar/parser.y"
+        { (yyval.int_val) = 2; }
 #line 2402 "src/parser.c"
     break;
 
-  case 132: /* register: H  */
-#line 633 "grammar/parser.y"
-        { (yyval.int_val) = 4; }
+  case 131: /* register: E  */
+#line 638 "grammar/parser.y"
+        { (yyval.int_val) = 3; }
 #line 2408 "src/parser.c"
     break;
 
-  case 133: /* register: L  */
-#line 634 "grammar/parser.y"
-        { (yyval.int_val) = 5; }
+  case 132: /* register: H  */
+#line 639 "grammar/parser.y"
+        { (yyval.int_val) = 4; }
 #line 2414 "src/parser.c"
     break;
 
-  case 134: /* register: M  */
-#line 635 "grammar/parser.y"
-        { (yyval.int_val) = 6; }
+  case 133: /* register: L  */
+#line 640 "grammar/parser.y"
+        { (yyval.int_val) = 5; }
 #line 2420 "src/parser.c"
     break;
 
-  case 135: /* register: A  */
-#line 636 "grammar/parser.y"
-        { (yyval.int_val) = 7; }
+  case 134: /* register: M  */
+#line 641 "grammar/parser.y"
+        { (yyval.int_val) = 6; }
 #line 2426 "src/parser.c"
     break;
 
+  case 135: /* register: A  */
+#line 642 "grammar/parser.y"
+        { (yyval.int_val) = 7; }
+#line 2432 "src/parser.c"
+    break;
 
-#line 2430 "src/parser.c"
+
+#line 2436 "src/parser.c"
 
       default: break;
     }
@@ -2619,7 +2625,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 638 "grammar/parser.y"
+#line 644 "grammar/parser.y"
 
 
 void yyerror(const char* msg) {
