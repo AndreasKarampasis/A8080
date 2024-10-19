@@ -19,7 +19,7 @@ typedef struct _instr {
 } Instruction;
 
 extern Instruction *instrs;
-extern unsigned instrs_capacity; // TODO: move to .c
+extern unsigned int instrs_capacity; // TODO: move to .c
 extern unsigned int current_instrs; // TODO: move to .c
 
 /**

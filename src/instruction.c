@@ -11,7 +11,7 @@
 
 
 Instruction *instrs = NULL;
-unsigned instrs_capacity = 0;
+unsigned int instrs_capacity = 0;
 unsigned int current_instrs = 0;
 
 /**
@@ -28,6 +28,8 @@ void i_expand(void) {
 
   Instruction *p = (Instruction *)malloc(NEW_SIZE);
   if (p == NULL) {
+    perror("Error expanding unresolved labels table");
+    exit(EXIT_FAILURE);
   }
 
   if (instrs) {

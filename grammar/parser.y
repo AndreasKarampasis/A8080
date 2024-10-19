@@ -1,5 +1,4 @@
 %{
-#include "symboltable.h"
 #include "instruction.h"
 #include "utils.h"
 
@@ -565,7 +564,7 @@ control
 directives
     : ORG expr
     | END
-    | EQU
+    | NAME EQU expr
     | DB expr
     | DW expr
     | DS expr
@@ -604,9 +603,8 @@ primary
     : NAME
     { 
         Symbol *label = st_lookup(symbolTable, $NAME);
-        // TODO: if lookup is null then insert label's index to unresolved jumps' list
         if (!label) {
-            unresolvedInsert(current_instrs);
+            unresolvedInsert($NAME, current_instrs);
             $primary =  -1;
         }
         else {
@@ -674,7 +672,9 @@ int main (int argc, char **argv) {
     symbolTable = st_new(32, hash);
 
     yyparse();
-    st_print(symbolTable);
+    patchUnresolvedLabels(symbolTable);
     i_printInstructions();
+    st_print(symbolTable);
+
     return 0;
 }
