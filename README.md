@@ -51,6 +51,7 @@ To assemble the code:
 ```
 
 ## Roadmap
+- [ ] Add support for chars/strings.
 - [ ] Add support for macros.
 - [ ] Implement error reporting.
 
