@@ -1,0 +1,5 @@
+MVI A, "H"
+MVI A, "E"
+MVI A, "L"
+MVI A, "L"
+MVI A, "O"

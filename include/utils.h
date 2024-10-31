@@ -31,7 +31,7 @@ extern unresolved_label *unresolved_labels_table;
  * @param label The unresolved label to be inserted.
  * @param index The index of the instruction where the label was encountered.
  */
-void unresolvedInsert(const char *label, const unsigned int index);
+void unresolved_insert(const char *label, const unsigned int index);
 
 /**
  * @brief Resolves and patches all unresolved labels using the symbol table.
@@ -43,6 +43,6 @@ void unresolvedInsert(const char *label, const unsigned int index);
  *
  * @param st A pointer to the symbol table containing defined labels.
  */
-void patchUnresolvedLabels(Symboltable* st);
+void patch_unresolved_labels(Symboltable* st);
 
 #endif

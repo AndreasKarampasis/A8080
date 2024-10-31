@@ -141,7 +141,6 @@ NAME			[a-zA-Z?@]+
 [0-8]+[oO]              { yylval.int_val = strtol(yytext, NULL, 10); return OCT_NUMBER; }
 [0-1]+[bB]              { yylval.int_val = strtol(yytext, NULL, 2); return BIN_NUMBER; }
 {NAME}		        { yylval.string_val = strdup(yytext); return NAME; }
-"\'"[a-zA-Z]"\'"        { yylval.char_val = yytext[0]; return CHAR; }
 
 \"                      { string_buf_ptr = string_buf; error_line = yylineno; BEGIN(STRING); }
 <STRING>\"              {

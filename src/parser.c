@@ -237,26 +237,25 @@ enum yysymbol_kind_t
   YYSYMBOL_OCT_NUMBER = 119,               /* OCT_NUMBER  */
   YYSYMBOL_BIN_NUMBER = 120,               /* BIN_NUMBER  */
   YYSYMBOL_STR_CONST = 121,                /* STR_CONST  */
-  YYSYMBOL_CHAR = 122,                     /* CHAR  */
-  YYSYMBOL_UMINUS = 123,                   /* UMINUS  */
-  YYSYMBOL_YYACCEPT = 124,                 /* $accept  */
-  YYSYMBOL_program = 125,                  /* program  */
-  YYSYMBOL_line = 126,                     /* line  */
-  YYSYMBOL_instruction = 127,              /* instruction  */
-  YYSYMBOL_data_transfer = 128,            /* data_transfer  */
-  YYSYMBOL_arithmetic = 129,               /* arithmetic  */
-  YYSYMBOL_logical = 130,                  /* logical  */
-  YYSYMBOL_branch = 131,                   /* branch  */
-  YYSYMBOL_stack_io = 132,                 /* stack_io  */
-  YYSYMBOL_control = 133,                  /* control  */
-  YYSYMBOL_directives = 134,               /* directives  */
-  YYSYMBOL_label = 135,                    /* label  */
-  YYSYMBOL_expr = 136,                     /* expr  */
-  YYSYMBOL_term = 137,                     /* term  */
-  YYSYMBOL_primary = 138,                  /* primary  */
-  YYSYMBOL_immediate = 139,                /* immediate  */
-  YYSYMBOL_reg_pair = 140,                 /* reg_pair  */
-  YYSYMBOL_register = 141                  /* register  */
+  YYSYMBOL_UMINUS = 122,                   /* UMINUS  */
+  YYSYMBOL_YYACCEPT = 123,                 /* $accept  */
+  YYSYMBOL_program = 124,                  /* program  */
+  YYSYMBOL_line = 125,                     /* line  */
+  YYSYMBOL_instruction = 126,              /* instruction  */
+  YYSYMBOL_data_transfer = 127,            /* data_transfer  */
+  YYSYMBOL_arithmetic = 128,               /* arithmetic  */
+  YYSYMBOL_logical = 129,                  /* logical  */
+  YYSYMBOL_branch = 130,                   /* branch  */
+  YYSYMBOL_stack_io = 131,                 /* stack_io  */
+  YYSYMBOL_control = 132,                  /* control  */
+  YYSYMBOL_directives = 133,               /* directives  */
+  YYSYMBOL_label = 134,                    /* label  */
+  YYSYMBOL_expr = 135,                     /* expr  */
+  YYSYMBOL_term = 136,                     /* term  */
+  YYSYMBOL_primary = 137,                  /* primary  */
+  YYSYMBOL_immediate = 138,                /* immediate  */
+  YYSYMBOL_reg_pair = 139,                 /* reg_pair  */
+  YYSYMBOL_register = 140                  /* register  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -584,19 +583,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   478
+#define YYLAST   479
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  124
+#define YYNTOKENS  123
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  18
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  135
+#define YYNRULES  136
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  216
+#define YYNSTATES  217
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   369
+#define YYMAXUTOK   368
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -646,27 +645,27 @@ static const yytype_int8 yytranslate[] =
       75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
       85,    86,    87,    88,    89,    90,    91,    92,    93,    94,
       95,    96,    97,    98,    99,   109,   110,   111,   112,   113,
-     114,   115,   116,   117,   118,   119,   120,   121,   122,   123
+     114,   115,   116,   117,   118,   119,   120,   121,   122
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    58,    58,    58,    61,    62,    63,    64,    68,    69,
-      70,    71,    72,    73,    74,    78,    84,    90,    96,   102,
-     108,   114,   120,   126,   132,   141,   147,   153,   159,   165,
-     171,   177,   183,   189,   195,   201,   207,   213,   219,   228,
-     234,   240,   246,   252,   258,   264,   270,   276,   282,   288,
-     294,   300,   306,   312,   321,   327,   333,   339,   345,   351,
-     357,   363,   369,   375,   381,   387,   393,   399,   405,   411,
-     417,   423,   429,   435,   441,   447,   453,   459,   465,   471,
-     477,   483,   492,   498,   504,   510,   516,   522,   531,   537,
-     543,   549,   555,   565,   566,   567,   568,   569,   570,   571,
-     572,   573,   576,   581,   582,   583,   584,   585,   586,   587,
-     588,   589,   590,   591,   595,   596,   597,   598,   603,   614,
-     619,   620,   621,   622,   626,   627,   628,   629,   633,   634,
-     635,   636,   637,   638,   639,   640
+       0,    59,    59,    59,    62,    63,    64,    65,    69,    70,
+      71,    72,    73,    74,    75,    79,    85,    91,    97,   103,
+     109,   115,   121,   127,   133,   142,   148,   154,   160,   166,
+     172,   178,   184,   190,   196,   202,   208,   214,   220,   229,
+     235,   241,   247,   253,   259,   265,   271,   277,   283,   289,
+     295,   301,   307,   313,   322,   328,   334,   340,   346,   352,
+     358,   364,   370,   376,   382,   388,   394,   400,   406,   412,
+     418,   424,   430,   436,   442,   448,   454,   460,   466,   472,
+     478,   484,   493,   499,   505,   511,   517,   523,   532,   538,
+     544,   550,   556,   566,   567,   568,   569,   570,   571,   572,
+     573,   574,   577,   582,   586,   590,   594,   597,   600,   603,
+     607,   611,   615,   619,   623,   624,   627,   630,   635,   646,
+     647,   652,   653,   654,   655,   659,   660,   661,   662,   666,
+     667,   668,   669,   670,   671,   672,   673
 };
 #endif
 
@@ -694,7 +693,7 @@ static const char *const yytname[] =
   "ENDIF", "SET", "PCHL", "A", "B", "C", "D", "E", "H", "L", "M", "SP",
   "TOK_EOL", "','", "':'", "'+'", "'-'", "'*'", "'/'", "'('", "')'", "'$'",
   "MODULO", "NOT", "AND", "OR", "XOR", "SHR", "SHL", "NAME", "HEX_NUMBER",
-  "DEC_NUMBER", "OCT_NUMBER", "BIN_NUMBER", "STR_CONST", "CHAR", "UMINUS",
+  "DEC_NUMBER", "OCT_NUMBER", "BIN_NUMBER", "STR_CONST", "UMINUS",
   "$accept", "program", "line", "instruction", "data_transfer",
   "arithmetic", "logical", "branch", "stack_io", "control", "directives",
   "label", "expr", "term", "primary", "immediate", "reg_pair", "register", YY_NULLPTR
@@ -721,7 +720,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -94,   248,   -94,    66,    66,   -83,   -15,   -15,   -15,   -15,
+     -94,   249,   -94,    66,    66,   -83,   -15,   -15,   -15,   -15,
      -83,   -83,   -94,    66,   -15,    66,   -15,    66,   -15,    66,
      -15,    66,    66,   -83,   -83,   -83,   -94,    66,   -15,    66,
      -15,    66,   -15,    66,   -15,   -94,   -94,   -94,   -94,   -94,
@@ -730,19 +729,19 @@ static const yytype_int16 yypact[] =
      -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -83,
      -83,   -94,   -94,   -15,   -15,   -94,   -94,   -94,   -94,   -15,
      -15,   -94,   -15,   -15,   -15,   -94,   -94,   -94,   -94,   -79,
-     -93,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   362,
+     -93,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   363,
      -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -86,   -84,
      -94,   -94,   -94,   -94,   -80,   -15,   -15,   -15,   -94,   -94,
-     -94,   -94,   -94,    23,   -94,   -94,   -94,    23,    23,    23,
-     -94,   -94,   -94,    23,   -94,    23,   -94,    23,   -94,    23,
-     -94,   -94,   -94,   -94,   -94,   -94,    23,   -94,    23,   -94,
-      23,   -94,    23,    23,    23,    23,    23,    23,    23,    23,
+     -94,   -94,   -94,   -94,    23,   -94,   -94,   -94,    23,    23,
+      23,   -94,   -94,   -94,    23,   -94,    23,   -94,    23,   -94,
+      23,   -94,   -94,   -94,   -94,   -94,   -94,    23,   -94,    23,
+     -94,    23,   -94,    23,    23,    23,    23,    23,    23,    23,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,   -94,   -94,    23,    23,    23,    23,    23,    23,    23,
-     -15,   -94,   -94,   -58,   -94,    66,   -15,   -15,   -94,     9,
-     -94,   -15,   -15,   -15,   -15,   -15,   -15,   -15,   -15,   -15,
-     -15,    23,   -94,    23,    23,   -94,    40,    40,   -94,   -94,
-     -94,   -44,    37,    37,   -94,   -94
+      23,    23,   -94,   -94,    23,    23,    23,    23,    23,    23,
+      23,   -15,   -94,   -94,   -58,   -94,    66,   -15,   -15,   -94,
+       9,   -94,   -15,   -15,   -15,   -15,   -15,   -15,   -15,   -15,
+     -15,   -15,    23,   -94,    23,    23,   -94,    40,    40,   -94,
+     -94,   -94,   -44,    37,    37,   -94,   -94
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -760,18 +759,18 @@ static const yytype_uint8 yydefact[] =
        0,    84,    85,     0,     0,    88,    89,    91,    90,     0,
        0,    94,     0,     0,     0,    99,   100,   101,    81,     0,
        0,     5,     8,     9,    10,    11,    12,    13,    14,     6,
-     135,   128,   129,   130,   131,   132,   133,   134,     0,     0,
-     124,   125,   126,   127,     0,     0,     0,     0,   118,   120,
-     121,   122,   123,    18,   113,   117,   119,    19,    22,    23,
-      20,    21,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    35,    36,    37,    39,    40,    41,    42,    43,
-      44,    45,    46,    54,    55,    56,    57,    58,    59,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
-      71,    82,    83,    86,    87,    92,    93,    96,    97,    98,
-       0,   102,     2,     0,     4,     0,     0,     0,   115,     0,
-     116,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    95,    15,    16,    17,   114,   103,   104,   105,   106,
-     107,   108,   109,   110,   111,   112
+     136,   129,   130,   131,   132,   133,   134,   135,     0,     0,
+     125,   126,   127,   128,     0,     0,     0,     0,   118,   121,
+     122,   123,   124,   120,    18,   113,   117,   119,    19,    22,
+      23,    20,    21,    25,    26,    27,    28,    29,    30,    31,
+      32,    33,    34,    35,    36,    37,    39,    40,    41,    42,
+      43,    44,    45,    46,    54,    55,    56,    57,    58,    59,
+      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
+      70,    71,    82,    83,    86,    87,    92,    93,    96,    97,
+      98,     0,   102,     2,     0,     4,     0,     0,     0,   115,
+       0,   116,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    95,    15,    16,    17,   114,   103,   104,   105,
+     106,   107,   108,   109,   110,   111,   112
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -785,7 +784,7 @@ static const yytype_int8 yypgoto[] =
 static const yytype_int8 yydefgoto[] =
 {
        0,     1,    90,    91,    92,    93,    94,    95,    96,    97,
-      98,    99,   123,   124,   125,   126,   114,   108
+      98,    99,   124,   125,   126,   127,   114,   108
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -793,54 +792,54 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-     127,   128,   129,   180,   130,   131,   182,   133,   110,   135,
-     111,   137,   112,   139,   185,   113,   186,   142,   143,   144,
-     187,   146,   181,   148,   180,   150,   184,   152,     0,     0,
-       0,     0,     0,     0,     0,   153,   154,   155,   156,   157,
-     158,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,   169,   170,     0,     0,     0,     0,     0,   191,   192,
-     193,   194,     0,   171,   172,   195,   173,   174,     0,   109,
-     199,   200,   175,   176,     0,   177,   178,   179,   132,     0,
-     134,     0,   136,     0,   138,     0,   140,   141,   115,     0,
-       0,   116,   145,     0,   147,   117,   149,     0,   151,     0,
-       0,   118,   119,   120,   121,   122,     0,     0,   188,   189,
-     190,   191,   192,   193,   194,     0,   205,     0,   195,     0,
-     196,   197,   198,   199,   200,   191,   192,   193,   194,     0,
-       0,     0,   195,     0,   196,   197,   198,   199,   200,   191,
-     192,   193,   194,     0,   193,   194,   195,     0,   196,   195,
-       0,   199,   200,     0,   199,   200,   100,   101,   102,   103,
+     128,   129,   130,   181,   131,   132,   183,   134,   110,   136,
+     111,   138,   112,   140,   186,   113,   187,   143,   144,   145,
+     188,   147,   182,   149,   181,   151,   185,   153,     0,     0,
+       0,     0,     0,     0,     0,   154,   155,   156,   157,   158,
+     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
+     169,   170,   171,     0,     0,     0,     0,     0,   192,   193,
+     194,   195,     0,   172,   173,   196,   174,   175,     0,   109,
+     200,   201,   176,   177,     0,   178,   179,   180,   133,     0,
+     135,     0,   137,     0,   139,     0,   141,   142,   115,     0,
+       0,   116,   146,     0,   148,   117,   150,     0,   152,     0,
+       0,   118,   119,   120,   121,   122,   123,     0,   189,   190,
+     191,   192,   193,   194,   195,     0,   206,     0,   196,     0,
+     197,   198,   199,   200,   201,   192,   193,   194,   195,     0,
+       0,     0,   196,     0,   197,   198,   199,   200,   201,   192,
+     193,   194,   195,     0,   194,   195,   196,     0,   197,   196,
+       0,   200,   201,     0,   200,   201,   100,   101,   102,   103,
      104,   105,   106,   107,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,   201,     0,     0,     0,     0,     0,   203,
-     204,     0,     0,     0,   206,   207,   208,   209,   210,   211,
-     212,   213,   214,   215,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   202,     0,     0,     0,     0,     0,
+     204,   205,     0,     0,     0,   207,   208,   209,   210,   211,
+     212,   213,   214,   215,   216,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     2,     0,
-     202,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
-      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
-      52,    53,    54,    55,    56,    57,    58,    59,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    70,    71,
-      72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
-       0,    82,    83,    84,    85,    86,    87,    88,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     2,
+       0,   203,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    45,    46,    47,    48,    49,    50,
+      51,    52,    53,    54,    55,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
+      81,     0,    82,    83,    84,    85,    86,    87,    88,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    89,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    16,    17,
-      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
-      28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
-      38,    39,    40,    41,    42,    43,    44,    45,    46,    47,
-      48,    49,    50,    51,    52,    53,    54,    55,    56,    57,
-      58,    59,    60,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
-      78,    79,    80,    81,     0,    82,    83,    84,    85,    86,
-      87,    88,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    89,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    40,    41,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    51,    52,    53,    54,    55,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    65,    66,
+      67,    68,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    79,    80,    81,     0,    82,    83,    84,    85,
+      86,    87,    88,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,   183
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   184
 };
 
 static const yytype_int16 yycheck[] =
@@ -855,51 +854,51 @@ static const yytype_int16 yycheck[] =
      114,   115,    79,    80,    -1,    82,    83,    84,    13,    -1,
       15,    -1,    17,    -1,    19,    -1,    21,    22,   103,    -1,
       -1,   106,    27,    -1,    29,   110,    31,    -1,    33,    -1,
-      -1,   116,   117,   118,   119,   120,    -1,    -1,   115,   116,
+      -1,   116,   117,   118,   119,   120,   121,    -1,   115,   116,
      117,   102,   103,   104,   105,    -1,   107,    -1,   109,    -1,
      111,   112,   113,   114,   115,   102,   103,   104,   105,    -1,
       -1,    -1,   109,    -1,   111,   112,   113,   114,   115,   102,
      103,   104,   105,    -1,   104,   105,   109,    -1,   111,   109,
       -1,   114,   115,    -1,   114,   115,    90,    91,    92,    93,
       94,    95,    96,    97,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,   180,    -1,    -1,    -1,    -1,    -1,   186,
-     187,    -1,    -1,    -1,   191,   192,   193,   194,   195,   196,
-     197,   198,   199,   200,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,   181,    -1,    -1,    -1,    -1,    -1,
+     187,   188,    -1,    -1,    -1,   192,   193,   194,   195,   196,
+     197,   198,   199,   200,   201,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,     0,    -1,
-     185,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
-      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
-      52,    53,    54,    55,    56,    57,    58,    59,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    70,    71,
-      72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
-      -1,    83,    84,    85,    86,    87,    88,    89,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,     0,
+      -1,   186,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    45,    46,    47,    48,    49,    50,
+      51,    52,    53,    54,    55,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
+      81,    -1,    83,    84,    85,    86,    87,    88,    89,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,   116,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    16,    17,
-      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
-      28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
-      38,    39,    40,    41,    42,    43,    44,    45,    46,    47,
-      48,    49,    50,    51,    52,    53,    54,    55,    56,    57,
-      58,    59,    60,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
-      78,    79,    80,    81,    -1,    83,    84,    85,    86,    87,
-      88,    89,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,   116,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    40,    41,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    51,    52,    53,    54,    55,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    65,    66,
+      67,    68,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    79,    80,    81,    -1,    83,    84,    85,    86,
+      87,    88,    89,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   116
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   116
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,   125,     0,     3,     4,     5,     6,     7,     8,     9,
+       0,   124,     0,     3,     4,     5,     6,     7,     8,     9,
       10,    11,    12,    13,    14,    15,    16,    17,    18,    19,
       20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
       30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
@@ -908,38 +907,38 @@ static const yytype_uint8 yystos[] =
       60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
       70,    71,    72,    73,    74,    75,    76,    77,    78,    79,
       80,    81,    83,    84,    85,    86,    87,    88,    89,   116,
-     126,   127,   128,   129,   130,   131,   132,   133,   134,   135,
-      90,    91,    92,    93,    94,    95,    96,    97,   141,   141,
-      91,    93,    95,    98,   140,   103,   106,   110,   116,   117,
-     118,   119,   120,   136,   137,   138,   139,   136,   136,   136,
-     140,   140,   141,   136,   141,   136,   141,   136,   141,   136,
-     141,   141,   140,   140,   140,   141,   136,   141,   136,   141,
-     136,   141,   136,   136,   136,   136,   136,   136,   136,   136,
-     136,   136,   136,   136,   136,   136,   136,   136,   136,   136,
-     136,   140,   140,   136,   136,   136,   136,   136,   136,   136,
-      82,   101,    99,   116,   127,   100,   100,   100,   136,   136,
-     136,   102,   103,   104,   105,   109,   111,   112,   113,   114,
-     115,   136,   141,   136,   136,   107,   136,   136,   136,   136,
-     136,   136,   136,   136,   136,   136
+     125,   126,   127,   128,   129,   130,   131,   132,   133,   134,
+      90,    91,    92,    93,    94,    95,    96,    97,   140,   140,
+      91,    93,    95,    98,   139,   103,   106,   110,   116,   117,
+     118,   119,   120,   121,   135,   136,   137,   138,   135,   135,
+     135,   139,   139,   140,   135,   140,   135,   140,   135,   140,
+     135,   140,   140,   139,   139,   139,   140,   135,   140,   135,
+     140,   135,   140,   135,   135,   135,   135,   135,   135,   135,
+     135,   135,   135,   135,   135,   135,   135,   135,   135,   135,
+     135,   135,   139,   139,   135,   135,   135,   135,   135,   135,
+     135,    82,   101,    99,   116,   126,   100,   100,   100,   135,
+     135,   135,   102,   103,   104,   105,   109,   111,   112,   113,
+     114,   115,   135,   140,   135,   135,   107,   135,   135,   135,
+     135,   135,   135,   135,   135,   135,   135
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,   124,   125,   125,   126,   126,   126,   126,   127,   127,
+       0,   123,   124,   124,   125,   125,   125,   125,   126,   126,
+     126,   126,   126,   126,   126,   127,   127,   127,   127,   127,
      127,   127,   127,   127,   127,   128,   128,   128,   128,   128,
-     128,   128,   128,   128,   128,   129,   129,   129,   129,   129,
-     129,   129,   129,   129,   129,   129,   129,   129,   129,   130,
+     128,   128,   128,   128,   128,   128,   128,   128,   128,   129,
+     129,   129,   129,   129,   129,   129,   129,   129,   129,   129,
+     129,   129,   129,   129,   130,   130,   130,   130,   130,   130,
      130,   130,   130,   130,   130,   130,   130,   130,   130,   130,
-     130,   130,   130,   130,   131,   131,   131,   131,   131,   131,
-     131,   131,   131,   131,   131,   131,   131,   131,   131,   131,
-     131,   131,   131,   131,   131,   131,   131,   131,   131,   131,
-     131,   131,   132,   132,   132,   132,   132,   132,   133,   133,
-     133,   133,   133,   134,   134,   134,   134,   134,   134,   134,
-     134,   134,   135,   136,   136,   136,   136,   136,   136,   136,
-     136,   136,   136,   136,   137,   137,   137,   137,   138,   138,
-     139,   139,   139,   139,   140,   140,   140,   140,   141,   141,
-     141,   141,   141,   141,   141,   141
+     130,   130,   130,   130,   130,   130,   130,   130,   130,   130,
+     130,   130,   131,   131,   131,   131,   131,   131,   132,   132,
+     132,   132,   132,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   134,   135,   135,   135,   135,   135,   135,   135,
+     135,   135,   135,   135,   136,   136,   136,   136,   137,   137,
+     137,   138,   138,   138,   138,   139,   139,   139,   139,   140,
+     140,   140,   140,   140,   140,   140,   140
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -958,7 +957,7 @@ static const yytype_int8 yyr2[] =
        1,     1,     2,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     1,     3,     2,     2,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1
+       1,     1,     1,     1,     1,     1,     1
 };
 
 
@@ -1422,1019 +1421,1049 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* line: label instruction  */
-#line 61 "grammar/parser.y"
+#line 62 "grammar/parser.y"
                          { ; }
-#line 1428 "src/parser.c"
+#line 1427 "src/parser.c"
     break;
 
   case 5: /* line: instruction  */
-#line 62 "grammar/parser.y"
+#line 63 "grammar/parser.y"
                          { ; }
-#line 1434 "src/parser.c"
+#line 1433 "src/parser.c"
     break;
 
   case 6: /* line: label  */
-#line 63 "grammar/parser.y"
+#line 64 "grammar/parser.y"
                          { ; }
-#line 1440 "src/parser.c"
+#line 1439 "src/parser.c"
     break;
 
   case 15: /* data_transfer: MOV register ',' register  */
-#line 79 "grammar/parser.y"
+#line 80 "grammar/parser.y"
     { 
         uint8_t opcode =  0b01000000 | ((yyvsp[-2].int_val) << 3) | ((yyvsp[0].int_val));
-        i_emit("MOV", LC, opcode, 0, 0, REGISTER);
+        i_emit("MOV", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1450 "src/parser.c"
+#line 1449 "src/parser.c"
     break;
 
   case 16: /* data_transfer: MVI register ',' expr  */
-#line 85 "grammar/parser.y"
+#line 86 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000110 | ((yyvsp[-2].int_val) << 3);
-        i_emit("MVI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("MVI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1460 "src/parser.c"
+#line 1459 "src/parser.c"
     break;
 
   case 17: /* data_transfer: LXI reg_pair ',' expr  */
-#line 91 "grammar/parser.y"
+#line 92 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000001 | ( (yyvsp[-2].int_val) << 4);
-        i_emit("LXI", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("LXI", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1470 "src/parser.c"
+#line 1469 "src/parser.c"
     break;
 
   case 18: /* data_transfer: LDA expr  */
-#line 97 "grammar/parser.y"
+#line 98 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00111010;
-        i_emit("LDA", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("LDA", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1480 "src/parser.c"
+#line 1479 "src/parser.c"
     break;
 
   case 19: /* data_transfer: STA expr  */
-#line 103 "grammar/parser.y"
+#line 104 "grammar/parser.y"
     {
         uint8_t opcode =  0b00110010;
-        i_emit("STA", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("STA", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1490 "src/parser.c"
+#line 1489 "src/parser.c"
     break;
 
   case 20: /* data_transfer: LDAX reg_pair  */
-#line 109 "grammar/parser.y"
+#line 110 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00001010 | ( (yyvsp[0].int_val) << 4);
-        i_emit("LDAX", LC, opcode, 0, 0, REGISTER);
+        i_emit("LDAX", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1500 "src/parser.c"
+#line 1499 "src/parser.c"
     break;
 
   case 21: /* data_transfer: STAX reg_pair  */
-#line 115 "grammar/parser.y"
+#line 116 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00000010 | ( (yyvsp[0].int_val) << 4);
-        i_emit("STAX", LC, opcode, 0, 0, REGISTER);
+        i_emit("STAX", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1510 "src/parser.c"
+#line 1509 "src/parser.c"
     break;
 
   case 22: /* data_transfer: LHLD expr  */
-#line 121 "grammar/parser.y"
+#line 122 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00101010;
-        i_emit("LHLD", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("LHLD", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1520 "src/parser.c"
+#line 1519 "src/parser.c"
     break;
 
   case 23: /* data_transfer: SHLD expr  */
-#line 127 "grammar/parser.y"
+#line 128 "grammar/parser.y"
     { 
         uint8_t opcode =  0b00100010;
-        i_emit("SHLD", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("SHLD", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1530 "src/parser.c"
+#line 1529 "src/parser.c"
     break;
 
   case 24: /* data_transfer: XCHG  */
-#line 133 "grammar/parser.y"
+#line 134 "grammar/parser.y"
     { 
         uint8_t opcode =  0b11101011;
-        i_emit("XCHG", LC, opcode, 0, 0, REGISTER);
+        i_emit("XCHG", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1540 "src/parser.c"
+#line 1539 "src/parser.c"
     break;
 
   case 25: /* arithmetic: ADD register  */
-#line 142 "grammar/parser.y"
+#line 143 "grammar/parser.y"
     {
         uint8_t opcode =  0b10000000 | ((yyvsp[0].int_val));
-        i_emit("ADD", LC, opcode, 0, 0, REGISTER);
+        i_emit("ADD", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1550 "src/parser.c"
+#line 1549 "src/parser.c"
     break;
 
   case 26: /* arithmetic: ADI expr  */
-#line 148 "grammar/parser.y"
+#line 149 "grammar/parser.y"
     {
         uint8_t opcode =  0b11000110;
-        i_emit("ADI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("ADI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1560 "src/parser.c"
+#line 1559 "src/parser.c"
     break;
 
   case 27: /* arithmetic: ADC register  */
-#line 154 "grammar/parser.y"
+#line 155 "grammar/parser.y"
     {
         uint8_t opcode =  0b10001000 | ((yyvsp[0].int_val));
-        i_emit("ADC", LC, opcode, 0, 0, REGISTER);
+        i_emit("ADC", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1570 "src/parser.c"
+#line 1569 "src/parser.c"
     break;
 
   case 28: /* arithmetic: ACI expr  */
-#line 160 "grammar/parser.y"
+#line 161 "grammar/parser.y"
     {
         uint8_t opcode =  0b11001110;
-        i_emit("ACI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("ACI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1580 "src/parser.c"
+#line 1579 "src/parser.c"
     break;
 
   case 29: /* arithmetic: SUB register  */
-#line 166 "grammar/parser.y"
+#line 167 "grammar/parser.y"
     {
         uint8_t opcode =  0b10010000 | ((yyvsp[0].int_val));
-        i_emit("SUB", LC, opcode, 0, 0, REGISTER);
+        i_emit("SUB", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1590 "src/parser.c"
+#line 1589 "src/parser.c"
     break;
 
   case 30: /* arithmetic: SUI expr  */
-#line 172 "grammar/parser.y"
+#line 173 "grammar/parser.y"
     {
         uint8_t opcode =  0b11010110;
-        i_emit("SUI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("SUI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1600 "src/parser.c"
+#line 1599 "src/parser.c"
     break;
 
   case 31: /* arithmetic: SBB register  */
-#line 178 "grammar/parser.y"
+#line 179 "grammar/parser.y"
     {
         uint8_t opcode =  0b10011000 | ((yyvsp[0].int_val));
-        i_emit("SBB", LC, opcode, 0, 0, REGISTER);
+        i_emit("SBB", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1610 "src/parser.c"
+#line 1609 "src/parser.c"
     break;
 
   case 32: /* arithmetic: SBI expr  */
-#line 184 "grammar/parser.y"
+#line 185 "grammar/parser.y"
     {
         uint8_t opcode =  0b11011110;
-        i_emit("SBI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("SBI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1620 "src/parser.c"
+#line 1619 "src/parser.c"
     break;
 
   case 33: /* arithmetic: INR register  */
-#line 190 "grammar/parser.y"
+#line 191 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000100 | ((yyvsp[0].int_val) << 3);
-        i_emit("INR", LC, opcode, 0, 0, REGISTER);
+        i_emit("INR", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1630 "src/parser.c"
+#line 1629 "src/parser.c"
     break;
 
   case 34: /* arithmetic: DCR register  */
-#line 196 "grammar/parser.y"
+#line 197 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000101 | ((yyvsp[0].int_val) << 3);
-        i_emit("DCR", LC, opcode, 0, 0, REGISTER);
+        i_emit("DCR", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1640 "src/parser.c"
+#line 1639 "src/parser.c"
     break;
 
   case 35: /* arithmetic: INX reg_pair  */
-#line 202 "grammar/parser.y"
+#line 203 "grammar/parser.y"
     {
         uint8_t opcode =  0b00000011 | ((yyvsp[0].int_val) << 4);
-        i_emit("INX", LC, opcode, 0, 0, REGISTER);
+        i_emit("INX", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1650 "src/parser.c"
+#line 1649 "src/parser.c"
     break;
 
   case 36: /* arithmetic: DCX reg_pair  */
-#line 208 "grammar/parser.y"
+#line 209 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001011 | ((yyvsp[0].int_val) << 4);
-        i_emit("DCX", LC, opcode, 0, 0, REGISTER);
+        i_emit("DCX", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1660 "src/parser.c"
+#line 1659 "src/parser.c"
     break;
 
   case 37: /* arithmetic: DAD reg_pair  */
-#line 214 "grammar/parser.y"
+#line 215 "grammar/parser.y"
     {
         uint8_t opcode =  0b00001001 | ((yyvsp[0].int_val) << 4);
-        i_emit("DAD", LC, opcode, 0, 0, REGISTER);
+        i_emit("DAD", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1670 "src/parser.c"
+#line 1669 "src/parser.c"
     break;
 
   case 38: /* arithmetic: DAA  */
-#line 220 "grammar/parser.y"
+#line 221 "grammar/parser.y"
     {
         uint8_t opcode =  0b00100111;
-        i_emit("DAA", LC, opcode, 0, 0, REGISTER);
+        i_emit("DAA", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1680 "src/parser.c"
+#line 1679 "src/parser.c"
     break;
 
   case 39: /* logical: ANA register  */
-#line 229 "grammar/parser.y"
+#line 230 "grammar/parser.y"
     {
         uint8_t opcode = 0b10100000 | (yyvsp[0].int_val);
-        i_emit("ANA", LC, opcode, 0, 0, REGISTER);
+        i_emit("ANA", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1690 "src/parser.c"
+#line 1689 "src/parser.c"
     break;
 
   case 40: /* logical: ANI expr  */
-#line 235 "grammar/parser.y"
+#line 236 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100110;
-        i_emit("ANI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("ANI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1700 "src/parser.c"
+#line 1699 "src/parser.c"
     break;
 
   case 41: /* logical: XRA register  */
-#line 241 "grammar/parser.y"
+#line 242 "grammar/parser.y"
     {
         uint8_t opcode = 0b10101000 | (yyvsp[0].int_val);
-        i_emit("XRA", LC, opcode, 0, 0, REGISTER);
+        i_emit("XRA", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1710 "src/parser.c"
+#line 1709 "src/parser.c"
     break;
 
   case 42: /* logical: XRI expr  */
-#line 247 "grammar/parser.y"
+#line 248 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101110;
-        i_emit("XRI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("XRI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1720 "src/parser.c"
+#line 1719 "src/parser.c"
     break;
 
   case 43: /* logical: ORA register  */
-#line 253 "grammar/parser.y"
+#line 254 "grammar/parser.y"
     {
         uint8_t opcode = 0b10110000| (yyvsp[0].int_val);
-        i_emit("ORA", LC, opcode, 0, 0, REGISTER);
+        i_emit("ORA", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1730 "src/parser.c"
+#line 1729 "src/parser.c"
     break;
 
   case 44: /* logical: ORI expr  */
-#line 259 "grammar/parser.y"
+#line 260 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110110;
-        i_emit("ORI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("ORI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1740 "src/parser.c"
+#line 1739 "src/parser.c"
     break;
 
   case 45: /* logical: CMP register  */
-#line 265 "grammar/parser.y"
+#line 266 "grammar/parser.y"
     {
         uint8_t opcode = 0b10111000| (yyvsp[0].int_val);
-        i_emit("CMP", LC, opcode, 0, 0, REGISTER);
+        i_emit("CMP", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1750 "src/parser.c"
+#line 1749 "src/parser.c"
     break;
 
   case 46: /* logical: CPI expr  */
-#line 271 "grammar/parser.y"
+#line 272 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111110;
-        i_emit("CPI", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("CPI", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 1760 "src/parser.c"
+#line 1759 "src/parser.c"
     break;
 
   case 47: /* logical: RLC  */
-#line 277 "grammar/parser.y"
+#line 278 "grammar/parser.y"
     {
         uint8_t opcode = 0b00000111;
-        i_emit("RLC", LC, opcode, 0, 0, REGISTER);
+        i_emit("RLC", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1770 "src/parser.c"
+#line 1769 "src/parser.c"
     break;
 
   case 48: /* logical: RRC  */
-#line 283 "grammar/parser.y"
+#line 284 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
-        i_emit("RRC", LC, opcode, 0, 0, REGISTER);
+        i_emit("RRC", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1780 "src/parser.c"
+#line 1779 "src/parser.c"
     break;
 
   case 49: /* logical: RAL  */
-#line 289 "grammar/parser.y"
+#line 290 "grammar/parser.y"
     {
         uint8_t opcode = 0b00010111;
-        i_emit("RAL", LC, opcode, 0, 0, REGISTER);
+        i_emit("RAL", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1790 "src/parser.c"
+#line 1789 "src/parser.c"
     break;
 
   case 50: /* logical: RAR  */
-#line 295 "grammar/parser.y"
+#line 296 "grammar/parser.y"
     {
         uint8_t opcode = 0b00001111;
-        i_emit("RAR", LC, opcode, 0, 0, REGISTER);
+        i_emit("RAR", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1800 "src/parser.c"
+#line 1799 "src/parser.c"
     break;
 
   case 51: /* logical: CMA  */
-#line 301 "grammar/parser.y"
+#line 302 "grammar/parser.y"
     {
         uint8_t opcode = 0b00101111;
-        i_emit("CMA", LC, opcode, 0, 0, REGISTER);
+        i_emit("CMA", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1810 "src/parser.c"
+#line 1809 "src/parser.c"
     break;
 
   case 52: /* logical: CMC  */
-#line 307 "grammar/parser.y"
+#line 308 "grammar/parser.y"
     {
         uint8_t opcode = 0b00111111;
-        i_emit("CMC", LC, opcode, 0, 0, REGISTER);
+        i_emit("CMC", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1820 "src/parser.c"
+#line 1819 "src/parser.c"
     break;
 
   case 53: /* logical: STC  */
-#line 313 "grammar/parser.y"
+#line 314 "grammar/parser.y"
     {
         uint8_t opcode = 0b00110111;
-        i_emit("STC", LC, opcode, 0, 0, REGISTER);
+        i_emit("STC", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 1830 "src/parser.c"
+#line 1829 "src/parser.c"
     break;
 
   case 54: /* branch: JMP expr  */
-#line 322 "grammar/parser.y"
+#line 323 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000011;
-        i_emit("JMP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JMP", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1840 "src/parser.c"
+#line 1839 "src/parser.c"
     break;
 
   case 55: /* branch: JC expr  */
-#line 328 "grammar/parser.y"
+#line 329 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011010;
-        i_emit("JC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JC", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1850 "src/parser.c"
+#line 1849 "src/parser.c"
     break;
 
   case 56: /* branch: JNC expr  */
-#line 334 "grammar/parser.y"
+#line 335 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010010;
-        i_emit("JNC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JNC", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1860 "src/parser.c"
+#line 1859 "src/parser.c"
     break;
 
   case 57: /* branch: JZ expr  */
-#line 340 "grammar/parser.y"
+#line 341 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001010;
-        i_emit("JZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JZ", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1870 "src/parser.c"
+#line 1869 "src/parser.c"
     break;
 
   case 58: /* branch: JNZ expr  */
-#line 346 "grammar/parser.y"
+#line 347 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000010;
-        i_emit("JNZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JNZ", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1880 "src/parser.c"
+#line 1879 "src/parser.c"
     break;
 
   case 59: /* branch: JP expr  */
-#line 352 "grammar/parser.y"
+#line 353 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110010;
-        i_emit("JP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JP", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1890 "src/parser.c"
+#line 1889 "src/parser.c"
     break;
 
   case 60: /* branch: JM expr  */
-#line 358 "grammar/parser.y"
+#line 359 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111010;
-        i_emit("JM", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JM", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1900 "src/parser.c"
+#line 1899 "src/parser.c"
     break;
 
   case 61: /* branch: JPE expr  */
-#line 364 "grammar/parser.y"
+#line 365 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101010;
-        i_emit("JPE", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JPE", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1910 "src/parser.c"
+#line 1909 "src/parser.c"
     break;
 
   case 62: /* branch: JPO expr  */
-#line 370 "grammar/parser.y"
+#line 371 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100010;
-        i_emit("JPO", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("JPO", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1920 "src/parser.c"
+#line 1919 "src/parser.c"
     break;
 
   case 63: /* branch: CALL expr  */
-#line 376 "grammar/parser.y"
+#line 377 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001101;
-        i_emit("CALL", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CALL", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1930 "src/parser.c"
+#line 1929 "src/parser.c"
     break;
 
   case 64: /* branch: CC expr  */
-#line 382 "grammar/parser.y"
+#line 383 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011100;
-        i_emit("CC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CC", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1940 "src/parser.c"
+#line 1939 "src/parser.c"
     break;
 
   case 65: /* branch: CNC expr  */
-#line 388 "grammar/parser.y"
+#line 389 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010100;
-        i_emit("CNC", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CNC", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1950 "src/parser.c"
+#line 1949 "src/parser.c"
     break;
 
   case 66: /* branch: CZ expr  */
-#line 394 "grammar/parser.y"
+#line 395 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001100;
-        i_emit("CZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CZ", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1960 "src/parser.c"
+#line 1959 "src/parser.c"
     break;
 
   case 67: /* branch: CNZ expr  */
-#line 400 "grammar/parser.y"
+#line 401 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000100;
-        i_emit("CNZ", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CNZ", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1970 "src/parser.c"
+#line 1969 "src/parser.c"
     break;
 
   case 68: /* branch: CP expr  */
-#line 406 "grammar/parser.y"
+#line 407 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110100;
-        i_emit("CP", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CP", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1980 "src/parser.c"
+#line 1979 "src/parser.c"
     break;
 
   case 69: /* branch: CM expr  */
-#line 412 "grammar/parser.y"
+#line 413 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111100;
-        i_emit("CM", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CM", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 1990 "src/parser.c"
+#line 1989 "src/parser.c"
     break;
 
   case 70: /* branch: CPE expr  */
-#line 418 "grammar/parser.y"
+#line 419 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101100;
-        i_emit("CPE", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CPE", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 2000 "src/parser.c"
+#line 1999 "src/parser.c"
     break;
 
   case 71: /* branch: CPO expr  */
-#line 424 "grammar/parser.y"
+#line 425 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100100;
-        i_emit("CPO", LC, opcode, (yyvsp[0].int_val) & 0xFF, (yyvsp[0].int_val) >> 8, DIRECT);
+        i_emit("CPO", LC, opcode, (yyvsp[0].expr_val), DIRECT);
         LC = LC + DIRECT;
     }
-#line 2010 "src/parser.c"
+#line 2009 "src/parser.c"
     break;
 
   case 72: /* branch: RET  */
-#line 430 "grammar/parser.y"
+#line 431 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001001;
-        i_emit("RET", LC, opcode, 0, 0, DIRECT);
+        i_emit("RET", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2020 "src/parser.c"
+#line 2019 "src/parser.c"
     break;
 
   case 73: /* branch: RC  */
-#line 436 "grammar/parser.y"
+#line 437 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011000;
-        i_emit("RC", LC, opcode, 0, 0, DIRECT);
+        i_emit("RC", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2030 "src/parser.c"
+#line 2029 "src/parser.c"
     break;
 
   case 74: /* branch: RNC  */
-#line 442 "grammar/parser.y"
+#line 443 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010000;
-        i_emit("RNC", LC, opcode, 0, 0, DIRECT);
+        i_emit("RNC", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2040 "src/parser.c"
+#line 2039 "src/parser.c"
     break;
 
   case 75: /* branch: RZ  */
-#line 448 "grammar/parser.y"
+#line 449 "grammar/parser.y"
     {
         uint8_t opcode = 0b11001000;
-        i_emit("RZ", LC, opcode, 0, 0, DIRECT);
+        i_emit("RZ", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2050 "src/parser.c"
+#line 2049 "src/parser.c"
     break;
 
   case 76: /* branch: RNZ  */
-#line 454 "grammar/parser.y"
+#line 455 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000000;
-        i_emit("RNZ", LC, opcode, 0, 0, DIRECT);
+        i_emit("RNZ", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2060 "src/parser.c"
+#line 2059 "src/parser.c"
     break;
 
   case 77: /* branch: RP  */
-#line 460 "grammar/parser.y"
+#line 461 "grammar/parser.y"
     {
         uint8_t opcode = 0b11110000;
-        i_emit("RP", LC, opcode, 0, 0, DIRECT);
+        i_emit("RP", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2070 "src/parser.c"
+#line 2069 "src/parser.c"
     break;
 
   case 78: /* branch: RM  */
-#line 466 "grammar/parser.y"
+#line 467 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111000;
-        i_emit("RM", LC, opcode, 0, 0, DIRECT);
+        i_emit("RM", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2080 "src/parser.c"
+#line 2079 "src/parser.c"
     break;
 
   case 79: /* branch: RPE  */
-#line 472 "grammar/parser.y"
+#line 473 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101000;
-        i_emit("RPE", LC, opcode, 0, 0, DIRECT);
+        i_emit("RPE", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2090 "src/parser.c"
+#line 2089 "src/parser.c"
     break;
 
   case 80: /* branch: RPO  */
-#line 478 "grammar/parser.y"
+#line 479 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100000;
-        i_emit("RPO", LC, opcode, 0, 0, DIRECT);
+        i_emit("RPO", LC, opcode, NULL, DIRECT);
         LC = LC + REGISTER;
     }
-#line 2100 "src/parser.c"
+#line 2099 "src/parser.c"
     break;
 
   case 81: /* branch: PCHL  */
-#line 484 "grammar/parser.y"
+#line 485 "grammar/parser.y"
     {
         uint8_t opcode = 0b11101001;
-        i_emit("PCHL", LC, opcode, 0, 0, REGISTER);
+        i_emit("PCHL", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2110 "src/parser.c"
+#line 2109 "src/parser.c"
     break;
 
   case 82: /* stack_io: PUSH reg_pair  */
-#line 493 "grammar/parser.y"
+#line 494 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000101 | ((yyvsp[0].int_val) << 4);
-        i_emit("PUSH", LC, opcode, 0, 0, REGISTER);
+        i_emit("PUSH", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2120 "src/parser.c"
+#line 2119 "src/parser.c"
     break;
 
   case 83: /* stack_io: POP reg_pair  */
-#line 499 "grammar/parser.y"
+#line 500 "grammar/parser.y"
     {
         uint8_t opcode = 0b11000001 | ((yyvsp[0].int_val) << 4);
-        i_emit("POP", LC, opcode, 0, 0, REGISTER);
+        i_emit("POP", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2130 "src/parser.c"
+#line 2129 "src/parser.c"
     break;
 
   case 84: /* stack_io: XTHL  */
-#line 505 "grammar/parser.y"
+#line 506 "grammar/parser.y"
     {
         uint8_t opcode = 0b11100011;
-        i_emit("XTHL", LC, opcode, 0, 0, REGISTER);
+        i_emit("XTHL", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2140 "src/parser.c"
+#line 2139 "src/parser.c"
     break;
 
   case 85: /* stack_io: SPHL  */
-#line 511 "grammar/parser.y"
+#line 512 "grammar/parser.y"
     {
         uint8_t opcode = 0b11111001;
-        i_emit("SPHL", LC, opcode, 0, 0, REGISTER);
+        i_emit("SPHL", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2150 "src/parser.c"
+#line 2149 "src/parser.c"
     break;
 
   case 86: /* stack_io: IN expr  */
-#line 517 "grammar/parser.y"
+#line 518 "grammar/parser.y"
     {
         uint8_t opcode = 0b11011011;
-        i_emit("IN", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("IN", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 2160 "src/parser.c"
+#line 2159 "src/parser.c"
     break;
 
   case 87: /* stack_io: OUT expr  */
-#line 523 "grammar/parser.y"
+#line 524 "grammar/parser.y"
     {
         uint8_t opcode = 0b11010011;
-        i_emit("OUT", LC, opcode, (yyvsp[0].int_val), 0, IMMEDIATE);
+        i_emit("OUT", LC, opcode, (yyvsp[0].expr_val), IMMEDIATE);
         LC = LC + IMMEDIATE;
     }
-#line 2170 "src/parser.c"
+#line 2169 "src/parser.c"
     break;
 
   case 88: /* control: EI  */
-#line 532 "grammar/parser.y"
+#line 533 "grammar/parser.y"
     {
         uint8_t opcode =  0b11111011;
-        i_emit("EI", LC, opcode, 0, 0, REGISTER);
+        i_emit("EI", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2180 "src/parser.c"
+#line 2179 "src/parser.c"
     break;
 
   case 89: /* control: DI  */
-#line 538 "grammar/parser.y"
+#line 539 "grammar/parser.y"
     {
         uint8_t opcode =  0b11110011;
-        i_emit("DI", LC, opcode, 0, 0, REGISTER);
+        i_emit("DI", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2190 "src/parser.c"
+#line 2189 "src/parser.c"
     break;
 
   case 90: /* control: NOP  */
-#line 544 "grammar/parser.y"
+#line 545 "grammar/parser.y"
     { 
         uint8_t opcode =  0;
-        i_emit("NOP", LC, opcode, 0, 0, REGISTER);
+        i_emit("NOP", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2200 "src/parser.c"
+#line 2199 "src/parser.c"
     break;
 
   case 91: /* control: HLT  */
-#line 550 "grammar/parser.y"
+#line 551 "grammar/parser.y"
     {
         uint8_t opcode =  0b01110110;
-        i_emit("HLT", LC, opcode, 0, 0, REGISTER);
+        i_emit("HLT", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2210 "src/parser.c"
+#line 2209 "src/parser.c"
     break;
 
   case 92: /* control: RST expr  */
-#line 556 "grammar/parser.y"
+#line 557 "grammar/parser.y"
     {
         // Note: "exp" must evaluate to a number in the range 0bOOO to 0b111
-        uint8_t opcode = 0b11000111 | ((yyvsp[0].int_val) << 3);
-        i_emit("RST", LC, opcode, 0, 0, REGISTER);
+        uint8_t opcode = 0b11000111 | ((yyvsp[0].expr_val)->number_const << 3);
+        i_emit("RST", LC, opcode, NULL, REGISTER);
         LC = LC + REGISTER;
     }
-#line 2221 "src/parser.c"
+#line 2220 "src/parser.c"
     break;
 
   case 102: /* label: NAME ':'  */
-#line 576 "grammar/parser.y"
+#line 577 "grammar/parser.y"
                { st_insert(symbolTable, st_new_symbol((yyvsp[-1].string_val), LC, false)); }
-#line 2227 "src/parser.c"
+#line 2226 "src/parser.c"
     break;
 
   case 103: /* expr: expr '+' expr  */
-#line 581 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) + (yyvsp[0].int_val); }
-#line 2233 "src/parser.c"
+#line 583 "grammar/parser.y"
+    { 
+        // $$ = $expr1 + $expr2;
+    }
+#line 2234 "src/parser.c"
     break;
 
   case 104: /* expr: expr '-' expr  */
-#line 582 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) - (yyvsp[0].int_val); }
-#line 2239 "src/parser.c"
+#line 587 "grammar/parser.y"
+    {
+        //  $$ = $expr1 - $expr2;
+    }
+#line 2242 "src/parser.c"
     break;
 
   case 105: /* expr: expr '*' expr  */
-#line 583 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) * (yyvsp[0].int_val); }
-#line 2245 "src/parser.c"
+#line 591 "grammar/parser.y"
+    {
+        // $$ = $expr1 * $expr2;
+    }
+#line 2250 "src/parser.c"
     break;
 
   case 106: /* expr: expr '/' expr  */
-#line 584 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) / (yyvsp[0].int_val); }
-#line 2251 "src/parser.c"
+#line 594 "grammar/parser.y"
+                                        {
+        // $$ = $expr1 / $expr2;
+    }
+#line 2258 "src/parser.c"
     break;
 
   case 107: /* expr: expr MODULO expr  */
-#line 585 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) % (yyvsp[0].int_val); }
-#line 2257 "src/parser.c"
+#line 597 "grammar/parser.y"
+                                        {
+        // $$ = $expr1 % $expr2;
+    }
+#line 2266 "src/parser.c"
     break;
 
   case 108: /* expr: expr AND expr  */
-#line 586 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) & (yyvsp[0].int_val); }
-#line 2263 "src/parser.c"
+#line 600 "grammar/parser.y"
+                                        {
+        // $$ = $expr1 & $expr2;
+    }
+#line 2274 "src/parser.c"
     break;
 
   case 109: /* expr: expr OR expr  */
-#line 587 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) | (yyvsp[0].int_val); }
-#line 2269 "src/parser.c"
+#line 604 "grammar/parser.y"
+    {
+        // $$ = $expr1 | $expr2;
+    }
+#line 2282 "src/parser.c"
     break;
 
   case 110: /* expr: expr XOR expr  */
-#line 588 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) ^ (yyvsp[0].int_val); }
-#line 2275 "src/parser.c"
+#line 608 "grammar/parser.y"
+    {
+        // $$ = $expr1 ^ $expr2;
+    }
+#line 2290 "src/parser.c"
     break;
 
   case 111: /* expr: expr SHR expr  */
-#line 589 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) >> (yyvsp[0].int_val); }
-#line 2281 "src/parser.c"
+#line 612 "grammar/parser.y"
+    {
+        // $$ = $expr1 >> $expr2;
+    }
+#line 2298 "src/parser.c"
     break;
 
   case 112: /* expr: expr SHL expr  */
-#line 590 "grammar/parser.y"
-                                        { (yyval.int_val) = (yyvsp[-2].int_val) << (yyvsp[0].int_val); }
-#line 2287 "src/parser.c"
+#line 616 "grammar/parser.y"
+    {
+        // $$ = $expr1 << $expr2;
+    }
+#line 2306 "src/parser.c"
     break;
 
   case 113: /* expr: term  */
-#line 591 "grammar/parser.y"
-           { }
-#line 2293 "src/parser.c"
+#line 619 "grammar/parser.y"
+           { ; }
+#line 2312 "src/parser.c"
     break;
 
   case 114: /* term: '(' expr ')'  */
-#line 595 "grammar/parser.y"
-                   { (yyval.int_val) = (yyvsp[-1].int_val); }
-#line 2299 "src/parser.c"
+#line 623 "grammar/parser.y"
+                   { (yyval.expr_val) = (yyvsp[-1].expr_val); }
+#line 2318 "src/parser.c"
     break;
 
   case 115: /* term: '-' expr  */
-#line 596 "grammar/parser.y"
-                            { (yyval.int_val) = (yyvsp[0].int_val) * (-1); }
-#line 2305 "src/parser.c"
+#line 624 "grammar/parser.y"
+                            {
+        // $term = $expr->number_const * (-1);
+    }
+#line 2326 "src/parser.c"
     break;
 
   case 116: /* term: NOT expr  */
-#line 597 "grammar/parser.y"
-                { (yyval.int_val) = ~(yyvsp[0].int_val); }
-#line 2311 "src/parser.c"
+#line 627 "grammar/parser.y"
+                {
+        // $term = ~$expr->number_const;
+    }
+#line 2334 "src/parser.c"
     break;
 
   case 117: /* term: primary  */
-#line 598 "grammar/parser.y"
-                { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2317 "src/parser.c"
+#line 630 "grammar/parser.y"
+                { (yyval.expr_val) = (yyvsp[0].expr_val); }
+#line 2340 "src/parser.c"
     break;
 
   case 118: /* primary: NAME  */
-#line 604 "grammar/parser.y"
+#line 636 "grammar/parser.y"
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         if (!label) {
-            unresolvedInsert((yyvsp[0].string_val), current_instrs);
-            (yyval.int_val) =  -1;
+            unresolved_insert((yyvsp[0].string_val), current_instrs);
+            (yyval.expr_val) =  NULL;
         }
         else {
-            (yyval.int_val) = label->value;
+            (yyval.expr_val) = new_number_const_expr(label->value);
         }
     }
-#line 2332 "src/parser.c"
+#line 2355 "src/parser.c"
     break;
 
   case 119: /* primary: immediate  */
-#line 614 "grammar/parser.y"
-                { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2338 "src/parser.c"
+#line 646 "grammar/parser.y"
+                { (yyval.expr_val) = (yyvsp[0].expr_val); }
+#line 2361 "src/parser.c"
     break;
 
-  case 120: /* immediate: HEX_NUMBER  */
-#line 619 "grammar/parser.y"
-                    { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2344 "src/parser.c"
+  case 120: /* primary: STR_CONST  */
+#line 647 "grammar/parser.y"
+                { (yyval.expr_val)=0; }
+#line 2367 "src/parser.c"
     break;
 
-  case 121: /* immediate: DEC_NUMBER  */
-#line 620 "grammar/parser.y"
-                    { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2350 "src/parser.c"
+  case 121: /* immediate: HEX_NUMBER  */
+#line 652 "grammar/parser.y"
+                    { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
+#line 2373 "src/parser.c"
     break;
 
-  case 122: /* immediate: OCT_NUMBER  */
-#line 621 "grammar/parser.y"
-                    { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2356 "src/parser.c"
+  case 122: /* immediate: DEC_NUMBER  */
+#line 653 "grammar/parser.y"
+                    { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
+#line 2379 "src/parser.c"
     break;
 
-  case 123: /* immediate: BIN_NUMBER  */
-#line 622 "grammar/parser.y"
-                    { (yyval.int_val) = (yyvsp[0].int_val); }
-#line 2362 "src/parser.c"
+  case 123: /* immediate: OCT_NUMBER  */
+#line 654 "grammar/parser.y"
+                    { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
+#line 2385 "src/parser.c"
     break;
 
-  case 124: /* reg_pair: B  */
-#line 626 "grammar/parser.y"
+  case 124: /* immediate: BIN_NUMBER  */
+#line 655 "grammar/parser.y"
+                    { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
+#line 2391 "src/parser.c"
+    break;
+
+  case 125: /* reg_pair: B  */
+#line 659 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2368 "src/parser.c"
+#line 2397 "src/parser.c"
     break;
 
-  case 125: /* reg_pair: D  */
-#line 627 "grammar/parser.y"
+  case 126: /* reg_pair: D  */
+#line 660 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2374 "src/parser.c"
+#line 2403 "src/parser.c"
     break;
 
-  case 126: /* reg_pair: H  */
-#line 628 "grammar/parser.y"
+  case 127: /* reg_pair: H  */
+#line 661 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2380 "src/parser.c"
+#line 2409 "src/parser.c"
     break;
 
-  case 127: /* reg_pair: SP  */
-#line 629 "grammar/parser.y"
+  case 128: /* reg_pair: SP  */
+#line 662 "grammar/parser.y"
          { (yyval.int_val) = 3; }
-#line 2386 "src/parser.c"
+#line 2415 "src/parser.c"
     break;
 
-  case 128: /* register: B  */
-#line 633 "grammar/parser.y"
+  case 129: /* register: B  */
+#line 666 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2392 "src/parser.c"
+#line 2421 "src/parser.c"
     break;
 
-  case 129: /* register: C  */
-#line 634 "grammar/parser.y"
+  case 130: /* register: C  */
+#line 667 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2398 "src/parser.c"
+#line 2427 "src/parser.c"
     break;
 
-  case 130: /* register: D  */
-#line 635 "grammar/parser.y"
+  case 131: /* register: D  */
+#line 668 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2404 "src/parser.c"
+#line 2433 "src/parser.c"
     break;
 
-  case 131: /* register: E  */
-#line 636 "grammar/parser.y"
+  case 132: /* register: E  */
+#line 669 "grammar/parser.y"
         { (yyval.int_val) = 3; }
-#line 2410 "src/parser.c"
+#line 2439 "src/parser.c"
     break;
 
-  case 132: /* register: H  */
-#line 637 "grammar/parser.y"
+  case 133: /* register: H  */
+#line 670 "grammar/parser.y"
         { (yyval.int_val) = 4; }
-#line 2416 "src/parser.c"
+#line 2445 "src/parser.c"
     break;
 
-  case 133: /* register: L  */
-#line 638 "grammar/parser.y"
+  case 134: /* register: L  */
+#line 671 "grammar/parser.y"
         { (yyval.int_val) = 5; }
-#line 2422 "src/parser.c"
+#line 2451 "src/parser.c"
     break;
 
-  case 134: /* register: M  */
-#line 639 "grammar/parser.y"
+  case 135: /* register: M  */
+#line 672 "grammar/parser.y"
         { (yyval.int_val) = 6; }
-#line 2428 "src/parser.c"
+#line 2457 "src/parser.c"
     break;
 
-  case 135: /* register: A  */
-#line 640 "grammar/parser.y"
+  case 136: /* register: A  */
+#line 673 "grammar/parser.y"
         { (yyval.int_val) = 7; }
-#line 2434 "src/parser.c"
+#line 2463 "src/parser.c"
     break;
 
 
-#line 2438 "src/parser.c"
+#line 2467 "src/parser.c"
 
       default: break;
     }
@@ -2627,11 +2656,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 642 "grammar/parser.y"
+#line 675 "grammar/parser.y"
 
 
 void yyerror(const char* msg) {
-    printf("Error: LOL: %s\n", msg);
+    printf("Error %d: LOL: %s\n", yylineno, msg);
 }
 
 int main (int argc, char **argv) {
@@ -2661,7 +2690,7 @@ int main (int argc, char **argv) {
     symbolTable = st_new(32, hash);
 
     yyparse();
-    patchUnresolvedLabels(symbolTable);
+    patch_unresolved_labels(symbolTable);
     i_printInstructions();
     st_print(symbolTable);
 

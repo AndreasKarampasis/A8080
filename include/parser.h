@@ -164,8 +164,7 @@ extern int yydebug;
     OCT_NUMBER = 365,              /* OCT_NUMBER  */
     BIN_NUMBER = 366,              /* BIN_NUMBER  */
     STR_CONST = 367,               /* STR_CONST  */
-    CHAR = 368,                    /* CHAR  */
-    UMINUS = 369                   /* UMINUS  */
+    UMINUS = 368                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -180,6 +179,7 @@ union YYSTYPE
     char    char_val;
     uint16_t int_val;
     uint8_t opcode;
+    struct expr*   expr_val;
 
 #line 185 "include/parser.h"
 

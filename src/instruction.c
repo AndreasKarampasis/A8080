@@ -51,13 +51,12 @@ void i_expand(void) {
  * @param mnemonic The mnemonic of the instruction (e.g., MOV, ADD).
  * @param addr The address of the instruction.
  * @param op The opcode of the instruction.
- * @param arg1 The first operand of the instruction.
- * @param arg2 The second operand of the instruction.
+ * @param arg The first operand of the instruction.
  * @param type The type of the instruction (REGISTER, IMMEDIATE, or DIRECT).
  * 
  * @return A pointer to the newly emitted instruction.
  */
-Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t low_arg, uint8_t high_arg, InstrType type) {
+Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, Expr* arg, InstrType type) {
   if (current_instrs == instrs_capacity) {
     i_expand();
   }
@@ -65,8 +64,7 @@ Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, uint8_t low
   i->mnemonic = strdup(mnemonic);
   i->address = addr;
   i->opcode = op;
-  i->low_operand = low_arg;
-  i->high_operand = high_arg;
+  i->operand = arg;
   i->type = type;
   return i;
 }
@@ -84,26 +82,37 @@ void i_printInstructions() {
     }
 
     // Header
-    printf("+----------------+---------+--------+----------+----------+------------+\n");
-    printf("| Mnemonic       | Address | Opcode | LowData  | HighData | Type       |\n");
-    printf("+----------------+---------+--------+----------+----------+------------+\n");
+    printf("+----------------+---------+--------+----------+------------+\n");
+    printf("| Mnemonic       | Address | Opcode | Operand  | Type       |\n");
+    printf("+----------------+---------+--------+----------+------------+\n");
 
     // Loop through instructions and print each one
     for (unsigned int i = 0; i < current_instrs; ++i) {
         Instruction *instr = &instrs[i];
 
-        // Adjusting the format for clarity
-        printf("| %-14s | 0x%04X  |  0x%02X  |   0x%02X   |   0x%02X   | %-10s |\n",
+        // Determine the operand value based on its type
+        char operand_str[16];  // Buffer to hold operand as a string
+        if (instr->operand) {
+            if (instr->operand->type == NUM_CONST) {
+                snprintf(operand_str, sizeof(operand_str), "0x%04X", instr->operand->number_const);
+            } else if (instr->operand->type == STRING_CONST && instr->operand->str_const) {
+                snprintf(operand_str, sizeof(operand_str), "\"%s\"", instr->operand->str_const);
+            }
+        } else {
+            snprintf(operand_str, sizeof(operand_str), "N/A");
+        }
+
+        // Print each instruction in formatted form
+        printf("| %-14s | 0x%04X  |  0x%02X  | %-8s | %-10s |\n",
                instr->mnemonic,
                instr->address,
                instr->opcode,
-               instr->low_operand,
-               instr->high_operand,
+               operand_str,
                (instr->type == REGISTER)  ? "REGISTER" :
                (instr->type == IMMEDIATE) ? "IMMEDIATE" :
                                             "DIRECT");
     }
 
     // Footer
-    printf("+----------------+---------+--------+----------+----------+------------+\n");
+    printf("+----------------+---------+--------+----------+------------+\n");
 }
