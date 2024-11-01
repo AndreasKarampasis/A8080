@@ -2680,8 +2680,13 @@ yyreturnlab:
 #line 696 "grammar/parser.y"
 
 
-void yyerror(const char* msg) {
-    printf("Error %d: LOL: %s\n", yylineno, msg);
+// This function has not been tested!
+void yyerror(const char *msg) {
+    fprintf(stderr, "Error: %s at line %d", msg, yylineno);
+    if (yytext && yytext[0] != '\0') {
+        fprintf(stderr, ", near '%s'", yytext);
+    }
+    fprintf(stderr, "\n");
 }
 
 int main (int argc, char **argv) {
