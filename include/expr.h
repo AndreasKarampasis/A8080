@@ -17,4 +17,5 @@ Expr* new_number_const_expr(const uint16_t num);
 
 Expr* new_string_const_expr(const char* s);
 
+void expr_check_arith(Expr *e, const char *context);
 #endif

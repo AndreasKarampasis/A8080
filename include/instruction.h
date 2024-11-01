@@ -19,6 +19,8 @@ typedef struct _instr {
 } Instruction;
 
 extern Instruction *instrs;
+extern unsigned int instrs_capacity;
+extern unsigned int current_instrs;
 
 /**
  * @brief Emits a new instruction and adds it to the list of instructions.

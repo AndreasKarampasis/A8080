@@ -662,10 +662,10 @@ static const yytype_int16 yyrline[] =
      418,   424,   430,   436,   442,   448,   454,   460,   466,   472,
      478,   484,   493,   499,   505,   511,   517,   523,   532,   538,
      544,   550,   556,   566,   567,   568,   569,   570,   571,   572,
-     573,   574,   577,   582,   586,   590,   594,   597,   600,   603,
-     607,   611,   615,   619,   623,   624,   627,   630,   635,   646,
-     647,   652,   653,   654,   655,   659,   660,   661,   662,   666,
-     667,   668,   669,   670,   671,   672,   673
+     573,   574,   577,   582,   589,   595,   601,   606,   611,   616,
+     622,   628,   634,   640,   644,   645,   648,   651,   656,   667,
+     668,   673,   674,   675,   676,   680,   681,   682,   683,   687,
+     688,   689,   690,   691,   692,   693,   694
 };
 #endif
 
@@ -2228,119 +2228,140 @@ yyreduce:
   case 103: /* expr: expr '+' expr  */
 #line 583 "grammar/parser.y"
     { 
-        // $$ = $expr1 + $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const + (yyvsp[0].expr_val)->number_const);
+
     }
-#line 2234 "src/parser.c"
+#line 2237 "src/parser.c"
     break;
 
   case 104: /* expr: expr '-' expr  */
-#line 587 "grammar/parser.y"
+#line 590 "grammar/parser.y"
     {
-        //  $$ = $expr1 - $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const - (yyvsp[0].expr_val)->number_const);
     }
-#line 2242 "src/parser.c"
+#line 2247 "src/parser.c"
     break;
 
   case 105: /* expr: expr '*' expr  */
-#line 591 "grammar/parser.y"
+#line 596 "grammar/parser.y"
     {
-        // $$ = $expr1 * $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const * (yyvsp[0].expr_val)->number_const);
     }
-#line 2250 "src/parser.c"
+#line 2257 "src/parser.c"
     break;
 
   case 106: /* expr: expr '/' expr  */
-#line 594 "grammar/parser.y"
+#line 601 "grammar/parser.y"
                                         {
-        // $$ = $expr1 / $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const / (yyvsp[0].expr_val)->number_const);
     }
-#line 2258 "src/parser.c"
+#line 2267 "src/parser.c"
     break;
 
   case 107: /* expr: expr MODULO expr  */
-#line 597 "grammar/parser.y"
+#line 606 "grammar/parser.y"
                                         {
-        // $$ = $expr1 % $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const % (yyvsp[0].expr_val)->number_const);
     }
-#line 2266 "src/parser.c"
+#line 2277 "src/parser.c"
     break;
 
   case 108: /* expr: expr AND expr  */
-#line 600 "grammar/parser.y"
+#line 611 "grammar/parser.y"
                                         {
-        // $$ = $expr1 & $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const & (yyvsp[0].expr_val)->number_const);
     }
-#line 2274 "src/parser.c"
+#line 2287 "src/parser.c"
     break;
 
   case 109: /* expr: expr OR expr  */
-#line 604 "grammar/parser.y"
+#line 617 "grammar/parser.y"
     {
-        // $$ = $expr1 | $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const | (yyvsp[0].expr_val)->number_const);
     }
-#line 2282 "src/parser.c"
+#line 2297 "src/parser.c"
     break;
 
   case 110: /* expr: expr XOR expr  */
-#line 608 "grammar/parser.y"
+#line 623 "grammar/parser.y"
     {
-        // $$ = $expr1 ^ $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const ^ (yyvsp[0].expr_val)->number_const);
     }
-#line 2290 "src/parser.c"
+#line 2307 "src/parser.c"
     break;
 
   case 111: /* expr: expr SHR expr  */
-#line 612 "grammar/parser.y"
+#line 629 "grammar/parser.y"
     {
-        // $$ = $expr1 >> $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const >> (yyvsp[0].expr_val)->number_const);
     }
-#line 2298 "src/parser.c"
+#line 2317 "src/parser.c"
     break;
 
   case 112: /* expr: expr SHL expr  */
-#line 616 "grammar/parser.y"
+#line 635 "grammar/parser.y"
     {
-        // $$ = $expr1 << $expr2;
+        expr_check_arith((yyvsp[-2].expr_val), "TODO");
+        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const << (yyvsp[0].expr_val)->number_const);
     }
-#line 2306 "src/parser.c"
+#line 2327 "src/parser.c"
     break;
 
   case 113: /* expr: term  */
-#line 619 "grammar/parser.y"
-           { ; }
-#line 2312 "src/parser.c"
+#line 640 "grammar/parser.y"
+           { (yyval.expr_val) = (yyvsp[0].expr_val); }
+#line 2333 "src/parser.c"
     break;
 
   case 114: /* term: '(' expr ')'  */
-#line 623 "grammar/parser.y"
+#line 644 "grammar/parser.y"
                    { (yyval.expr_val) = (yyvsp[-1].expr_val); }
-#line 2318 "src/parser.c"
+#line 2339 "src/parser.c"
     break;
 
   case 115: /* term: '-' expr  */
-#line 624 "grammar/parser.y"
+#line 645 "grammar/parser.y"
                             {
-        // $term = $expr->number_const * (-1);
+        (yyval.expr_val) = new_number_const_expr((yyvsp[0].expr_val)->number_const * (-1));
     }
-#line 2326 "src/parser.c"
+#line 2347 "src/parser.c"
     break;
 
   case 116: /* term: NOT expr  */
-#line 627 "grammar/parser.y"
+#line 648 "grammar/parser.y"
                 {
-        // $term = ~$expr->number_const;
+        (yyval.expr_val) = new_number_const_expr(~(yyvsp[0].expr_val)->number_const);
     }
-#line 2334 "src/parser.c"
+#line 2355 "src/parser.c"
     break;
 
   case 117: /* term: primary  */
-#line 630 "grammar/parser.y"
+#line 651 "grammar/parser.y"
                 { (yyval.expr_val) = (yyvsp[0].expr_val); }
-#line 2340 "src/parser.c"
+#line 2361 "src/parser.c"
     break;
 
   case 118: /* primary: NAME  */
-#line 636 "grammar/parser.y"
+#line 657 "grammar/parser.y"
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         if (!label) {
@@ -2351,119 +2372,119 @@ yyreduce:
             (yyval.expr_val) = new_number_const_expr(label->value);
         }
     }
-#line 2355 "src/parser.c"
+#line 2376 "src/parser.c"
     break;
 
   case 119: /* primary: immediate  */
-#line 646 "grammar/parser.y"
+#line 667 "grammar/parser.y"
                 { (yyval.expr_val) = (yyvsp[0].expr_val); }
-#line 2361 "src/parser.c"
+#line 2382 "src/parser.c"
     break;
 
   case 120: /* primary: STR_CONST  */
-#line 647 "grammar/parser.y"
-                { (yyval.expr_val)=0; }
-#line 2367 "src/parser.c"
+#line 668 "grammar/parser.y"
+                { (yyval.expr_val) = new_string_const_expr((yyvsp[0].string_val)); }
+#line 2388 "src/parser.c"
     break;
 
   case 121: /* immediate: HEX_NUMBER  */
-#line 652 "grammar/parser.y"
+#line 673 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2373 "src/parser.c"
+#line 2394 "src/parser.c"
     break;
 
   case 122: /* immediate: DEC_NUMBER  */
-#line 653 "grammar/parser.y"
+#line 674 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2379 "src/parser.c"
+#line 2400 "src/parser.c"
     break;
 
   case 123: /* immediate: OCT_NUMBER  */
-#line 654 "grammar/parser.y"
+#line 675 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2385 "src/parser.c"
+#line 2406 "src/parser.c"
     break;
 
   case 124: /* immediate: BIN_NUMBER  */
-#line 655 "grammar/parser.y"
+#line 676 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2391 "src/parser.c"
+#line 2412 "src/parser.c"
     break;
 
   case 125: /* reg_pair: B  */
-#line 659 "grammar/parser.y"
+#line 680 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2397 "src/parser.c"
+#line 2418 "src/parser.c"
     break;
 
   case 126: /* reg_pair: D  */
-#line 660 "grammar/parser.y"
+#line 681 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2403 "src/parser.c"
+#line 2424 "src/parser.c"
     break;
 
   case 127: /* reg_pair: H  */
-#line 661 "grammar/parser.y"
+#line 682 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2409 "src/parser.c"
+#line 2430 "src/parser.c"
     break;
 
   case 128: /* reg_pair: SP  */
-#line 662 "grammar/parser.y"
+#line 683 "grammar/parser.y"
          { (yyval.int_val) = 3; }
-#line 2415 "src/parser.c"
+#line 2436 "src/parser.c"
     break;
 
   case 129: /* register: B  */
-#line 666 "grammar/parser.y"
+#line 687 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2421 "src/parser.c"
+#line 2442 "src/parser.c"
     break;
 
   case 130: /* register: C  */
-#line 667 "grammar/parser.y"
+#line 688 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2427 "src/parser.c"
+#line 2448 "src/parser.c"
     break;
 
   case 131: /* register: D  */
-#line 668 "grammar/parser.y"
+#line 689 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2433 "src/parser.c"
+#line 2454 "src/parser.c"
     break;
 
   case 132: /* register: E  */
-#line 669 "grammar/parser.y"
+#line 690 "grammar/parser.y"
         { (yyval.int_val) = 3; }
-#line 2439 "src/parser.c"
+#line 2460 "src/parser.c"
     break;
 
   case 133: /* register: H  */
-#line 670 "grammar/parser.y"
+#line 691 "grammar/parser.y"
         { (yyval.int_val) = 4; }
-#line 2445 "src/parser.c"
+#line 2466 "src/parser.c"
     break;
 
   case 134: /* register: L  */
-#line 671 "grammar/parser.y"
+#line 692 "grammar/parser.y"
         { (yyval.int_val) = 5; }
-#line 2451 "src/parser.c"
+#line 2472 "src/parser.c"
     break;
 
   case 135: /* register: M  */
-#line 672 "grammar/parser.y"
+#line 693 "grammar/parser.y"
         { (yyval.int_val) = 6; }
-#line 2457 "src/parser.c"
+#line 2478 "src/parser.c"
     break;
 
   case 136: /* register: A  */
-#line 673 "grammar/parser.y"
+#line 694 "grammar/parser.y"
         { (yyval.int_val) = 7; }
-#line 2463 "src/parser.c"
+#line 2484 "src/parser.c"
     break;
 
 
-#line 2467 "src/parser.c"
+#line 2488 "src/parser.c"
 
       default: break;
     }
@@ -2656,7 +2677,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 675 "grammar/parser.y"
+#line 696 "grammar/parser.y"
 
 
 void yyerror(const char* msg) {

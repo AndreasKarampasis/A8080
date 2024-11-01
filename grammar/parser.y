@@ -581,51 +581,72 @@ label
 expr
     : expr[expr1] '+' expr[expr2]
     { 
-        // $$ = $expr1 + $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const + $expr2->number_const);
+
     }
     | expr[expr1] '-' expr[expr2]
     {
-        //  $$ = $expr1 - $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const - $expr2->number_const);
     }
     | expr[expr1] '*' expr[expr2]
     {
-        // $$ = $expr1 * $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const * $expr2->number_const);
     }
     | expr[expr1] '/' expr[expr2]       {
-        // $$ = $expr1 / $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const / $expr2->number_const);
     }
     | expr[expr1] MODULO expr[expr2]    {
-        // $$ = $expr1 % $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const % $expr2->number_const);
     }
     | expr[expr1] AND expr[expr2]       {
-        // $$ = $expr1 & $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const & $expr2->number_const);
     }
     | expr[expr1] OR expr[expr2]
     {
-        // $$ = $expr1 | $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const | $expr2->number_const);
     }
     | expr[expr1] XOR expr[expr2]
     {
-        // $$ = $expr1 ^ $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const ^ $expr2->number_const);
     }
     | expr[expr1] SHR expr[expr2]
     {
-        // $$ = $expr1 >> $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const >> $expr2->number_const);
     }
     | expr[expr1] SHL expr[expr2]
     {
-        // $$ = $expr1 << $expr2;
+        expr_check_arith($expr1, "TODO");
+        expr_check_arith($expr2, "TODO");
+        $$ = new_number_const_expr($expr1->number_const << $expr2->number_const);
     }
-    | term { ; }
+    | term { $$ = $term; }
     ;
 
 term
     : '(' expr ')' { $term = $expr; }
     | '-' expr %prec UMINUS {
-        // $term = $expr->number_const * (-1);
+        $term = new_number_const_expr($expr->number_const * (-1));
     }
     | NOT expr  {
-        // $term = ~$expr->number_const;
+        $term = new_number_const_expr(~$expr->number_const);
     }
     | primary   { $term = $primary; }
     ;
@@ -644,7 +665,7 @@ primary
         }
     }
     | immediate { $primary = $immediate; }; 
-    | STR_CONST { $primary=0; }
+    | STR_CONST { $primary = new_string_const_expr($STR_CONST); }
     ;
 
 
