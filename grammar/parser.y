@@ -13,7 +13,7 @@ extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
 extern FILE *yyout;
-
+bool has_error = false;
 Symboltable *symbolTable;
 size_t LC = 0;
 %}
@@ -563,7 +563,7 @@ control
     ;
 
 directives
-    : ORG expr
+    : ORG expr { LC = $expr->number_const; }
     | END
     | NAME EQU expr
     | DB expr
@@ -581,8 +581,8 @@ label
 expr
     : expr[expr1] '+' expr[expr2]
     { 
-        expr_check_arith($expr1, "TODO");
-        expr_check_arith($expr2, "TODO");
+        expr_check_arith($expr1, "addition operation (+)");
+        expr_check_arith($expr2, "addition operation (+)");
         $$ = new_number_const_expr($expr1->number_const + $expr2->number_const);
 
     }
@@ -657,7 +657,7 @@ primary
     { 
         Symbol *label = st_lookup(symbolTable, $NAME);
         if (!label) {
-            unresolved_insert($NAME, current_instrs);
+            unresolved_insert($NAME, current_instrs, yylineno);
             $primary =  NULL;
         }
         else {
@@ -697,6 +697,7 @@ register
 
 // This function has not been tested!
 void yyerror(const char *msg) {
+    has_error = true;
     fprintf(stderr, "Error: %s at line %d", msg, yylineno);
     if (yytext && yytext[0] != '\0') {
         fprintf(stderr, ", near '%s'", yytext);
@@ -732,8 +733,10 @@ int main (int argc, char **argv) {
 
     yyparse();
     patch_unresolved_labels(symbolTable);
-    i_printInstructions();
-    st_print(symbolTable);
-
+    if (!has_error) {
+        i_printInstructions();
+        st_print(symbolTable);
+    }
+    i_generate_intel_hex();
     return 0;
 }

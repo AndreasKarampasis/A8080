@@ -47,4 +47,6 @@ Instruction *i_emit(const char *mnemonic, uint16_t addr, uint8_t op, Expr* arg, 
  */
 void i_printInstructions();
 
+void i_generate_intel_hex();
+
 #endif

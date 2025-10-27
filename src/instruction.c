@@ -116,3 +116,25 @@ void i_printInstructions() {
     // Footer
     printf("+----------------+---------+--------+----------+------------+\n");
 }
+
+
+void i_generate_intel_hex() {
+  #define MAX_DATA_BUFFER_LENGTH 2
+  uint8_t data_buffer[MAX_DATA_BUFFER_LENGTH] = {0};
+  size_t index = 0;
+  for (size_t i = 0; i < current_instrs; ++i) {
+    Instruction *instr = &instrs[i];
+    data_buffer[index] = instr->opcode;
+    index++;
+    uint16_t address = 0;
+    if (index >= MAX_DATA_BUFFER_LENGTH) {
+      printf(":10%04X", address);
+      for (size_t j = 0; j < index; ++j) {
+        printf("%02X", data_buffer[j]);
+      }
+      index=0;
+    }
+    // fprintf(stdout, ":%02X%04X01\n", instr->type, instr->address);
+  }
+  #undef MAX_DATA_BUFFER_LENGTH
+}

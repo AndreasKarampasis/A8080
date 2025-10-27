@@ -83,7 +83,7 @@ extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
 extern FILE *yyout;
-
+bool has_error = false;
 Symboltable *symbolTable;
 size_t LC = 0;
 
@@ -2219,21 +2219,27 @@ yyreduce:
 #line 2220 "src/parser.c"
     break;
 
+  case 93: /* directives: ORG expr  */
+#line 566 "grammar/parser.y"
+               { LC = (yyvsp[0].expr_val)->number_const; }
+#line 2226 "src/parser.c"
+    break;
+
   case 102: /* label: NAME ':'  */
 #line 577 "grammar/parser.y"
                { st_insert(symbolTable, st_new_symbol((yyvsp[-1].string_val), LC, false)); }
-#line 2226 "src/parser.c"
+#line 2232 "src/parser.c"
     break;
 
   case 103: /* expr: expr '+' expr  */
 #line 583 "grammar/parser.y"
     { 
-        expr_check_arith((yyvsp[-2].expr_val), "TODO");
-        expr_check_arith((yyvsp[0].expr_val), "TODO");
+        expr_check_arith((yyvsp[-2].expr_val), "addition operation (+)");
+        expr_check_arith((yyvsp[0].expr_val), "addition operation (+)");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const + (yyvsp[0].expr_val)->number_const);
 
     }
-#line 2237 "src/parser.c"
+#line 2243 "src/parser.c"
     break;
 
   case 104: /* expr: expr '-' expr  */
@@ -2243,7 +2249,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const - (yyvsp[0].expr_val)->number_const);
     }
-#line 2247 "src/parser.c"
+#line 2253 "src/parser.c"
     break;
 
   case 105: /* expr: expr '*' expr  */
@@ -2253,7 +2259,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const * (yyvsp[0].expr_val)->number_const);
     }
-#line 2257 "src/parser.c"
+#line 2263 "src/parser.c"
     break;
 
   case 106: /* expr: expr '/' expr  */
@@ -2263,7 +2269,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const / (yyvsp[0].expr_val)->number_const);
     }
-#line 2267 "src/parser.c"
+#line 2273 "src/parser.c"
     break;
 
   case 107: /* expr: expr MODULO expr  */
@@ -2273,7 +2279,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const % (yyvsp[0].expr_val)->number_const);
     }
-#line 2277 "src/parser.c"
+#line 2283 "src/parser.c"
     break;
 
   case 108: /* expr: expr AND expr  */
@@ -2283,7 +2289,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const & (yyvsp[0].expr_val)->number_const);
     }
-#line 2287 "src/parser.c"
+#line 2293 "src/parser.c"
     break;
 
   case 109: /* expr: expr OR expr  */
@@ -2293,7 +2299,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const | (yyvsp[0].expr_val)->number_const);
     }
-#line 2297 "src/parser.c"
+#line 2303 "src/parser.c"
     break;
 
   case 110: /* expr: expr XOR expr  */
@@ -2303,7 +2309,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const ^ (yyvsp[0].expr_val)->number_const);
     }
-#line 2307 "src/parser.c"
+#line 2313 "src/parser.c"
     break;
 
   case 111: /* expr: expr SHR expr  */
@@ -2313,7 +2319,7 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const >> (yyvsp[0].expr_val)->number_const);
     }
-#line 2317 "src/parser.c"
+#line 2323 "src/parser.c"
     break;
 
   case 112: /* expr: expr SHL expr  */
@@ -2323,19 +2329,19 @@ yyreduce:
         expr_check_arith((yyvsp[0].expr_val), "TODO");
         (yyval.expr_val) = new_number_const_expr((yyvsp[-2].expr_val)->number_const << (yyvsp[0].expr_val)->number_const);
     }
-#line 2327 "src/parser.c"
+#line 2333 "src/parser.c"
     break;
 
   case 113: /* expr: term  */
 #line 640 "grammar/parser.y"
            { (yyval.expr_val) = (yyvsp[0].expr_val); }
-#line 2333 "src/parser.c"
+#line 2339 "src/parser.c"
     break;
 
   case 114: /* term: '(' expr ')'  */
 #line 644 "grammar/parser.y"
                    { (yyval.expr_val) = (yyvsp[-1].expr_val); }
-#line 2339 "src/parser.c"
+#line 2345 "src/parser.c"
     break;
 
   case 115: /* term: '-' expr  */
@@ -2343,7 +2349,7 @@ yyreduce:
                             {
         (yyval.expr_val) = new_number_const_expr((yyvsp[0].expr_val)->number_const * (-1));
     }
-#line 2347 "src/parser.c"
+#line 2353 "src/parser.c"
     break;
 
   case 116: /* term: NOT expr  */
@@ -2351,13 +2357,13 @@ yyreduce:
                 {
         (yyval.expr_val) = new_number_const_expr(~(yyvsp[0].expr_val)->number_const);
     }
-#line 2355 "src/parser.c"
+#line 2361 "src/parser.c"
     break;
 
   case 117: /* term: primary  */
 #line 651 "grammar/parser.y"
                 { (yyval.expr_val) = (yyvsp[0].expr_val); }
-#line 2361 "src/parser.c"
+#line 2367 "src/parser.c"
     break;
 
   case 118: /* primary: NAME  */
@@ -2365,126 +2371,126 @@ yyreduce:
     { 
         Symbol *label = st_lookup(symbolTable, (yyvsp[0].string_val));
         if (!label) {
-            unresolved_insert((yyvsp[0].string_val), current_instrs);
+            unresolved_insert((yyvsp[0].string_val), current_instrs, yylineno);
             (yyval.expr_val) =  NULL;
         }
         else {
             (yyval.expr_val) = new_number_const_expr(label->value);
         }
     }
-#line 2376 "src/parser.c"
+#line 2382 "src/parser.c"
     break;
 
   case 119: /* primary: immediate  */
 #line 667 "grammar/parser.y"
                 { (yyval.expr_val) = (yyvsp[0].expr_val); }
-#line 2382 "src/parser.c"
+#line 2388 "src/parser.c"
     break;
 
   case 120: /* primary: STR_CONST  */
 #line 668 "grammar/parser.y"
                 { (yyval.expr_val) = new_string_const_expr((yyvsp[0].string_val)); }
-#line 2388 "src/parser.c"
+#line 2394 "src/parser.c"
     break;
 
   case 121: /* immediate: HEX_NUMBER  */
 #line 673 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2394 "src/parser.c"
+#line 2400 "src/parser.c"
     break;
 
   case 122: /* immediate: DEC_NUMBER  */
 #line 674 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2400 "src/parser.c"
+#line 2406 "src/parser.c"
     break;
 
   case 123: /* immediate: OCT_NUMBER  */
 #line 675 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2406 "src/parser.c"
+#line 2412 "src/parser.c"
     break;
 
   case 124: /* immediate: BIN_NUMBER  */
 #line 676 "grammar/parser.y"
                     { (yyval.expr_val) = new_number_const_expr((yyvsp[0].int_val)); }
-#line 2412 "src/parser.c"
+#line 2418 "src/parser.c"
     break;
 
   case 125: /* reg_pair: B  */
 #line 680 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2418 "src/parser.c"
+#line 2424 "src/parser.c"
     break;
 
   case 126: /* reg_pair: D  */
 #line 681 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2424 "src/parser.c"
+#line 2430 "src/parser.c"
     break;
 
   case 127: /* reg_pair: H  */
 #line 682 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2430 "src/parser.c"
+#line 2436 "src/parser.c"
     break;
 
   case 128: /* reg_pair: SP  */
 #line 683 "grammar/parser.y"
          { (yyval.int_val) = 3; }
-#line 2436 "src/parser.c"
+#line 2442 "src/parser.c"
     break;
 
   case 129: /* register: B  */
 #line 687 "grammar/parser.y"
         { (yyval.int_val) = 0; }
-#line 2442 "src/parser.c"
+#line 2448 "src/parser.c"
     break;
 
   case 130: /* register: C  */
 #line 688 "grammar/parser.y"
         { (yyval.int_val) = 1; }
-#line 2448 "src/parser.c"
+#line 2454 "src/parser.c"
     break;
 
   case 131: /* register: D  */
 #line 689 "grammar/parser.y"
         { (yyval.int_val) = 2; }
-#line 2454 "src/parser.c"
+#line 2460 "src/parser.c"
     break;
 
   case 132: /* register: E  */
 #line 690 "grammar/parser.y"
         { (yyval.int_val) = 3; }
-#line 2460 "src/parser.c"
+#line 2466 "src/parser.c"
     break;
 
   case 133: /* register: H  */
 #line 691 "grammar/parser.y"
         { (yyval.int_val) = 4; }
-#line 2466 "src/parser.c"
+#line 2472 "src/parser.c"
     break;
 
   case 134: /* register: L  */
 #line 692 "grammar/parser.y"
         { (yyval.int_val) = 5; }
-#line 2472 "src/parser.c"
+#line 2478 "src/parser.c"
     break;
 
   case 135: /* register: M  */
 #line 693 "grammar/parser.y"
         { (yyval.int_val) = 6; }
-#line 2478 "src/parser.c"
+#line 2484 "src/parser.c"
     break;
 
   case 136: /* register: A  */
 #line 694 "grammar/parser.y"
         { (yyval.int_val) = 7; }
-#line 2484 "src/parser.c"
+#line 2490 "src/parser.c"
     break;
 
 
-#line 2488 "src/parser.c"
+#line 2494 "src/parser.c"
 
       default: break;
     }
@@ -2682,6 +2688,7 @@ yyreturnlab:
 
 // This function has not been tested!
 void yyerror(const char *msg) {
+    has_error = true;
     fprintf(stderr, "Error: %s at line %d", msg, yylineno);
     if (yytext && yytext[0] != '\0') {
         fprintf(stderr, ", near '%s'", yytext);
@@ -2717,8 +2724,10 @@ int main (int argc, char **argv) {
 
     yyparse();
     patch_unresolved_labels(symbolTable);
-    i_printInstructions();
-    st_print(symbolTable);
-
+    if (!has_error) {
+        i_printInstructions();
+        st_print(symbolTable);
+    }
+    i_generate_intel_hex();
     return 0;
 }

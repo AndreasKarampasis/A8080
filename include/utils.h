@@ -12,6 +12,7 @@
 typedef struct _unresolved_label {
     char* key;
     unsigned int value;
+    unsigned int label_line;
 }unresolved_label;
 
 /**
@@ -31,7 +32,7 @@ extern unresolved_label *unresolved_labels_table;
  * @param label The unresolved label to be inserted.
  * @param index The index of the instruction where the label was encountered.
  */
-void unresolved_insert(const char *label, const unsigned int index);
+void unresolved_insert(const char *label, const unsigned int index, const unsigned int line);
 
 /**
  * @brief Resolves and patches all unresolved labels using the symbol table.

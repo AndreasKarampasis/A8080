@@ -54,12 +54,13 @@ void expand(void) {
  * @param label The unresolved label to be inserted.
  * @param index The index of the instruction where the label was encountered.
  */
-void unresolved_insert(const char *label, const unsigned int index) {
+void unresolved_insert(const char *label, const unsigned int index, const unsigned int line) {
   if (current == capacity) {
     expand();
   }
   unresolved_labels_table[current].key = strdup(label);
   unresolved_labels_table[current].value = index;
+  unresolved_labels_table[current].label_line = line;
   current++;
 }
 
@@ -79,7 +80,7 @@ void patch_unresolved_labels(Symboltable* st) {
     Symbol *s = st_lookup(st, unresolved_labels_table[i].key);
     if (!s) { 
       printf("\x1B[31mError:\x1B[0m Undefined label '%s'.\n", unresolved_labels_table[i].key);
-      printf("  | \x1B[36mNote:\x1B[0m Label '%s' used at line %d\n",unresolved_labels_table[i].key, 0);
+      printf("  | \x1B[36mNote:\x1B[0m Label '%s' used at line %d\n",unresolved_labels_table[i].key, unresolved_labels_table[i].label_line);
       exit(EXIT_FAILURE);
     }
     unsigned int index = unresolved_labels_table[i].value;
